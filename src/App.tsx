@@ -6,6 +6,7 @@ import { ModuleOneIntro } from './modules/ModuleOneIntro';
 import { ModuleTwoVariables } from './modules/ModuleTwoVariables';
 import { ProjectsGallery } from './pages/ProjectsGallery';
 import { CodePlayground } from './pages/CodePlayground';
+import { Roadmap } from './pages/Roadmap';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/learn/module-2" element={<ModuleTwoVariables />} />
           <Route path="/projects" element={<ProjectsGallery />} />
           <Route path="/playground" element={<CodePlayground />} />
+          <Route path="/roadmap" element={<Roadmap />} />
           <Route path="*" element={<div className="p-10 text-center text-slate-500">404: Page Not Found</div>} />
         </Route>
       </Routes>
