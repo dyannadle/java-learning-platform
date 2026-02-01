@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { MemoryVisualization } from '../visualizations/MemoryVisualization';
+import { RealWorldContext } from '../components/ui/RealWorldContext';
 
 export const ModuleTwoVariables: React.FC = () => {
     const [step, setStep] = useState(1);
@@ -82,7 +83,14 @@ export const ModuleTwoVariables: React.FC = () => {
                         </div>
                     </section>
                 )}
+
+                <RealWorldContext
+                    useCase="High-Frequency Trading systems avoid creating too many Objects on the Heap to prevent 'Garbage Collection' pauses."
+                    impact="Stack access is immediate. Heap access requires finding the address first, which is slightly slower."
+                    role="Senior Developers optimize memory usage by choosing primitives (int) over objects (Integer) where performance is critical."
+                />
             </div>
         </LessonLayout>
     );
 };
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { JVMVisualization } from '../visualizations/JVMVisualization';
+import { RealWorldContext } from '../components/ui/RealWorldContext';
 
 export const ModuleOneIntro: React.FC = () => {
     const [step, setStep] = useState(1);
@@ -79,6 +80,12 @@ export const ModuleOneIntro: React.FC = () => {
                         </p>
                     </section>
                 )}
+
+                <RealWorldContext
+                    useCase="Netflix uses the JVM to handle billions of streams because they can run the same code on thousands of different server types."
+                    impact="The JVM optimizes code while it runs (JIT), often making Java faster than natively compiled C++ for long-running server tasks."
+                    role="Backend Engineers must know how to tune JVM memory settings (Garbage Collection) to prevent server crashes."
+                />
             </div>
         </LessonLayout>
     );

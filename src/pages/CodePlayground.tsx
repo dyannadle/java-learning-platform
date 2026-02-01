@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Play, RotateCcw, Terminal, AlertCircle } from 'lucide-react';
-import { cn } from '../lib/utils';
+
 
 export const CodePlayground: React.FC = () => {
     const [code, setCode] = useState<string>(`public class Main {
