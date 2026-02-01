@@ -59,14 +59,26 @@ export const ModuleOneIntro: React.FC = () => {
                             The <strong>Java Virtual Machine (JVM)</strong> is the "local translator".
                             When you download Java, you are mostly downloading the JVM.
                         </p>
+
+                        <div className="bg-blue-900/10 border border-blue-500/20 p-4 rounded-lg mb-4">
+                            <h4 className="font-bold text-blue-300 mb-2 text-sm uppercase tracking-wider">Deep Dive: JDK vs JRE vs JVM</h4>
+                            <div className="space-y-2 text-sm text-slate-400">
+                                <p><strong className="text-white">JDK (Java Development Kit):</strong> For Developers. Includes Compiler (`javac`), Debugger, and JRE.</p>
+                                <p><strong className="text-white">JRE (Java Runtime Environment):</strong> For Users. Includes Libraries (`rt.jar`) and JVM.</p>
+                                <p><strong className="text-white">JVM (Java Virtual Machine):</strong> The engine. Loads code, verifies it, and executes it.</p>
+                            </div>
+                        </div>
+
                         <div className="grid grid-cols-2 gap-4">
                             <div className="p-4 bg-slate-900 rounded-lg border border-white/5">
-                                <h4 className="font-semibold text-slate-200 mb-1">Compiler</h4>
-                                <p className="text-xs text-slate-500">Checks your syntax errors. Creates the .class file.</p>
+                                <h4 className="font-semibold text-slate-200 mb-1">Compiler & Bytecode</h4>
+                                <p className="text-xs text-slate-500 mb-2">`javac Main.java` -&gt; `Main.class`</p>
+                                <p className="text-xs text-slate-400">Bytecode is a "magic" set of instructions (opcodes) that no physical CPU understands, only the JVM.</p>
                             </div>
                             <div className="p-4 bg-slate-900 rounded-lg border border-white/5">
-                                <h4 className="font-semibold text-slate-200 mb-1">Interpreter</h4>
-                                <p className="text-xs text-slate-500">Reads the .class file and runs it on the CPU.</p>
+                                <h4 className="font-semibold text-slate-200 mb-1">JIT Compiler (HotSpot)</h4>
+                                <p className="text-xs text-slate-500 mb-2">Just-In-Time Optimization</p>
+                                <p className="text-xs text-slate-400">The JVM watches your code run. If a method runs 10,000 times, the JIT compiles it to raw Assembly for maximum speed.</p>
                             </div>
                         </div>
                     </section>

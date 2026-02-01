@@ -63,7 +63,42 @@ export const ModuleTwoVariables: React.FC = () => {
                         <p className="text-slate-400 text-sm mb-2">
                             Simple values like <code className="text-orange-400">int</code>, <code className="text-orange-400">double</code>, and <code className="text-orange-400">boolean</code> live on the <strong>Stack</strong>.
                         </p>
-                        <p className="text-slate-400 text-sm">
+
+                        <div className="mt-4 overflow-hidden rounded-lg border border-white/10">
+                            <table className="w-full text-xs text-left">
+                                <thead className="bg-slate-900 text-slate-400 font-bold uppercase">
+                                    <tr>
+                                        <th className="p-2">Type</th>
+                                        <th className="p-2">Size</th>
+                                        <th className="p-2">Range/Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5 bg-slate-800/50">
+                                    <tr><td className="p-2 font-mono text-orange-300">byte</td><td className="p-2">8-bit</td><td className="p-2">-128 to 127</td></tr>
+                                    <tr><td className="p-2 font-mono text-orange-300">int</td><td className="p-2">32-bit</td><td className="p-2">-2 billion to 2 billion</td></tr>
+                                    <tr><td className="p-2 font-mono text-orange-300">long</td><td className="p-2">64-bit</td><td className="p-2">Very huge numbers (`L` suffix)</td></tr>
+                                    <tr><td className="p-2 font-mono text-orange-300">boolean</td><td className="p-2">1-bit*</td><td className="p-2">`true` or `false`</td></tr>
+                                    <tr><td className="p-2 font-mono text-orange-300">char</td><td className="p-2">16-bit</td><td className="p-2">Single character (`'A'`)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="mt-4 grid grid-cols-2 gap-4">
+                            <div className="p-3 bg-slate-800 rounded border border-white/5">
+                                <h4 className="text-white text-xs font-bold mb-1">Type Casting</h4>
+                                <p className="text-xs text-slate-400 mb-1"><strong>Widening:</strong> Automatic.</p>
+                                <code className="text-[10px] text-green-300 bg-black/30 p-1 block">double d = 100; // 100.0</code>
+                                <p className="text-xs text-slate-400 mt-2 mb-1"><strong>Narrowing:</strong> Manual (Risk of data loss!).</p>
+                                <code className="text-[10px] text-red-300 bg-black/30 p-1 block">int i = (int) 9.99; // 9</code>
+                            </div>
+                            <div className="p-3 bg-slate-800 rounded border border-white/5">
+                                <h4 className="text-white text-xs font-bold mb-1">Constants</h4>
+                                <p className="text-xs text-slate-400">Use `final` keyword. Variable cannot be reassigned.</p>
+                                <code className="text-[10px] text-blue-300 bg-black/30 p-1 block mt-2">final int MAX_SPEED = 120;</code>
+                            </div>
+                        </div>
+
+                        <p className="text-slate-400 text-sm mt-4">
                             The Stack is fast, orderly, and strictly managed. When a method finishes, the stack frame is popped (deleted).
                         </p>
                     </section>

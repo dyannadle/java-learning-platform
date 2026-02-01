@@ -52,12 +52,39 @@ export const ModuleThreeOOP: React.FC = () => {
                         <p className="text-slate-400 text-sm mb-2">
                             An Object is an "instance" of a class. You can create thousands of unique objects from one single class.
                         </p>
-                        <pre className="font-mono text-xs bg-black/30 p-2 rounded text-slate-300 mt-2">
-                            {`Car myCar = new Car();
-myCar.color = "Red";
 
-Car yourCar = new Car(); 
-yourCar.color = "Blue";`}
+                        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-slate-900 p-3 rounded border border-white/5">
+                                <h4 className="text-white text-xs font-bold mb-1">Constructors</h4>
+                                <p className="text-[10px] text-slate-400 mb-2">Special method to initialize objects. Called when using `new`.</p>
+                                <code className="text-[10px] text-blue-300 bg-black/30 p-2 block rounded font-mono">
+                                    {`Car(String c) {
+  this.color = c; // 'this' refers to current object
+}`}
+                                </code>
+                            </div>
+
+                            <div className="bg-slate-900 p-3 rounded border border-white/5">
+                                <h4 className="text-white text-xs font-bold mb-2">Access Modifiers</h4>
+                                <table className="w-full text-[10px]">
+                                    <thead>
+                                        <tr className="text-slate-500 border-b border-white/10">
+                                            <th className="text-left pb-1">Keyword</th>
+                                            <th className="text-left pb-1">Visibility</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-slate-300">
+                                        <tr><td className="py-1 text-green-400">public</td><td>Everywhere</td></tr>
+                                        <tr><td className="py-1 text-blue-400">protected</td><td>Package + Kids</td></tr>
+                                        <tr><td className="py-1 text-yellow-400">no modifier</td><td>Package Only</td></tr>
+                                        <tr><td className="py-1 text-red-400">private</td><td>Class Only</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <pre className="font-mono text-xs bg-black/30 p-2 rounded text-slate-300 mt-4">
+                            {`Car myCar = new Car("Red"); // Constructor called`}
                         </pre>
                     </div>
                 )}

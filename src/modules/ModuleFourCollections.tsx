@@ -33,9 +33,33 @@ export const ModuleFourCollections: React.FC = () => {
                             <li>• <strong>Duplicates:</strong> Allowed. You can have "Pizza" twice.</li>
                             <li>• <strong>Access:</strong> Fast by index (get me item #5).</li>
                         </ul>
-                        <div className="mt-4 text-xs font-mono bg-slate-800 p-3 rounded text-blue-200">
-                            List&lt;String&gt; todos = new ArrayList&lt;&gt;();
-                            <br />todos.add("Buy Milk");
+
+                        <div className="mt-4 grid gap-4 grid-cols-1 md:grid-cols-2">
+                            <div className="text-xs font-mono bg-slate-800 p-3 rounded text-blue-200">
+                                <div className="text-[10px] text-slate-500 mb-1">// Diamond Operator &lt;&gt; infers type</div>
+                                List&lt;String&gt; list = new ArrayList&lt;&gt;();
+                                <br />list.add("Java");
+                            </div>
+                            <div className="text-xs font-mono bg-slate-800 p-3 rounded text-amber-200">
+                                <div className="text-[10px] text-slate-500 mb-1">// Enhanced For-Loop</div>
+                                for (String s : list) {'{'}
+                                <br />&nbsp;&nbsp; print(s);
+                                <br />{'}'}
+                            </div>
+                        </div>
+
+                        <div className="mt-4 p-3 bg-slate-900 border border-white/5 rounded">
+                            <h4 className="text-xs font-bold text-white mb-2">Deep Dive: ArrayList vs LinkedList</h4>
+                            <div className="grid grid-cols-2 gap-2 text-[10px] text-slate-400">
+                                <div>
+                                    <strong className="text-blue-400">ArrayList</strong>
+                                    <p>Backed by Array. Fast read O(1). Slow insert/delete O(n). **Use default.**</p>
+                                </div>
+                                <div>
+                                    <strong className="text-blue-400">LinkedList</strong>
+                                    <p>Doubly-linked nodes. Slow read O(n). Fast insert/delete O(1). **Use rarely.**</p>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 )}
