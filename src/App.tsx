@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import { LandingPage } from './pages/LandingPage';
@@ -13,6 +14,7 @@ import { ProjectsGallery } from './pages/ProjectsGallery';
 import { CodePlayground } from './pages/CodePlayground';
 import { Roadmap } from './pages/Roadmap';
 import { Glossary } from './pages/Glossary';
+import { ConceptDetail } from './pages/ConceptDetail';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
           <Route path="/playground" element={<CodePlayground />} />
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/glossary" element={<Glossary />} />
+          <Route path="/glossary/:slug" element={<ConceptDetail />} />
           <Route path="*" element={<div className="p-10 text-center text-slate-500">404: Page Not Found</div>} />
         </Route>
       </Routes>

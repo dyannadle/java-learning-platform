@@ -50,13 +50,30 @@ export const ModuleSixExceptions: React.FC = () => {
                             <li>• <strong>Bubbling:</strong> The error floats up until it finds a matching catch block.</li>
                             <li>• <strong>Safety:</strong> If you catch the error, the program continues running instead of exiting.</li>
                         </ul>
-                        <div className="mt-4 text-xs font-mono bg-slate-800 p-3 rounded text-emerald-200">
-                            try {'{'} <br />
-                            &nbsp;&nbsp; riskyOperation(); <br />
-                            {'}'} catch (Exception e) {'{'} <br />
-                            &nbsp;&nbsp; // Safety Net triggered! <br />
-                            &nbsp;&nbsp; showErrorMessage(); <br />
-                            {'}'}
+                        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="text-xs font-mono bg-slate-800 p-3 rounded text-emerald-200">
+                                <div className="text-[10px] text-slate-500 mb-1">// Try-Catch-Finally</div>
+                                try {'{'} openFile(); {'}'} <br />
+                                catch (IOException e) {'{'} ... {'}'} <br />
+                                finally {'{'} <br />
+                                &nbsp;&nbsp; closeFile(); // Always runs <br />
+                                {'}'}
+                            </div>
+                            <div className="text-xs font-mono bg-slate-800 p-3 rounded text-blue-200">
+                                <div className="text-[10px] text-slate-500 mb-1">// Try-With-Resources (Java 7+)</div>
+                                try (Scanner s = new Scanner()) {'{'} <br />
+                                &nbsp;&nbsp; // Auto-closes s here <br />
+                                {'}'} catch (Exception e) {'{'} ... {'}'}
+                            </div>
+                        </div>
+
+                        <div className="mt-4 bg-slate-900 border border-white/5 p-3 rounded">
+                            <h4 className="text-xs font-bold text-white mb-2">Deep Dive: The Hierarchy</h4>
+                            <ul className="space-y-1 text-[10px] text-slate-400">
+                                <li><strong className="text-red-400">Error:</strong> JVM Crashes (OutOfMemory). Don't catch these.</li>
+                                <li><strong className="text-amber-400">Checked Exception:</strong> Compilation Error from compiler (e.g. FileNotFound). Must handle.</li>
+                                <li><strong className="text-blue-400">Unchecked (Runtime):</strong> Logic bugs (NullPointer). Optional handling.</li>
+                            </ul>
                         </div>
                     </section>
                 )}

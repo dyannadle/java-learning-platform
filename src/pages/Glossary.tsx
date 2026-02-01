@@ -1,33 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
-
-interface Term {
-    id: string;
-    term: string;
-    definition: string;
-    category: 'Basic' | 'OOP' | 'Advanced' | 'Collections';
-}
-
-const terms: Term[] = [
-    { id: '1', term: 'Variable', definition: 'A container that holds data values.', category: 'Basic' },
-    { id: '2', term: 'Class', definition: 'A blueprint for creating objects.', category: 'OOP' },
-    { id: '3', term: 'Object', definition: 'An instance of a class.', category: 'OOP' },
-    { id: '4', term: 'Inheritance', definition: 'Mechanism where a new class derives properties and characteristics from an existing class.', category: 'OOP' },
-    { id: '5', term: 'Polymorphism', definition: 'The ability of an object to take on many forms.', category: 'OOP' },
-    { id: '6', term: 'Encapsulation', definition: 'Wrapping data (variables) and code acting on the data (methods) together as a single unit.', category: 'OOP' },
-    { id: '7', term: 'Interface', definition: 'A reference type in Java, it is similar to a class, it is a collection of abstract methods.', category: 'OOP' },
-    { id: '8', term: 'Exception', definition: 'An event, which occurs during the execution of a program, that disrupts the normal flow of the program\'s instructions.', category: 'Advanced' },
-    { id: '9', term: 'ArrayList', definition: 'A resizable array, which can be found in the java.util package.', category: 'Collections' },
-    { id: '10', term: 'HashMap', definition: 'A map based collection class that is used for storing Key & Value pairs.', category: 'Collections' },
-    { id: '11', term: 'Thread', definition: 'A lightweight subprocess, the smallest unit of processing.', category: 'Advanced' },
-    { id: '12', term: 'Lambda Expression', definition: 'A short block of code which takes in parameters and returns a value.', category: 'Advanced' },
-];
+import { Link } from 'react-router-dom';
+import { concepts } from '../data/concepts';
 
 export const Glossary: React.FC = () => {
     const [search, setSearch] = useState('');
 
-    const filteredTerms = terms.filter(t =>
+    const filteredTerms = concepts.filter(t =>
         t.term.toLowerCase().includes(search.toLowerCase()) ||
         t.definition.toLowerCase().includes(search.toLowerCase())
     );
@@ -63,23 +43,30 @@ export const Glossary: React.FC = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
                             key={item.id}
-                            className="bg-slate-900/50 backdrop-blur-sm border border-white/5 p-6 rounded-xl hover:bg-slate-800/50 hover:border-blue-500/30 transition-all group"
                         >
-                            <div className="flex justify-between items-start mb-3">
-                                <h3 className="text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors">
-                                    {item.term}
-                                </h3>
-                                <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded-full border ${item.category === 'Basic' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
-                                        item.category === 'OOP' ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' :
-                                            item.category === 'Collections' ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' :
-                                                'bg-amber-500/10 border-amber-500/20 text-amber-400'
-                                    }`}>
-                                    {item.category}
-                                </span>
-                            </div>
-                            <p className="text-slate-400 text-sm leading-relaxed">
-                                {item.definition}
-                            </p>
+                            <Link
+                                to={`/glossary/${item.slug}`}
+                                className="block h-full bg-slate-900/50 backdrop-blur-sm border border-white/5 p-6 rounded-xl hover:bg-slate-800/50 hover:border-blue-500/30 transition-all group"
+                            >
+                                <div className="flex justify-between items-start mb-3">
+                                    <h3 className="text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors">
+                                        {item.term}
+                                    </h3>
+                                    <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded-full border ${item.category === 'Basic' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
+                                            item.category === 'OOP' ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' :
+                                                item.category === 'Collections' ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' :
+                                                    'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                                        }`}>
+                                        {item.category}
+                                    </span>
+                                </div>
+                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                    {item.definition}
+                                </p>
+                                <div className="text-blue-500/50 text-xs font-bold group-hover:text-blue-400 flex items-center gap-1">
+                                    Read Deep Dive &rarr;
+                                </div>
+                            </Link>
                         </motion.div>
                     ))}
                 </AnimatePresence>

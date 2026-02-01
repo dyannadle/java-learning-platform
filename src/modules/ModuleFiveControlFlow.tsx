@@ -51,11 +51,30 @@ export const ModuleFiveControlFlow: React.FC = () => {
                             <li>• <strong>Condition:</strong> The loop keeps running AS LONG AS the result is True.</li>
                             <li>• <strong>Infinite Loop:</strong> If N never reaches 5, the program runs forever (and crashes).</li>
                         </ul>
-                        <div className="mt-4 text-xs font-mono bg-slate-800 p-3 rounded text-amber-200">
-                            while (N &lt; 5) {'{'} <br />
-                            &nbsp;&nbsp; System.out.println(N); <br />
-                            &nbsp;&nbsp; N++; // Increment to eventually stop <br />
-                            {'}'}
+                        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="text-xs font-mono bg-slate-800 p-3 rounded text-amber-200">
+                                <div className="text-[10px] text-slate-500 mb-1">// Old Switch</div>
+                                switch (day) {'{'} <br />
+                                &nbsp;&nbsp; case 1: print("Mon"); break; <br />
+                                &nbsp;&nbsp; case 2: print("Tue"); break; <br />
+                                {'}'}
+                            </div>
+                            <div className="text-xs font-mono bg-slate-800 p-3 rounded text-green-200">
+                                <div className="text-[10px] text-slate-500 mb-1">// New Switch (Java 14+)</div>
+                                String res = switch (day) {'{'}<br />
+                                &nbsp;&nbsp; case 1, 5 -&gt; "Work";<br />
+                                &nbsp;&nbsp; default -&gt; "Rest";<br />
+                                {'}'};
+                            </div>
+                        </div>
+
+                        <div className="mt-4 bg-slate-900 border border-white/5 p-3 rounded">
+                            <h4 className="text-xs font-bold text-white mb-2">Deep Dive: Break & Continue</h4>
+                            <ul className="space-y-1 text-[10px] text-slate-400">
+                                <li><strong className="text-red-400">break;</strong> Exits the loop immediately.</li>
+                                <li><strong className="text-blue-400">continue;</strong> Skips current iteration, jumps to next.</li>
+                                <li><strong className="text-violet-400">label:</strong> You can name loops logic: loops (e.g., `outer:`) to break out of nested loops.</li>
+                            </ul>
                         </div>
                     </section>
                 )}
