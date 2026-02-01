@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '../../lib/utils';
-import { ArrowDown, Cpu, Database, Save, FileCode, Play, Terminal } from 'lucide-react';
+import { cn } from '../lib/utils';
+import { Cpu, Database, FileCode, Play, Terminal } from 'lucide-react';
 
 export const JVMVisualization: React.FC = () => {
     const [activeStep, setActiveStep] = useState<number>(0);
@@ -18,7 +18,7 @@ export const JVMVisualization: React.FC = () => {
         setActiveStep((prev) => (prev + 1) % (steps.length + 1));
     };
 
-    const reset = () => setActiveStep(0);
+
 
     return (
         <div className="h-full flex flex-col items-center justify-center p-8 bg-slate-950/50">
