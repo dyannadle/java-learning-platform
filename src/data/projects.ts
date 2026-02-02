@@ -132,30 +132,118 @@ display.setText(String.valueOf(result));`
         id: 'employee-api',
         title: 'Employee REST API',
         description: 'Create a backend service to Create, Read, Update, and Delete employee records.',
-        longDescription: 'Introduction to Enterprise Java. You will build a backend API that a Frontend (React/Vue) or Mobile App could consume. We will use Spring Boot.',
+        longDescription: 'Introduction to Enterprise Java. You will build a backend API that a Frontend (React/Vue) or Mobile App could consume. We will use Spring Boot, which auto-configures 80% of the work for you.',
         difficulty: 'Intermediate',
-        tech: ['Spring Boot', 'REST', 'Lombok'],
+        tech: ['Spring Boot', 'REST', 'Lombok', 'JPA'],
         icon: Globe,
-        steps: []
+        steps: [
+            {
+                title: "Step 1: The Entity",
+                description: "Define the data model that maps to a Database Table.",
+                code: `@Entity
+public class Employee {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    private String role;
+}`
+            },
+            {
+                title: "Step 2: The Repository",
+                description: "Create an interface to talk to the database (Magic!)",
+                code: `// Spring automatically implements this!
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+    // Methods like save(), findAll(), delete() are free
+}`
+            },
+            {
+                title: "Step 3: The Controller",
+                description: "Expose HTTP Endpoints (GET, POST).",
+                code: `@RestController
+class EmployeeController {
+    @PostMapping("/employees")
+    Employee newEmployee(@RequestBody Employee newEmployee) {
+        return repository.save(newEmployee);
+    }
+}`
+            }
+        ]
     },
     {
         id: 'ecommerce',
         title: 'E-Commerce Microservices',
         description: 'Scalable backend with Order, Product, and User services communicating via networking.',
-        longDescription: 'A complex distributed system. You will split the application into separate services (Product Service, Order Service) that run independently.',
+        longDescription: 'A complex distributed system. Instead of one giant app (Monolith), you build small, independent services. If the "Order Service" crashes, the "Product Service" stays alive. This is how Netflix & Uber work.',
         difficulty: 'Advanced',
         tech: ['Microservices', 'Spring Cloud', 'Docker', 'Kafka'],
         icon: Database,
-        steps: []
+        steps: [
+            {
+                title: "Step 1: Service Discovery",
+                description: "Setup a 'Eureka Server' so services can find each other's IP addresses.",
+                code: `@EnableEurekaServer
+@SpringBootApplication
+public class ServiceRegistryApplication { ... }`
+            },
+            {
+                title: "Step 2: Product Service",
+                description: "A standalone REST API just for Products.",
+                code: `@RestController
+@RequestMapping("/products")
+public class ProductController {
+    @GetMapping("/{id}")
+    public Product get(@PathVariable String id) { ... }
+}`
+            },
+            {
+                title: "Step 3: Feign Client",
+                description: "How the Order Service talks to the Product Service.",
+                code: `@FeignClient(name = "product-service")
+public interface ProductClient {
+    @GetMapping("/products/{id}")
+    Product getLocation(@PathVariable("id") String id);
+}`
+            }
+        ]
     },
     {
         id: 'chat-app',
         title: 'Real-Time Chat App',
         description: 'Multi-user chat room using WebSockets for instant messaging.',
-        longDescription: 'Build a Chat Server that allows multiple clients to connect and send messages to each other in real-time.',
+        longDescription: 'Standard HTTP is "Request-Response" (Client asks, Server answers). For Chat, we need the Server to PUSH messages to clients instantly. We use WebSockets & STOMP protocol.',
         difficulty: 'Advanced',
         tech: ['WebSockets', 'Multi-threading', 'Socket.io'],
         icon: Smartphone,
-        steps: []
+        steps: [
+            {
+                title: "Step 1: Configuration",
+                description: "Enable the Message Broker.",
+                code: `@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic");
+    }
+}`
+            },
+            {
+                title: "Step 2: Message Handling",
+                description: "Receive a message and broadcast it to everyone.",
+                code: `@MessageMapping("/hello")
+@SendTo("/topic/greetings")
+public Greeting greeting(HelloMessage message) {
+    return new Greeting("Hello, " + message.getName() + "!");
+}`
+            },
+            {
+                title: "Step 3: Client (JS)",
+                description: "Connect to the socket from a browser.",
+                code: `var socket = new SockJS('/gs-guide-websocket');
+stompClient = Stomp.over(socket);
+stompClient.connect({}, function (frame) {
+    stompClient.subscribe('/topic/greetings', function (greeting) { ... });
+});`
+            }
+        ]
     }
 ];

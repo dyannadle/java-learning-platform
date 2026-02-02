@@ -264,7 +264,7 @@ int score = scores.get("Alice"); // 95`,
 });
 t.start(); // Starts the separate thread`,
         realWorldUse: "Downloading a large file in a background thread while keeping the UI responsive to mouse clicks.",
-        relatedModuleUrl: undefined
+        relatedModuleUrl: '/learn/module-8'
     },
     {
         id: '13',
@@ -282,7 +282,7 @@ t.start(); // Starts the separate thread`,
 // Using Lambda to print each number
 numbers.forEach( (n) -> System.out.println(n) );`,
         realWorldUse: "Filtering a list of products: `products.filter(p -> p.price < 50)`.",
-        relatedModuleUrl: undefined
+        relatedModuleUrl: '/learn/module-7'
     },
     {
         id: '14',
@@ -326,5 +326,61 @@ while (gameRunning) {
 }`,
         realWorldUse: "Processing every user in a database. Drawing every pixel on the screen 60 times a second.",
         relatedModuleUrl: '/learn/module-5'
+    },
+    {
+        id: '16',
+        slug: 'stream',
+        term: 'Stream API',
+        definition: 'A sequence of elements supporting sequential and parallel aggregate operations.',
+        category: 'Advanced',
+        deepDive: [
+            "Streams allow you to process collections of objects in a functional style (Declarative).",
+            "Operations are chained together in a pipeline: Source -> Filter -> Map -> Collect.",
+            "They don't store data; they convey data from a source (like a List) through a pipeline of computational operations."
+        ],
+        codeSnippet: `List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+names.stream()
+    .filter(n -> n.startsWith("A"))
+    .map(String::toUpperCase)
+    .forEach(System.out::println); // ALICE`,
+        realWorldUse: "Filtering a list of 10,000 Users to find only those who live in 'New York' and sorting them by Age.",
+        relatedModuleUrl: '/learn/module-7'
+    },
+    {
+        id: '17',
+        slug: 'generics',
+        term: 'Generics',
+        definition: 'Enables types (classes and interfaces) to be parameters when defining classes, interfaces and methods.',
+        category: 'Advanced',
+        deepDive: [
+            "Generics add stability to your code by making more of your bugs detectable at compile time.",
+            "They eliminate forced casting and allow you to write generic algorithms that work on collections of different types.",
+            "Common syntax uses the diamond operator `<T>`."
+        ],
+        codeSnippet: `// A Box that can hold ANY type T
+class Box<T> {
+    private T t;
+    public void set(T t) { this.t = t; }
+    public T get() { return t; }
+}`,
+        realWorldUse: "All Java Collections (List<T>, Map<K,V>) use Generics so you can create a List of Strings OR a List of Users.",
+        relatedModuleUrl: '/learn/module-10'
+    },
+    {
+        id: '18',
+        slug: 'serialization',
+        term: 'Serialization',
+        definition: 'The process of converting an object into a stream of bytes to store the object or transmit it to memory.',
+        category: 'Advanced',
+        deepDive: [
+            "Used to save the state of an object to a file (persistence) or send it over a network (RMI).",
+            "To be serialized, a class must implement the `java.io.Serializable` interface.",
+            "The reverse process is called Deserialization."
+        ],
+        codeSnippet: `try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("file.bin"))) {
+    oos.writeObject(myObject);
+}`,
+        realWorldUse: "Saving game state, session data in web servers, or caching objects in Redis.",
+        relatedModuleUrl: '/learn/module-9'
     }
 ];
