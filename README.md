@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# Java Learning Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive, interactive platform for mastering Java, built with React, TypeScript, and TailwindCSS.
 
-Currently, two official plugins are available:
+![Platform Preview](https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+### Phase 1: Foundation
+-   **Interactive Learning Path**: Modules 1-8 covering Java basics to Concurrency.
+-   **Code Playground**: Real-time Java code editor (simulated).
+-   **Visualizations**: Animated diagrams for Memory, OOP, and Data Structures.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Phase 2: Engagement
+-   **Quiz System**: Test your knowledge at the end of each module.
+-   **Advanced Topics**: New modules for File I/O (Strategies) and Generics.
+-   **Project Blueprints**: Detailed guides for building real-world apps (Console Bank, Chat App, etc.).
+-   **Glossary**: Searchable dictionary of Java terms with deep dives.
 
-## Expanding the ESLint configuration
+### Phase 3: Cloud & Auth (New!)
+-   **User Accounts**: Sign Up/Login powered by Supabase.
+-   **Cross-Device Sync**: Progress is saved to the cloud and synced across devices.
+-   **Hybrid Storage**: Start as a guest, merge progress when you sign up.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
+-   **Frontend**: React 18, TypeScript, Vite
+-   **Styling**: TailwindCSS 4, Framer Motion
+-   **Icons**: Lucide React
+-   **Auth/DB**: Supabase
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🏃‍♂️ Running Locally
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1.  Clone the repo
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Set up environment variables:
+    -   Copy `.env.example` to `.env`
+    -   Add your Supabase URL and Anon Key
+4.  Run the development server:
+    ```bash
+    npm run dev
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📦 Deployment
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The project is ready for deployment on Vercel or Netlify.
+Ensure you add the `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to your deployment environment variables.
