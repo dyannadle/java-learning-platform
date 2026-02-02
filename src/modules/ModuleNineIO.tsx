@@ -4,7 +4,7 @@ import { IOVisualization } from '../visualizations/IOVisualization';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
 import { useNavigate } from 'react-router-dom';
 import { useProgress } from '../hooks/useProgress';
-import { Quiz, Question } from '../components/layout/Quiz';
+import { Quiz, type Question } from '../components/layout/Quiz';
 
 const QUIZ_QUESTIONS: Question[] = [
     {

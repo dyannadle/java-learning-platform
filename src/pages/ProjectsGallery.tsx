@@ -4,7 +4,7 @@ import { cn } from '../lib/utils';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { PROJECTS, Difficulty } from '../data/projects';
+import { PROJECTS, type Difficulty } from '../data/projects';
 
 // Remove the local Project interface and projects array
 // Using imported PROJECTS
