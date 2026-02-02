@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { ChevronRight, ArrowLeft } from 'lucide-react';
+import { ChevronRight, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { cn } from '../../lib/utils';
 
 interface LessonLayoutProps {
     title: string;
@@ -10,6 +11,7 @@ interface LessonLayoutProps {
     totalSteps: number;
     onNext?: () => void;
     onPrev?: () => void;
+    onComplete?: () => void;
     children: React.ReactNode;
     visualization: React.ReactNode;
 }
@@ -22,7 +24,8 @@ export const LessonLayout: React.FC<LessonLayoutProps> = ({
     currentStep,
     totalSteps,
     onNext,
-    onPrev
+    onPrev,
+    onComplete
 }) => {
     return (
         <div className="h-[calc(100vh-4rem)] flex gap-6 overflow-hidden">
@@ -54,11 +57,26 @@ export const LessonLayout: React.FC<LessonLayoutProps> = ({
                         Previous
                     </button>
                     <button
-                        onClick={onNext}
-                        disabled={currentStep === totalSteps}
-                        className="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() => {
+                            if (currentStep === totalSteps && onComplete) {
+                                onComplete();
+                            } else if (onNext) {
+                                onNext();
+                            }
+                        }}
+                        disabled={currentStep === totalSteps && !onComplete}
+                        className={cn(
+                            "px-6 py-2 text-white text-sm font-medium rounded-lg flex items-center gap-2 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed",
+                            currentStep === totalSteps && onComplete
+                                ? "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-500/20"
+                                : "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
+                        )}
                     >
-                        Next Lesson <ChevronRight size={16} />
+                        {currentStep === totalSteps && onComplete ? (
+                            <>Complete Module <CheckCircle size={16} /></>
+                        ) : (
+                            <>Next Lesson <ChevronRight size={16} /></>
+                        )}
                     </button>
                 </div>
             </div>

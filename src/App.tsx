@@ -9,6 +9,8 @@ import { ModuleThreeOOP } from './modules/ModuleThreeOOP';
 import { ModuleFourCollections } from './modules/ModuleFourCollections';
 import { ModuleFiveControlFlow } from './modules/ModuleFiveControlFlow';
 import { ModuleSixExceptions } from './modules/ModuleSixExceptions';
+import { ModuleSevenStreams } from './modules/ModuleSevenStreams';
+import { ModuleEightConcurrency } from './modules/ModuleEightConcurrency';
 import { ProjectsGallery } from './pages/ProjectsGallery';
 
 import { CodePlayground } from './pages/CodePlayground';
@@ -29,6 +31,8 @@ function App() {
           <Route path="/learn/module-4" element={<ModuleFourCollections />} />
           <Route path="/learn/module-5" element={<ModuleFiveControlFlow />} />
           <Route path="/learn/module-6" element={<ModuleSixExceptions />} />
+          <Route path="/learn/module-7" element={<ModuleSevenStreams />} />
+          <Route path="/learn/module-8" element={<ModuleEightConcurrency />} />
           <Route path="/projects" element={<ProjectsGallery />} />
           <Route path="/playground" element={<CodePlayground />} />
           <Route path="/roadmap" element={<Roadmap />} />

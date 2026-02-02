@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { MemoryVisualization } from '../visualizations/MemoryVisualization';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
+import { useNavigate } from 'react-router-dom';
+import { useProgress } from '../hooks/useProgress';
 
 export const ModuleTwoVariables: React.FC = () => {
+    const navigate = useNavigate();
+    const { markComplete } = useProgress();
+
+    const handleComplete = () => {
+        markComplete(2);
+        navigate('/learn');
+    };
+
     const [step, setStep] = useState(1);
     const totalSteps = 4;
 
@@ -30,6 +40,7 @@ export const ModuleTwoVariables: React.FC = () => {
             onNext={nextStep}
             onPrev={prevStep}
             visualization={<MemoryVisualization items={getMemoryItems()} />}
+            onComplete={handleComplete}
         >
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <section>

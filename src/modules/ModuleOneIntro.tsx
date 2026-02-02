@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { JVMVisualization } from '../visualizations/JVMVisualization';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
+import { useNavigate } from 'react-router-dom';
+import { useProgress } from '../hooks/useProgress';
 
 export const ModuleOneIntro: React.FC = () => {
+    const navigate = useNavigate();
+    const { markComplete } = useProgress();
+
+    const handleComplete = () => {
+        markComplete(1);
+        navigate('/learn');
+    };
+
     const [step, setStep] = useState(1);
     const totalSteps = 3;
 
@@ -19,6 +29,7 @@ export const ModuleOneIntro: React.FC = () => {
             onNext={nextStep}
             onPrev={prevStep}
             visualization={<JVMVisualization />}
+            onComplete={handleComplete}
         >
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <section>

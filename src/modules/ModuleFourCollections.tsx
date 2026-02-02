@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { CollectionsVisualization } from '../visualizations/CollectionsVisualization';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
+import { useNavigate } from 'react-router-dom';
+import { useProgress } from '../hooks/useProgress';
 
 export const ModuleFourCollections: React.FC = () => {
+    const navigate = useNavigate();
+    const { markComplete } = useProgress();
+
+    const handleComplete = () => {
+        markComplete(4);
+        navigate('/learn');
+    };
+
     const [step, setStep] = useState(1);
     const totalSteps = 4; // List, Set, Map, Summary
 
@@ -19,6 +29,7 @@ export const ModuleFourCollections: React.FC = () => {
             onNext={nextStep}
             onPrev={prevStep}
             visualization={<CollectionsVisualization />}
+            onComplete={handleComplete}
         >
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
