@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play } from 'lucide-react';
+import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 
@@ -73,6 +73,20 @@ const modules: ModuleCardProps[] = [
         description: "Multithreading, race conditions, and synchronization.",
         icon: Play,
         link: '/learn/module-8'
+    },
+    {
+        id: 9,
+        title: "File I/O",
+        description: "Reading/Writing files, Buffers, and Serialization.",
+        icon: HardDrive, // Need to import this
+        link: '/learn/module-9'
+    },
+    {
+        id: 10,
+        title: "Generics",
+        description: "Writing type-safe code with <T> and Wildcards.",
+        icon: Filter, // Reusing filter icon or similar
+        link: '/learn/module-10'
     }
 ];
 

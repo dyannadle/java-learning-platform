@@ -11,7 +11,10 @@ import { ModuleFiveControlFlow } from './modules/ModuleFiveControlFlow';
 import { ModuleSixExceptions } from './modules/ModuleSixExceptions';
 import { ModuleSevenStreams } from './modules/ModuleSevenStreams';
 import { ModuleEightConcurrency } from './modules/ModuleEightConcurrency';
+import { ModuleNineIO } from './modules/ModuleNineIO';
+import { ModuleTenGenerics } from './modules/ModuleTenGenerics';
 import { ProjectsGallery } from './pages/ProjectsGallery';
+import { ProjectDetail } from './pages/ProjectDetail';
 
 import { CodePlayground } from './pages/CodePlayground';
 import { Roadmap } from './pages/Roadmap';
@@ -33,7 +36,10 @@ function App() {
           <Route path="/learn/module-6" element={<ModuleSixExceptions />} />
           <Route path="/learn/module-7" element={<ModuleSevenStreams />} />
           <Route path="/learn/module-8" element={<ModuleEightConcurrency />} />
+          <Route path="/learn/module-9" element={<ModuleNineIO />} />
+          <Route path="/learn/module-10" element={<ModuleTenGenerics />} />
           <Route path="/projects" element={<ProjectsGallery />} />
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
           <Route path="/playground" element={<CodePlayground />} />
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/glossary" element={<Glossary />} />

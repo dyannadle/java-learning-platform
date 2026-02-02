@@ -1,75 +1,19 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
-import { Code, Server, Globe, Database, Smartphone, Terminal, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-type Difficulty = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
+import { PROJECTS, Difficulty } from '../data/projects';
 
-interface Project {
-    id: string;
-    title: string;
-    description: string;
-    difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-    tech: string[];
-    icon: React.ElementType;
-}
+// Remove the local Project interface and projects array
+// Using imported PROJECTS
 
-const projects: Project[] = [
-    {
-        id: 'console-bank',
-        title: 'Console Banking System',
-        description: 'A CLI app to manage customers, accounts, and transactions. Learn loops, arrays, and basic OOP.',
-        difficulty: 'Beginner',
-        tech: ['Java Core', 'Scanner', 'Arrays'],
-        icon: Terminal
-    },
-    {
-        id: 'calculator',
-        title: 'Scientific Calculator',
-        description: 'Build a GUI calculator that handles complex math operations. Introduction to Swing/JavaFX.',
-        difficulty: 'Beginner',
-        tech: ['JavaFX', 'Math API', 'Event Handling'],
-        icon: Code
-    },
-    {
-        id: 'library-man',
-        title: 'Library Management',
-        description: 'Track books, members, and due dates. Intro to file I/O and data persistence.',
-        difficulty: 'Intermediate',
-        tech: ['File I/O', 'Collections', 'Serialization'],
-        icon: Server
-    },
-    {
-        id: 'employee-api',
-        title: 'Employee REST API',
-        description: 'Create a backend service to Create, Read, Update, and Delete employee records.',
-        difficulty: 'Intermediate',
-        tech: ['Spring Boot', 'REST', 'Lombok'],
-        icon: Globe
-    },
-    {
-        id: 'ecommerce',
-        title: 'E-Commerce Microservices',
-        description: 'Scalable backend with Order, Product, and User services communicating via networking.',
-        difficulty: 'Advanced',
-        tech: ['Microservices', 'Spring Cloud', 'Docker', 'Kafka'],
-        icon: Database
-    },
-    {
-        id: 'chat-app',
-        title: 'Real-Time Chat App',
-        description: 'Multi-user chat room using WebSockets for instant messaging.',
-        difficulty: 'Advanced',
-        tech: ['WebSockets', 'Multi-threading', 'Socket.io'],
-        icon: Smartphone
-    }
-];
 
 export const ProjectsGallery: React.FC = () => {
     const [filter, setFilter] = useState<Difficulty>('All');
 
-    const filteredProjects = projects.filter(p => filter === 'All' || p.difficulty === filter);
+    const filteredProjects = PROJECTS.filter(p => filter === 'All' || p.difficulty === filter);
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
