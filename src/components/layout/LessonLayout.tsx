@@ -14,6 +14,8 @@ interface LessonLayoutProps {
     onComplete?: () => void;
     children: React.ReactNode;
     visualization: React.ReactNode;
+    quiz?: React.ReactNode;
+    isQuizPassed?: boolean;
 }
 
 export const LessonLayout: React.FC<LessonLayoutProps> = ({
@@ -25,8 +27,13 @@ export const LessonLayout: React.FC<LessonLayoutProps> = ({
     totalSteps,
     onNext,
     onPrev,
-    onComplete
+    onComplete,
+    quiz,
+    isQuizPassed = false
 }) => {
+    const isQuizStep = quiz && currentStep === totalSteps;
+    const canComplete = !quiz || isQuizPassed;
+
     return (
         <div className="h-[calc(100vh-4rem)] flex gap-6 overflow-hidden">
             {/* Scrollable Content Area */}
@@ -45,7 +52,7 @@ export const LessonLayout: React.FC<LessonLayoutProps> = ({
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-thin scrollbar-thumb-slate-700">
-                    {children}
+                    {isQuizStep ? quiz : children}
                 </div>
 
                 <div className="p-6 border-t border-white/5 bg-slate-900/50 backdrop-blur-sm flex justify-between items-center">
@@ -59,21 +66,25 @@ export const LessonLayout: React.FC<LessonLayoutProps> = ({
                     <button
                         onClick={() => {
                             if (currentStep === totalSteps && onComplete) {
-                                onComplete();
+                                if (canComplete) onComplete();
                             } else if (onNext) {
                                 onNext();
                             }
                         }}
-                        disabled={currentStep === totalSteps && !onComplete}
+                        disabled={(currentStep === totalSteps && (!onComplete || !canComplete))}
                         className={cn(
                             "px-6 py-2 text-white text-sm font-medium rounded-lg flex items-center gap-2 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed",
-                            currentStep === totalSteps && onComplete
+                            currentStep === totalSteps && onComplete && canComplete
                                 ? "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-500/20"
                                 : "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
                         )}
                     >
                         {currentStep === totalSteps && onComplete ? (
-                            <>Complete Module <CheckCircle size={16} /></>
+                            canComplete ? (
+                                <>Complete Module <CheckCircle size={16} /></>
+                            ) : (
+                                <>Pass Quiz to Complete <ArrowLeft size={16} className="rotate-180" /></>
+                            )
                         ) : (
                             <>Next Lesson <ChevronRight size={16} /></>
                         )}

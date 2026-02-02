@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { ConcurrencyVisualization } from '../visualizations/ConcurrencyVisualization';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
+import { useNavigate } from 'react-router-dom';
+import { useProgress } from '../hooks/useProgress';
 
 export const ModuleEightConcurrency: React.FC = () => {
+    const navigate = useNavigate();
+    const { markComplete } = useProgress();
+
+    const handleComplete = () => {
+        markComplete(8);
+        navigate('/learn');
+    };
+
     const [step, setStep] = useState(1);
     const totalSteps = 3;
 
@@ -19,6 +29,7 @@ export const ModuleEightConcurrency: React.FC = () => {
             onNext={nextStep}
             onPrev={prevStep}
             visualization={<ConcurrencyVisualization />}
+            onComplete={handleComplete}
         >
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
