@@ -128,9 +128,13 @@ export const ProjectDetail: React.FC = () => {
                         </ul>
 
                         <div className="mt-8 pt-6 border-t border-white/5">
-                            <button className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all shadow-lg shadow-blue-500/20">
+                            <Link
+                                to="/playground"
+                                className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2"
+                            >
+                                <Code size={20} />
                                 Start Building
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

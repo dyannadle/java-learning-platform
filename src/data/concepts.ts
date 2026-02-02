@@ -382,5 +382,103 @@ class Box<T> {
 }`,
         realWorldUse: "Saving game state, session data in web servers, or caching objects in Redis.",
         relatedModuleUrl: '/learn/module-9'
+    },
+    {
+        id: '19',
+        slug: 'jvm',
+        term: 'JVM (Java Virtual Machine)',
+        definition: 'The engine that drives the Java code. It converts Java bytecode into machine language.',
+        category: 'Basic',
+        deepDive: [
+            "The JVM is the reason Java is 'Write Once, Run Anywhere'.",
+            "It handles memory management, garbage collection, and security.",
+            "It sits on top of your operating system (Windows, Mac, Linux)."
+        ],
+        codeSnippet: `// You don't write code for the JVM directly.
+// You compile .java -> .class (Bytecode)
+// The JVM executes the .class file.`,
+        realWorldUse: "Why you can play Minecraft on Windows, Mac, and Linux without downloading distinct versions of the game core.",
+        relatedModuleUrl: '/learn/module-1'
+    },
+    {
+        id: '20',
+        slug: 'garbage-collection',
+        term: 'Garbage Collection',
+        definition: 'Automatic memory management that removes unused objects from memory.',
+        category: 'Advanced',
+        deepDive: [
+            "In C++, you must manually delete objects to free memory. In Java, the GC does it for you.",
+            "It runs in the background, checking for objects that are no longer reachable by any active thread.",
+            "While helpful, it can cause 'Stop-the-World' pauses if not optimized in high-frequency trading apps."
+        ],
+        codeSnippet: `public void createGarbage() {
+    String s = new String("I am temporary");
+    // Method ends, 's' is popped off stack. 
+    // The String object on Heap is now garbage.
+}`,
+        realWorldUse: "Prevents memory leaks in long-running web servers.",
+        relatedModuleUrl: '/learn/module-3'
+    },
+    {
+        id: '21',
+        slug: 'static',
+        term: 'Static',
+        definition: 'A keyword meaning the member belongs to the class itself, not instances.',
+        category: 'Basic',
+        deepDive: [
+            "Static variables are shared among all instances of a class.",
+            "Static methods can be called without creating an object (e.g., `Math.abs()`).",
+            "The `main` method is static because the JVM needs to call it before any objects exist."
+        ],
+        codeSnippet: `class Counter {
+    static int count = 0;
+    Counter() { count++; }
+}
+
+new Counter();
+new Counter();
+System.out.println(Counter.count); // 2`,
+        realWorldUse: "Constants (`Math.PI`), Utility functions, and the `main` entry point.",
+        relatedModuleUrl: '/learn/module-2'
+    },
+    {
+        id: '22',
+        slug: 'constructor',
+        term: 'Constructor',
+        definition: 'A special method called when an object is instantiated.',
+        category: 'OOP',
+        deepDive: [
+            "It must have the exact same name as the Class and no return type.",
+            "Used to initialize the object's state (fields).",
+            "If you don't define one, Java provides a default 'No-Argument' constructor."
+        ],
+        codeSnippet: `class User {
+    String name;
+    
+    // Constructor
+    User(String n) {
+        this.name = n;
+    }
+}
+
+User u = new User("Alice");`,
+        realWorldUse: "Ensuring a 'BankAccount' object always has an account number when created.",
+        relatedModuleUrl: '/learn/module-3'
+    },
+    {
+        id: '23',
+        slug: 'final',
+        term: 'Final Keyword',
+        definition: 'A modifier used to apply restrictions on class, method, and variable.',
+        category: 'Basic',
+        deepDive: [
+            "Final Variable: Cannot be changed (Constant).",
+            "Final Method: Cannot be overridden by a subclass.",
+            "Final Class: Cannot be inherited (e.g., `String` class is final)."
+        ],
+        codeSnippet: `final double PI = 3.14;
+// PI = 3.15; // Compiler Error`,
+        realWorldUse: "Security and stability. Making a class immutable (like String) so it's thread-safe.",
+        relatedModuleUrl: '/learn/module-2'
     }
 ];
