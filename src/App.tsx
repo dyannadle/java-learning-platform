@@ -19,7 +19,6 @@ import { CodePlayground } from './pages/CodePlayground';
 import { Roadmap } from './pages/Roadmap';
 import { Glossary } from './pages/Glossary';
 import { ConceptDetail } from './pages/ConceptDetail';
-import { AppLayout } from './components/layout/AppLayout';
 
 import { AuthProvider } from './context/AuthContext';
 
