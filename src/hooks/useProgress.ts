@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 
+import { useGamification } from './useGamification';
+
 const STORAGE_KEY = 'java-learning-progress';
 
 export const useProgress = () => {
     const { user } = useAuth();
+    const { addXP } = useGamification();
 
     // Initialize from LocalStorage first (Instant load)
     const [completedModules, setCompletedModules] = useState<number[]>(() => {
@@ -18,42 +21,23 @@ export const useProgress = () => {
         }
     });
 
-    // Sync with Cloud when User logs in
+    // ... (Sync effect remains same)
     useEffect(() => {
         if (!user) return;
-
         const syncProgress = async () => {
-            // 1. Get Cloud Progress
-            const { data: cloudData } = await supabase
-                .from('user_progress')
-                .select('module_id')
-                .eq('user_id', user.id);
-
+            const { data: cloudData } = await supabase.from('user_progress').select('module_id').eq('user_id', user.id);
             const cloudModules = cloudData?.map(d => d.module_id) || [];
-
-            // 2. Get Local Progress
             const localStored = localStorage.getItem(STORAGE_KEY);
             const localModules: number[] = localStored ? JSON.parse(localStored) : [];
-
-            // 3. Merge (Union)
             const merged = Array.from(new Set([...cloudModules, ...localModules]));
-
-            // 4. Update State & LocalStorage
             setCompletedModules(merged);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-
-            // 5. Push any missing local modules to Cloud
             const newForCloud = localModules.filter(m => !cloudModules.includes(m));
             if (newForCloud.length > 0) {
-                const inserts = newForCloud.map(mid => ({
-                    user_id: user.id,
-                    module_id: mid,
-                    completed_at: new Date().toISOString()
-                }));
+                const inserts = newForCloud.map(mid => ({ user_id: user.id, module_id: mid, completed_at: new Date().toISOString() }));
                 await supabase.from('user_progress').insert(inserts);
             }
         };
-
         syncProgress();
     }, [user]);
 
@@ -62,6 +46,10 @@ export const useProgress = () => {
         // Optimistic UI Update
         setCompletedModules(prev => {
             if (prev.includes(moduleId)) return prev;
+
+            // Only award XP if it's a NEW completion
+            addXP(50);
+
             const newVal = [...prev, moduleId];
             localStorage.setItem(STORAGE_KEY, JSON.stringify(newVal));
             return newVal;

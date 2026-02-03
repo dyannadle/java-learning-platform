@@ -16,16 +16,21 @@ import { Link } from 'react-router-dom';
 
 import { AuthModal } from '../auth/AuthModal';
 import { useAuth } from '../../context/AuthContext';
-import { LogIn, LogOut, User as UserIcon } from 'lucide-react';
+import { XPBar } from '../gamification/XPBar';
+import { LevelUpModal } from '../gamification/LevelUpModal';
+import { useGamification } from '../../hooks/useGamification';
+import { LogIn, LogOut } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [showAuthModal, setShowAuthModal] = useState(false);
     const { user, signOut } = useAuth();
+    const { stats, showLevelUp, closeLevelUp } = useGamification();
 
     return (
         <>
             <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+            <LevelUpModal isOpen={showLevelUp} level={stats.level} onClose={closeLevelUp} />
 
             <motion.div
                 className={cn(
@@ -46,6 +51,9 @@ export const Sidebar: React.FC = () => {
                         </Link>
                     )}
                 </div>
+
+                {/* Gamification Bar */}
+                {user && <XPBar isCollapsed={isCollapsed} />}
 
                 {/* Navigation */}
                 <div className="flex-1 overflow-y-auto py-6 px-3 space-y-2 scrollbar-thin scrollbar-thumb-slate-800">
