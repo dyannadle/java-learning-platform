@@ -18,14 +18,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         // Check active sessions and sets the user
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
-            setUser(session?.user ?? null);
-            setLoading(false);
-        });
+        const initSession = async () => {
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                if (error) {
+                    console.error("AuthContext: Error checking session:", error);
+                }
+
+                if (session) {
+                    console.log("AuthContext: Session found for user:", session.user.email);
+                } else {
+                    console.log("AuthContext: No active session found.");
+                }
+
+                setSession(session);
+                setUser(session?.user ?? null);
+            } catch (err) {
+                console.error("AuthContext: Unexpected error during session init:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initSession();
 
         // Listen for changes on auth state (logged in, signed out, etc.)
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log(`AuthContext: Auth State Change [${event}]`, session?.user?.email);
             setSession(session);
             setUser(session?.user ?? null);
             setLoading(false);

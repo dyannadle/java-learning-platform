@@ -15,7 +15,7 @@ export const ModuleThreeOOP: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 3;
+    const totalSteps = 4;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -117,6 +117,62 @@ export const ModuleThreeOOP: React.FC = () => {
                                 <span><strong>Maintenance:</strong> If you need to add a 'fuel' property, you only change the Blueprint!</span>
                             </li>
                         </ul>
+                    </section>
+                )}
+
+                {step >= 4 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-emerald-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: Object Headers
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                Every Object in Java has a hidden "Header" (usually 12-16 bytes). It stores:
+                            </p>
+                            <ul className="space-y-2 text-sm text-slate-400 mb-4">
+                                <li><strong>Mark Word:</strong> HashCode, GC Age (for survivor spaces), and Lock state.</li>
+                                <li><strong>Class Pointer:</strong> Points to the <code>.class</code> file in the Method Area so Java knows what type it is.</li>
+                            </ul>
+                            <div className="bg-black/50 p-3 rounded-lg font-mono text-xs text-slate-300">
+                                <strong>The Secret Argument:</strong> When you call <code>car.drive()</code>, Java actually calls <code>Car.drive(car)</code>.
+                                The object itself is passed as a hidden first argument called <code>this</code>.
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Variable Shadowing:</strong>
+                                        <code className="block bg-black/30 p-1 rounded mt-1 text-xs">
+                                            public void setName(String name) {'{'}<br />
+                                            &nbsp;&nbsp;name = name; // BUG! Does nothing.<br />
+                                            &nbsp;&nbsp;this.name = name; // Fix<br />
+                                            {'}'}
+                                        </code>
+                                    </li>
+                                    <li>
+                                        <strong>Static Helper Abuse:</strong> Avoid making everything <code>static</code>. It kills Object-Orientation and makes testing impossible.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"Composition vs Inheritance: Which is better?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Answer: <strong>Composition</strong>. Inheritance is rigid ("Is-A"). Composition is flexible ("Has-A") and allows changing behavior at runtime.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"What is the Liskov Substitution Principle?" (Subclasses must be substitutable for their base class).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
 

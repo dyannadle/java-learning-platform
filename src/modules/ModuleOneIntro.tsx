@@ -15,7 +15,7 @@ export const ModuleOneIntro: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 3;
+    const totalSteps = 4;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -101,6 +101,53 @@ export const ModuleOneIntro: React.FC = () => {
                         <p className="text-slate-300 text-sm italic">
                             "This architecture is why Minecraft runs on Windows, Mac, and Linux without the developers needing to rewrite the game 3 times."
                         </p>
+                    </section>
+                )}
+
+                {step >= 4 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: The `main` Method
+                            </h2>
+                            <code className="block bg-black/50 p-4 rounded-lg font-mono text-sm text-slate-300 mb-4">
+                                <span className="text-orange-400">public</span> <span className="text-blue-400">static</span> <span className="text-purple-400">void</span> <span className="text-yellow-300">main</span>(String[] args)
+                            </code>
+                            <ul className="space-y-2 text-sm text-slate-400">
+                                <li><strong>public</strong>: JVM calls it from outside the class.</li>
+                                <li><strong>static</strong>: JVM calls it <em>without</em> creating an object of the class first.</li>
+                                <li><strong>void</strong>: It doesn't return value to the OS (use `System.exit()` for status codes).</li>
+                                <li><strong>String[] args</strong>: Command line arguments passed when running the program.</li>
+                            </ul>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Wrong Signature:</strong> If you forget `static` or `args`, the program compiles but won't run (`NoSuchMethodError`).
+                                    </li>
+                                    <li>
+                                        <strong>File Mismatch:</strong> `public class Main` MUST be in `Main.java`.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Junior Level</p>
+                                        <p className="text-sm text-white">"What is the difference between JDK and JRE?"</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Can you overload the main method? (Yes, but JVM only calls the standard signature)."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
 

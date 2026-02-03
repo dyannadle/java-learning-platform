@@ -15,7 +15,7 @@ export const ModuleTwoVariables: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -126,6 +126,65 @@ export const ModuleTwoVariables: React.FC = () => {
                         </p>
                         <div className="mt-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded text-xs text-blue-200">
                             <strong>Why does this matter?</strong> If you pass a primitive to a function, you pass a COPY. If you pass an Object, you pass the REMOTE CONTROL (Reference). Modifying the object inside the function modifies the original!
+                        </div>
+                    </section>
+                )}
+
+                {step >= 5 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-indigo-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-indigo-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: Integer Caching
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                Java optimizes memory for small numbers. This creates a weird behavior:
+                            </p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <code className="block bg-black/50 p-3 rounded-lg font-mono text-xs text-green-300">
+                                    Integer a = 127;<br />
+                                    Integer b = 127;<br />
+                                    System.out.println(a == b);<br />
+                                    // TRUE (Cached)
+                                </code>
+                                <code className="block bg-black/50 p-3 rounded-lg font-mono text-xs text-red-300">
+                                    Integer x = 128;<br />
+                                    Integer y = 128;<br />
+                                    System.out.println(x == y);<br />
+                                    // FALSE (New Objects)
+                                </code>
+                            </div>
+                            <p className="text-xs text-slate-500 mt-2">
+                                <strong>Why?</strong> Java caches Integers from -128 to 127 in a specialized "Integer Cache".
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>The `==` Trap:</strong> Never use `==` to compare Strings. It compares MEMORY ADDRESSES, not content. Always use `.equals()`.
+                                    </li>
+                                    <li>
+                                        <strong>Null Unboxing:</strong> `int x = nullInteger` causes a `NullPointerException`.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"Is Java Pass-by-Value or Pass-by-Reference?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Answer: Java is ALWAYS Pass-by-Value. Even for objects, we pass the <em>value of the reference</em>.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Why are Strings immutable in Java?" (Caching, Security, Thread Safety).</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 )}

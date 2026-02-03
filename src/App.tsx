@@ -14,6 +14,9 @@ import { ModuleEightConcurrency } from './modules/ModuleEightConcurrency';
 import { ModuleNineIO } from './modules/ModuleNineIO';
 import { ModuleTenGenerics } from './modules/ModuleTenGenerics';
 import { ModuleElevenPatterns } from './modules/ModuleElevenPatterns';
+import { ModuleTwelveSpringCore } from './modules/ModuleTwelveSpringCore';
+import { ModuleThirteenREST } from './modules/ModuleThirteenREST';
+import { ModuleFourteenJPA } from './modules/ModuleFourteenJPA';
 import { ProjectsGallery } from './pages/ProjectsGallery';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { CodePlayground } from './pages/CodePlayground';
@@ -43,6 +46,9 @@ function App() {
             <Route path="/learn/module-9" element={<ModuleNineIO />} />
             <Route path="/learn/module-10" element={<ModuleTenGenerics />} />
             <Route path="/learn/module-11" element={<ModuleElevenPatterns />} />
+            <Route path="/learn/module-12" element={<ModuleTwelveSpringCore />} />
+            <Route path="/learn/module-13" element={<ModuleThirteenREST />} />
+            <Route path="/learn/module-14" element={<ModuleFourteenJPA />} />
             <Route path="/projects" element={<ProjectsGallery />} />
             <Route path="/projects/:projectId" element={<ProjectDetail />} />
             <Route path="/playground" element={<CodePlayground />} />

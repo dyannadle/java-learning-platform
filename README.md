@@ -27,6 +27,11 @@ A comprehensive, interactive platform for mastering Java, built with React, Type
 -   **Gamification**: Earn XP, level up, and maintain streaks.
 -   **Design Patterns Module**: Interactive visualizations for Singleton, Factory, Observer, Strategy, and Builder patterns.
 
+### Phase 5: Enterprise Java (Spring Boot)
+-   **Spring Core**: Visual Dependency Injection container and Bean scopes.
+-   **REST APIs**: Interactive request lifecycle tracing (Controller -> Service -> Repo).
+-   **JPA/Hibernate**: Real-time Object-Relational Mapping (ORM) visualization.
+
 ## 🔮 Future Roadmap
 See [FUTURE_FEATURES.md](./FUTURE_FEATURES.md) for the long-term vision, including:
 -   Spring Boot & Enterprise Java

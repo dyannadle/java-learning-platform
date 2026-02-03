@@ -1,29 +1,7 @@
 # Future Features & AI-Powered Enhancements Roadmap
 
 This document defines the **next-generation roadmap** for the Java Learning Platform.
-With the Core Foundation, Authentication, Real-Time Execution, and Design Patterns now **complete**, the focus shifts to **Enterprise Mastery, AI Integration, and Deep Personalization**.
-
----
-
-## 🚀 Phase 5: Enterprise Java Ecosystem (Spring Boot)
-
-**Goal**  
-Bridge the gap between "knowing Java syntax" and "building professional backends".
-
-### Module 12: Spring Core & Dependency Injection
-- **Visualizing the IoC Container**: An interactive animation showing how Spring creates and manages beans.
-- **Dependency Graphs**: Drag-and-drop wiring of components to understand `@Autowired` and `@Component`.
-- **Bean Scopes**: Interactive simulation of Singleton vs. Prototype lifecycles.
-
-### Module 13: RESTful APIs & Microservices
-- **Request Lifecycle Simulator**: Trace an HTTP request from Controller → Service → Repository → Database.
-- **Status Code Visualizer**: See how 200, 404, 500, and 403 errors are generated.
-- **Microservices Lab**: Simulate communication between two separate services using REST/Feign.
-
-### Module 14: Data Persistence (JPA/Hibernate)
-- **Visual ORM**: Type Java code and watch SQL generate in real-time.
-- **N+1 Problem Demo**: A visual performance benchmark showing why lazy loading requires care.
-- **Transaction Management**: Interactive commitment/rollback scenarios.
+With the **Core Foundation, Authentication, Real-Time Execution, Design Patterns, and Spring Boot** now **complete**, the focus shifts to **AI Integration, Cloud-Native Skills, and Specialization**.
 
 ---
 
@@ -67,22 +45,66 @@ Teach the skills that don't appear in syntax tutorials but are required for the 
 
 ---
 
-## 🏆 Phase 8: Advanced Gamification & Community
+## 🛡️ Phase 8: The Security Specialist (New!)
 
 **Goal**  
-Move beyond simple XP to social and competitive learning.
+Demystify application security and authentication flows.
+
+### 🔐 Spring Security Visualized
+- **Filter Chain Simulator**: specific visualization showing how a request passes through the `SecurityFilterChain` (Auth Filter, CORS, CSRF).
+- **JWT Anatomy**: Interactive tool to decode/encode JWTs and understand signatures.
+- **OAuth2 / OIDC Dance**: Step-by-step animation of the "Login with Google" redirect flow.
+
+### 🏴‍☠️ "Hack The App" Labs
+- **SQL Injection**: A safe sandbox where users try to inject SQL to delete a table, then write the fix (Parameterized Queries).
+- **XSS Playground**: Demonstrating why escaping HTML in inputs is crucial.
+
+---
+
+## 🧪 Phase 9: Quality Assurance & Testing Mastery (New!)
+
+**Goal**  
+Professional developers spend 50% of their time writing tests.
+
+### ✅ JUnit 5 & Mockito
+- **Mocking Visualizer**: Graphically show how a "Mock Service" intercepts calls and returns fake data.
+- **Assertion Gym**: Practice writing complex assertions (`assertThat(list).hasSize(5).contains(...)`).
+
+### 📦 Integration Testing
+- **Testcontainers Lab**: Spin up a real Docker Database for tests inside the browser simulation.
+- **Code Coverage Heatmap**: Visual overlay showing which lines of code your tests actually hit.
+
+---
+
+## 🚀 Phase 10: High-Performance Java (New!)
+
+**Goal**  
+Deep dive into the JVM internals for advanced optimization.
+
+###  Garbage Collection (GC) Visualizer
+- **Memory Heap Sim**: Watch objects fill up Eden Space, move to Survivor, and get promoted to Old Gen.
+- **GC Trigger**: Manually trigger a "Stop-the-World" event and see how it cleans memory.
+
+### 🧵 Advanced Concurrency (Project Loom)
+- **Virtual Threads vs Platform Threads**: Visual benchmark showing 10,000 Virtual Threads consuming less RAM than 100 OS Threads.
+- **CompletableFuture Pipeline**: Drag-and-drop async chain builder.
+
+---
+
+## 🏆 Phase 11: Advanced Gamification & Career Prep
 
 ### 📊 Leaderboards & Leagues
 - **Weekly Leagues**: Users are grouped into leagues (Bronze, Silver, Gold). Top 10 promote, bottom 10 demote.
 - **Friend Challenges**: Send a coding puzzle to a friend.
 
+### 💼 Career Center (New!)
+- **Resume Builder**: Generates a PDF resume based on completed modules and badges.
+- **Interview Simulator**: 50+ common Java interview questions with AI-graded verbal answers.
+
 ### 🎖️ Skill-Based Badges
 - **"The Architect"**: Complete all Design Pattern visualizations.
 - **"Bug Hunter"**: Solve 10 debugging challenges without hints.
-- **"Speed Demon"**: Solve a generic algorithm in under 2 minutes.
-
-### 🤝 Mentor Mode
-- **Peer Review**: dedicated section where advanced users can review code submitted by beginners for bonus XP.
+- **"Certified Secure"**: Complete the Security Specialist phase.
 
 ---
 

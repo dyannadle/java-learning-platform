@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive } from 'lucide-react';
+import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Box, Server } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 
