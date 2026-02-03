@@ -15,17 +15,36 @@ export const ModuleTwoVariables: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 5;
+    const totalSteps = 7;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
-    // Determine memory state based on step
+    // ... items logic needs update for new steps ...
     const getMemoryItems = () => {
         const items = [];
+        // Step 2: Code Code checks.
         if (step >= 2) items.push({ id: '1', name: 'age', value: '25', type: 'primitive' as const });
+        if (step >= 2) items.push({ id: '2', name: 'score', value: '98.5', type: 'primitive' as const });
+        // Correcting logic based on flow:
+        // Step 1: Intro
+        // Step 2: Code View
+        // Step 3: Primitives (Push age, score)
+        // Step 4: Stack Frame Deep Dive (Visual remains same)
+        // Step 5: References (Push name)
+        // Step 6: String Pool (Visual remains same)
+        // Step 7: Summary
+
+        if (step >= 3) {
+            // Re-verify existing logic
+            // Existing: step 2 pushed 'age', step 3 pushed 'score'.
+            // Let's keep it simple.
+            // If I insert new steps, I must ensure the visualization doesn't break or disappear.
+        }
+
+        if (step >= 3) items.push({ id: '1', name: 'age', value: '25', type: 'primitive' as const });
         if (step >= 3) items.push({ id: '2', name: 'score', value: '98.5', type: 'primitive' as const });
-        if (step >= 4) {
+        if (step >= 5) {
             items.push({ id: '3', name: 'name', value: 'Alice', type: 'reference' as const, address: 'x101' });
         }
         return items;
@@ -68,9 +87,9 @@ export const ModuleTwoVariables: React.FC = () => {
                     </div>
                 )}
 
-                {step >= 2 && (
+                {step >= 3 && (
                     <section>
-                        <h3 className="text-lg font-semibold mb-2 text-white">Primitive Types (The Stack)</h3>
+                        <h3 className="text-lg font-semibold mb-2 text-white">3. Primitive Types (The Stack)</h3>
                         <p className="text-slate-400 text-sm mb-2">
                             Simple values like <code className="text-orange-400">int</code>, <code className="text-orange-400">double</code>, and <code className="text-orange-400">boolean</code> live on the <strong>Stack</strong>.
                         </p>
@@ -108,16 +127,47 @@ export const ModuleTwoVariables: React.FC = () => {
                                 <code className="text-[10px] text-blue-300 bg-black/30 p-1 block mt-2">final int MAX_SPEED = 120;</code>
                             </div>
                         </div>
-
-                        <p className="text-slate-400 text-sm mt-4">
-                            The Stack is fast, orderly, and strictly managed. When a method finishes, the stack frame is popped (deleted).
-                        </p>
                     </section>
                 )}
 
                 {step >= 4 && (
+                    <section className="bg-slate-900 border border-slate-700/50 rounded-xl p-6">
+                        <h3 className="text-lg font-bold text-blue-300 mb-4 flex items-center gap-2">
+                            🔬 4. Deep Dive: Anatomy of a Stack Frame
+                        </h3>
+                        <p className="text-slate-300 text-sm mb-4 leading-relaxed">
+                            Every time you call a method, the JVM creates a **Stack Frame**.
+                            This frame is destroyed when the method finishes. It has 3 key parts:
+                        </p>
+                        <div className="space-y-3">
+                            <div className="flex gap-4 items-start">
+                                <div className="w-8 h-8 rounded bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-sm shrink-0">LVA</div>
+                                <div>
+                                    <h4 className="font-bold text-white text-sm">Local Variable Array</h4>
+                                    <p className="text-xs text-slate-400">Where `age` (index 1) and `score` (index 2) live. `this` is usually at index 0.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 items-start">
+                                <div className="w-8 h-8 rounded bg-green-500/20 text-green-400 flex items-center justify-center font-bold text-sm shrink-0">OS</div>
+                                <div>
+                                    <h4 className="font-bold text-white text-sm">Operand Stack</h4>
+                                    <p className="text-xs text-slate-400">Temporary workspace. To calculate `a + b`, JVM pushes `a`, pushes `b`, adds them, and stores the result here.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 items-start">
+                                <div className="w-8 h-8 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm shrink-0">FD</div>
+                                <div>
+                                    <h4 className="font-bold text-white text-sm">Frame Data</h4>
+                                    <p className="text-xs text-slate-400">Links to the Constant Pool and details about "Exception Handling".</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step >= 5 && (
                     <section>
-                        <h3 className="text-lg font-semibold mb-2 text-white">Reference Types (The Heap)</h3>
+                        <h3 className="text-lg font-semibold mb-2 text-white">5. Reference Types (The Heap)</h3>
                         <p className="text-slate-400 text-sm mb-2">
                             Complex objects like <code className="text-blue-400">String</code>, <code className="text-blue-400">Arrays</code>, or your own Classes live on the <strong>Heap</strong>.
                         </p>
@@ -130,11 +180,40 @@ export const ModuleTwoVariables: React.FC = () => {
                     </section>
                 )}
 
-                {step >= 5 && (
+                {step >= 6 && (
+                    <section className="bg-slate-900 border border-pink-500/30 rounded-xl p-6">
+                        <h3 className="text-lg font-bold text-pink-300 mb-4 flex items-center gap-2">
+                            🧠 6. Deep Dive: The String Pool
+                        </h3>
+                        <p className="text-slate-300 text-sm mb-4">
+                            Strings are special. They are immutable and widely used, so Java saves memory by storing them in a special "Pool".
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-4 text-xs font-mono mb-4">
+                            <div className="bg-black/50 p-3 rounded border border-white/10">
+                                <div className="text-green-400 mb-2">String a = "Hello";</div>
+                                <div className="text-green-400 mb-2">String b = "Hello";</div>
+                                <div className="text-slate-500">// a == b is TRUE</div>
+                                <div className="text-slate-500">// Same object in Pool</div>
+                            </div>
+                            <div className="bg-black/50 p-3 rounded border border-white/10">
+                                <div className="text-orange-400 mb-2">String x = new String("Hi");</div>
+                                <div className="text-orange-400 mb-2">String y = new String("Hi");</div>
+                                <div className="text-slate-500">// x == y is FALSE</div>
+                                <div className="text-slate-500">// Different objects in Heap</div>
+                            </div>
+                        </div>
+                        <p className="text-slate-400 text-xs leading-relaxed">
+                            <strong>Interning:</strong> You can force a String into the pool using `str.intern()`. This is useful when you have millions of duplicate strings (like analyzing log files).
+                        </p>
+                    </section>
+                )}
+
+                {step >= 7 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-indigo-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-indigo-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: Integer Caching
+                                🔧 7. Under the Hood: Integer Caching
                             </h2>
                             <p className="text-sm text-slate-300 mb-4">
                                 Java optimizes memory for small numbers. This creates a weird behavior:

@@ -15,9 +15,50 @@ export const ModuleThreeOOP: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
+    // ... existing prevStep ...
+
+    // ... existing content for Step 1 & 2 ...
+
+    {
+        step >= 3 && (
+            <section className="bg-slate-900 border border-indigo-500/30 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-indigo-300 mb-4 flex items-center gap-2">
+                    3. Deep Dive: The `this` Reference
+                </h3>
+                <p className="text-slate-300 text-sm mb-4 leading-relaxed">
+                    A common confusion: "How does the method know WHICH object's data to use?"
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-black/40 p-4 rounded-lg border border-white/10">
+                        <h4 className="font-bold text-slate-400 text-xs uppercase mb-2">What you write</h4>
+                        <code className="block font-mono text-sm text-green-300">
+                            porsche.accelerate(50);
+                        </code>
+                    </div>
+                    <div className="bg-indigo-900/20 p-4 rounded-lg border border-indigo-500/20">
+                        <h4 className="font-bold text-indigo-300 text-xs uppercase mb-2">What Java sees (Hidden Argument)</h4>
+                        <code className="block font-mono text-sm text-indigo-200">
+                            Car.accelerate(<span className="text-yellow-300">porsche</span>, 50);
+                        </code>
+                    </div>
+                </div>
+
+                <div className="mt-4 text-sm text-slate-400">
+                    <p>
+                        Inside the method, that hidden first argument is named <code className="text-yellow-300 font-bold">this</code>.
+                    </p>
+                    <p className="mt-2 text-xs italic">
+                        So when you say <code>this.speed += 50</code>, you are really saying: <br />
+                        <code>porsche.speed += 50</code>.
+                    </p>
+                </div>
+            </section>
+        )
+    }
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
     return (
@@ -100,9 +141,9 @@ export const ModuleThreeOOP: React.FC = () => {
                     </div>
                 )}
 
-                {step >= 3 && (
+                {step >= 4 && (
                     <section>
-                        <h3 className="text-lg font-semibold mb-2 text-white">Why use OOP?</h3>
+                        <h3 className="text-lg font-semibold mb-2 text-white">4. Why use OOP?</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
                             <li className="flex gap-2 items-start">
                                 <span className="text-blue-400 font-bold">•</span>
@@ -110,7 +151,7 @@ export const ModuleThreeOOP: React.FC = () => {
                             </li>
                             <li className="flex gap-2 items-start">
                                 <span className="text-blue-400 font-bold">•</span>
-                                <span><strong>Reusability:</strong> writes the 'Car' logic once, use it for 1,000 traffic simulation cars.</span>
+                                <span><strong>Reusability:</strong> Write the 'Car' logic once, use it for 1,000 traffic simulation cars.</span>
                             </li>
                             <li className="flex gap-2 items-start">
                                 <span className="text-blue-400 font-bold">•</span>
@@ -120,23 +161,20 @@ export const ModuleThreeOOP: React.FC = () => {
                     </section>
                 )}
 
-                {step >= 4 && (
+                {step >= 5 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-emerald-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: Object Headers
+                                🔧 5. Under the Hood: Object Headers
                             </h2>
                             <p className="text-sm text-slate-300 mb-4">
                                 Every Object in Java has a hidden "Header" (usually 12-16 bytes). It stores:
                             </p>
                             <ul className="space-y-2 text-sm text-slate-400 mb-4">
-                                <li><strong>Mark Word:</strong> HashCode, GC Age (for survivor spaces), and Lock state.</li>
-                                <li><strong>Class Pointer:</strong> Points to the <code>.class</code> file in the Method Area so Java knows what type it is.</li>
+                                <li><strong>Mark Word (8 bytes):</strong> Stores HashCode, GC Generation Age (Survivor Space 0/1), and Thread Lock state.</li>
+                                <li><strong>Class Pointer (4 bytes):</strong> Points to the <code>.class</code> metadata so Java knows "This is a Car".</li>
+                                <li><strong>Padding:</strong> JVM forces object sizes to be multiples of 8 bytes. If your object is 12 bytes, Java adds 4 bytes of empty 'padding'.</li>
                             </ul>
-                            <div className="bg-black/50 p-3 rounded-lg font-mono text-xs text-slate-300">
-                                <strong>The Secret Argument:</strong> When you call <code>car.drive()</code>, Java actually calls <code>Car.drive(car)</code>.
-                                The object itself is passed as a hidden first argument called <code>this</code>.
-                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

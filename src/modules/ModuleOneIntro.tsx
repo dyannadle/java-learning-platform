@@ -15,7 +15,7 @@ export const ModuleOneIntro: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 4;
+    const totalSteps = 6;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -46,7 +46,7 @@ export const ModuleOneIntro: React.FC = () => {
 
                 {step >= 1 && (
                     <section className="bg-slate-800/50 p-6 rounded-xl border border-white/5">
-                        <h3 className="text-lg font-semibold mb-2 text-white">The "WORA" Concept</h3>
+                        <h3 className="text-lg font-semibold mb-2 text-white">1. The "WORA" Concept</h3>
                         <p className="text-slate-400 text-sm mb-4">
                             Imagine you write a letter in English.
                         </p>
@@ -64,12 +64,51 @@ export const ModuleOneIntro: React.FC = () => {
                 )}
 
                 {step >= 2 && (
+                    <section className="space-y-4">
+                        <h3 className="text-lg font-semibold text-emerald-300">2. The Compilation Pipeline</h3>
+                        <p className="text-slate-300 leading-relaxed text-sm">
+                            Before your code runs, it goes through a rigorous factory line. This is why Java is safer than Python or JavaScript.
+                        </p>
+                        <div className="grid gap-3 text-sm">
+                            <div className="flex items-center gap-4 bg-slate-900 p-3 rounded-lg border border-white/5">
+                                <div className="w-8 h-8 rounded bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">1</div>
+                                <div>
+                                    <h4 className="font-bold text-slate-200">Source Code (.java)</h4>
+                                    <p className="text-slate-500">Readable text you write. "Human Language".</p>
+                                </div>
+                            </div>
+                            <div className="flex justify-center"><div className="w-0.5 h-4 bg-slate-700"></div></div>
+                            <div className="flex items-center gap-4 bg-slate-900 p-3 rounded-lg border border-white/5">
+                                <div className="w-8 h-8 rounded bg-yellow-500/20 text-yellow-400 flex items-center justify-center font-bold">2</div>
+                                <div>
+                                    <h4 className="font-bold text-slate-200">Compiler (javac)</h4>
+                                    <p className="text-slate-500">Checks for syntax errors. If you miss a semicolon, it stops here.</p>
+                                </div>
+                            </div>
+                            <div className="flex justify-center"><div className="w-0.5 h-4 bg-slate-700"></div></div>
+                            <div className="flex items-center gap-4 bg-slate-900 p-3 rounded-lg border border-white/5">
+                                <div className="w-8 h-8 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">3</div>
+                                <div>
+                                    <h4 className="font-bold text-slate-200">Bytecode (.class)</h4>
+                                    <p className="text-slate-500">Optimized instructions for the JVM. Not human readable.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step >= 3 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-violet-300">The Secret Weapon: JVM</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-violet-300">3. The Secret Weapon: JVM</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             The <strong>Java Virtual Machine (JVM)</strong> is the "local translator".
-                            When you download Java, you are mostly downloading the JVM.
+                            It is a marvelous piece of engineering that does three main things:
                         </p>
+                        <ul className="list-decimal pl-5 space-y-2 text-sm text-slate-300 mb-6">
+                            <li><strong>Loads Code:</strong> The <em>Classloader</em> brings your .class files into memory.</li>
+                            <li><strong>Verifies Code:</strong> The <em>Bytecode Verifier</em> ensures the code won't crash the computer (Security).</li>
+                            <li><strong>Executes Code:</strong> The <em>Interpreter</em> runs specific instructions for your CPU.</li>
+                        </ul>
 
                         <div className="bg-blue-900/10 border border-blue-500/20 p-4 rounded-lg mb-4">
                             <h4 className="font-bold text-blue-300 mb-2 text-sm uppercase tracking-wider">Deep Dive: JDK vs JRE vs JVM</h4>
@@ -79,36 +118,45 @@ export const ModuleOneIntro: React.FC = () => {
                                 <p><strong className="text-white">JVM (Java Virtual Machine):</strong> The engine. Loads code, verifies it, and executes it.</p>
                             </div>
                         </div>
+                    </section>
+                )}
 
+                {step >= 4 && (
+                    <section className="bg-slate-900/50 p-6 rounded-xl border border-white/5">
+                        <h3 className="text-lg font-semibold mb-4 text-amber-300">4. Just-In-Time (JIT) Compilation</h3>
+                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                            Java used to be slow because it was "interpreted" (translated line-by-line).
+                            Modern Java uses a <strong>JIT Compiler</strong> (HotSpot).
+                        </p>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="p-4 bg-slate-900 rounded-lg border border-white/5">
-                                <h4 className="font-semibold text-slate-200 mb-1">Compiler & Bytecode</h4>
-                                <p className="text-xs text-slate-500 mb-2">`javac Main.java` -&gt; `Main.class`</p>
-                                <p className="text-xs text-slate-400">Bytecode is a "magic" set of instructions (opcodes) that no physical CPU understands, only the JVM.</p>
+                            <div className="p-4 bg-slate-950 rounded-lg border border-white/5">
+                                <h4 className="font-semibold text-slate-200 mb-2">Interpretation (Slow)</h4>
+                                <p className="text-xs text-slate-500">Read opcode &rarr; Execute &rarr; Next.</p>
+                                <p className="text-xs text-slate-500 mt-2">Good for code that runs only once.</p>
                             </div>
-                            <div className="p-4 bg-slate-900 rounded-lg border border-white/5">
-                                <h4 className="font-semibold text-slate-200 mb-1">JIT Compiler (HotSpot)</h4>
-                                <p className="text-xs text-slate-500 mb-2">Just-In-Time Optimization</p>
-                                <p className="text-xs text-slate-400">The JVM watches your code run. If a method runs 10,000 times, the JIT compiles it to raw Assembly for maximum speed.</p>
+                            <div className="p-4 bg-amber-900/10 rounded-lg border border-amber-500/20">
+                                <h4 className="font-semibold text-amber-200 mb-2">JIT Compilation (Fast)</h4>
+                                <p className="text-xs text-amber-200/70">JVM notices a "Hot Method" running 10,000 times.</p>
+                                <p className="text-xs text-amber-200/70 mt-2">It compiles it to **Native Machine Code**. Now it runs as fast as C++!</p>
                             </div>
                         </div>
                     </section>
                 )}
 
-                {step >= 3 && (
+                {step >= 5 && (
                     <section className="border-l-2 border-emerald-500 pl-4">
-                        <h2 className="text-lg font-semibold mb-2 text-white">Real World Impact</h2>
+                        <h2 className="text-lg font-semibold mb-2 text-white">5. Real World Impact</h2>
                         <p className="text-slate-300 text-sm italic">
                             "This architecture is why Minecraft runs on Windows, Mac, and Linux without the developers needing to rewrite the game 3 times."
                         </p>
                     </section>
                 )}
 
-                {step >= 4 && (
+                {step >= 6 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: The `main` Method
+                                🔧 6. Under the Hood: The `main` Method
                             </h2>
                             <code className="block bg-black/50 p-4 rounded-lg font-mono text-sm text-slate-300 mb-4">
                                 <span className="text-orange-400">public</span> <span className="text-blue-400">static</span> <span className="text-purple-400">void</span> <span className="text-yellow-300">main</span>(String[] args)
