@@ -15,7 +15,7 @@ export const ModuleSixExceptions: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 3;
+    const totalSteps = 4;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -99,6 +99,58 @@ export const ModuleSixExceptions: React.FC = () => {
                             impact="Startups crash. Enterprises degrade gracefully. The difference is Exception Handling."
                             role="Logs are your best friend. A good stack trace tells you exactly where the fire started."
                         />
+                    </section>
+                )}
+
+                {step === 4 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: The Cost of Exceptions
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                Exceptions are expensive! When you say <code>throw new Exception()</code>, Java has to pause and crawl up the entire stack to build the <strong>Stack Trace</strong>.
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>Optimization Tip:</strong><br />
+                                Avoid using Exceptions for logic control (e.g., <code>try - catch</code> loops). It's 100x slower than an <code>if</code> check.<br />
+                            </div>
+                            <div className="text-xs text-slate-400">
+                                <strong>Bytecode Secret:</strong> Compiler generates an "Exception Table" at the end of the method. If an error happens at line X, it jumps to the handler defined in the table. Zero cost if no exception happens!
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Swallowing Exceptions:</strong>
+                                        <code className="block bg-black/30 p-1 rounded mt-1 text-xs">catch (Exception e) {'{}'} // EVIL!</code>
+                                        Function fails silently. You'll spend days debugging this. Always log it!
+                                    </li>
+                                    <li>
+                                        <strong>Catching Throwable:</strong> Don't catch <code>Throwable</code>. You might catch <code>OutOfMemoryError</code> which you can't recover from anyway.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"Checked vs Unchecked Exceptions?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Checked (Compile-time, e.g., IOException) must be handled. Unchecked (Runtime, e.g., NullPointer) are bugs.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Difference between Final, Finally, and Finalize?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Final = Constant. Finally = Always runs. Finalize = Garbage Collection (Deprecated).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
             </div>

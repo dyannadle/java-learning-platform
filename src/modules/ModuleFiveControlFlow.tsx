@@ -15,7 +15,7 @@ export const ModuleFiveControlFlow: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 3;
+    const totalSteps = 4; // If, Loop, Summary, Deep Dive
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -100,6 +100,56 @@ export const ModuleFiveControlFlow: React.FC = () => {
                             impact="Bad loops cause 'Freezes'. Efficient logic makes apps feel snappy."
                             role="A Junior Dev must know how to avoid O(n^2) nested loops that kill performance."
                         />
+                    </section>
+                )}
+
+                {step === 4 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: Branch Prediction
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                CPUs try to guess which way an <code>if</code> statement will go BEFORE calculating it, to stay fast.
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>The Sorted Logic Fact:</strong><br />
+                                Processing a SORTED array is faster than an UNSORTED array with an <code>if</code> condition.<br />
+                                <em>Why?</em> The CPU can predict "True, True, True..." easily. Random data makes it stumble (Branch Misprediction).
+                            </div>
+                            <div className="text-xs text-slate-400">
+                                <strong>Bytecode Secret:</strong> A <code>switch</code> statement compiles to either a <code>tableswitch</code> (O(1) Jump Table, fast) or <code>lookupswitch</code> (O(log n) Binary Search, slower) depending on how close your case numbers are.
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Switch Fallthrough:</strong> Forgetting <code>break;</code> executes ALL cases below it. (Fixed in new Java 14 switch).
+                                    </li>
+                                    <li>
+                                        <strong>Floating Point Logic:</strong> <code>if (0.1 + 0.2 == 0.3)</code> is FALSE! It equals 0.300000004. Use <code>BigDecimal</code> for money.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"What is Big O notation?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">It measures how execution time grows with data size. O(1) is instant. O(n) is linear.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Can you use a Switch on a String?" (Yes, since Java 7. internally it uses `hashCode()` and `equals()`).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
             </div>

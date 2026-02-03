@@ -15,7 +15,7 @@ export const ModuleFourCollections: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 4; // List, Set, Map, Summary
+    const totalSteps = 5; // List, Set, Map, Summary, Deep Dive
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -128,6 +128,61 @@ export const ModuleFourCollections: React.FC = () => {
                             <div className="bg-slate-800 p-2 rounded col-span-2">
                                 <div className="font-bold text-white">Map</div>
                                 <div className="text-slate-500">Key-Value Dictionary</div>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step === 5 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-emerald-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: How `HashMap` Works
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                A HashMap is an array of "Buckets". Java uses the `hashCode()` of your Key to find the index.
+                            </p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="bg-black/50 p-3 rounded-lg font-mono text-xs text-slate-300">
+                                    <strong>Collision:</strong> If two keys land in the same bucket, Java chains them in a LinkedList.<br />
+                                    If the chain gets too long (&gt;8), Java 8+ converts it to a <strong>Red-Black Tree</strong> for O(log n) speed!
+                                </div>
+                                <div className="bg-black/50 p-3 rounded-lg font-mono text-xs text-slate-300">
+                                    <strong>Resizing:</strong> When the map is 75% full (Load Factor 0.75), Java doubles the array size and re-hashes EVERY key. This is expensive!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>ConcurrentModificationException:</strong>
+                                        <div className="text-[10px] bg-black/30 p-1 rounded mt-1 font-mono">
+                                            for(String s : list) list.remove(s); // CRASH!
+                                        </div>
+                                        Use <code>Iterator.remove()</code> instead.
+                                    </li>
+                                    <li>
+                                        <strong>Mutable Keys:</strong> Never use a mutable object as a Map Key. If fields change, hashCode changes, and you lose your data forever.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"Difference between Array and ArrayList?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Array is fixed size. ArrayList grows dynamically (50% increase each resize).</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Why is HashMap lookup O(1)?" (Direct index access via Hash). "Worst case?" (O(n) if all hashes collide).</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
