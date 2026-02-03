@@ -59,7 +59,29 @@ export const ProjectDetail: React.FC = () => {
                 </div>
             </header>
 
-            {/* Content Grid */}
+            {/* Deep Dive Section (New) */}
+            {project.deepDiveSynopsis && (
+                <div className="bg-slate-900/80 border border-purple-500/20 rounded-2xl p-8 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-purple-600/20 transition-all"></div>
+
+                    <h2 className="text-2xl font-bold text-slate-100 mb-6 flex items-center gap-3 relative z-10">
+                        <span className="p-2 bg-purple-500/20 rounded-lg text-purple-400">
+                            <Code size={24} />
+                        </span>
+                        Technical Deep Dive
+                    </h2>
+
+                    <div className="prose prose-invert max-w-none prose-p:text-slate-400 prose-headings:text-slate-200 prose-li:text-slate-400">
+                        <div dangerouslySetInnerHTML={{ __html: project.deepDiveSynopsis.replace(/\n/g, '<br/>') }} />
+                    </div>
+                    <div className="mt-4 p-4 bg-purple-900/20 border border-purple-500/30 rounded-lg">
+                        <p className="text-sm text-purple-300 font-mono">
+                            💡 This section covers Architecture, Design Patterns, and Interview Questions.
+                        </p>
+                    </div>
+                </div>
+            )}
+
             <div className="grid md:grid-cols-3 gap-8">
                 {/* Left: Steps */}
                 <div className="md:col-span-2 space-y-8">
@@ -139,6 +161,6 @@ export const ProjectDetail: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };

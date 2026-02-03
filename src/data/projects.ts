@@ -11,8 +11,9 @@ export interface ProjectStep {
 export interface Project {
     id: string;
     title: string;
-    description: string;
-    longDescription: string;
+    description: string; // Brief Synopsis
+    longDescription: string; // Detailed Synopsis
+    deepDiveSynopsis?: string; // New: Technical Deep Dive
     difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
     tech: string[];
     icon: any; // Lucide Icon
@@ -63,7 +64,19 @@ while(running) {
     // switch-case for choices
 }`
             }
-        ]
+        ],
+        deepDiveSynopsis: `
+### 🔧 Architecture & Design
+This project follows a **Monolithic CLI Architecture**.
+- **State Management**: The \`Bank\` class acts as the single source of truth (Singleton-lite), holding the state of all accounts in memory.
+- **Encapsulation**: All account fields are \`private\`. Access is strictly controlled via \`deposit()\` and \`withdraw()\` methods to prevent invalid states (e.g., negative balance).
+
+### ⚠️ Technical Challenges
+1.  **Input Validation**: Handling non-numeric input when the Scanner expects an \`int\` (throws \`InputMismatchException\`).
+2.  **Object References**: Understanding that \`Account a = accounts.get(0)\` returns a **reference**, not a copy. Modifying \`a\` modifies the object in the list.
+
+### 💼 Interview Relevance
+- "Explain how you would handle floating-point errors in a banking app?" (Answer: Don't use \`double\` for money! Use \`BigDecimal\`. This project uses double for simplicity, which is a great talking point about its limitations.)`
     },
     {
         id: 'calculator',
@@ -97,7 +110,20 @@ btn1.setOnAction(e -> inputField.appendText("1"));`
 double result = evaluate(expression);
 display.setText(String.valueOf(result));`
             }
-        ]
+        ],
+        deepDiveSynopsis: `
+### 🔧 Architecture & Design
+This project introduces **Event-Driven Programming**.
+- **The Event Loop**: Unlike the CLI, which pauses for input, a GUI runs on the "Event Dispatch Thread" (EDT).
+- **Callback Pattern**: \`btn.setOnAction(e -> ...)\` is a Lambda Expression acting as a callback function.
+
+### ⚠️ Technical Challenges
+1.  **Blocking the UI**: If you calculate a massive factorial on the UI thread, the window freezes. (Fix: Use background threads).
+2.  **Order of Operations**: Parsing "2 + 3 * 4" requires implementing BODMAS/PEMDAS logic, often using a Stack data structure or Expression Tree.
+
+### 💼 Interview Relevance
+- "What is the difference between AWT, Swing, and JavaFX?"
+- "Why must UI updates happen on the main thread?"`
     },
     {
         id: 'library-man',
@@ -126,7 +152,20 @@ display.setText(String.valueOf(result));`
     }
 }`
             }
-        ]
+        ],
+        deepDiveSynopsis: `
+### 🔧 Architecture & Design
+This project focuses on **Data Persistence** and **Serialization**.
+- **Java Serialization**: The \`Serializable\` marker interface allows the JVM to convert an Object Graph into a Byte Stream.
+- **File Systems**: Understanding relative vs. absolute paths when saving "library.dat".
+
+### ⚠️ Technical Challenges
+1.  **Version Compatibility**: If you change the \`Book\` class (add a field) after saving data, reading operation will fail with \`InvalidClassException\`. (Fix: Use \`serialVersionUID\`).
+2.  **Concurrent Access**: What if two instances of the app try to write to the file at the same time? File locking is needed.
+
+### 💼 Interview Relevance
+- "How does \`transient\` keyword work?" (It prevents sensitive fields from being serialized).
+- "JSON vs Binary Serialization?" (Binary is smaller/faster, JSON is readable/interoperable).`
     },
     {
         id: 'employee-api',
@@ -168,7 +207,20 @@ class EmployeeController {
     }
 }`
             }
-        ]
+        ],
+        deepDiveSynopsis: `
+### 🔧 Architecture & Design
+This is a standard **Three-Tier Architecture** (Controller -> Service -> Repository).
+- **Inversion of Control (IoC)**: Spring manages the lifecycle of objects using the Dependency Injection pattern.
+- **DTO Pattern**: Using Data Transfer Objects to decouple the internal Entity from the external API response.
+
+### ⚠️ Technical Challenges
+1.  **N+1 Select Problem**: Fetching a list of Employees and then fetching their Department in a loop leads to performance death.
+2.  **Transaction Management**: Ensuring that if saving an Employee fails, any side effects (like audit logs) are rolled back (\`@Transactional\`).
+
+### 💼 Interview Relevance
+- "Explain the Bean Lifecycle in Spring."
+- "What is the difference between \`@Controller\` and \`@RestController\`?"`
     },
     {
         id: 'ecommerce',
@@ -205,7 +257,21 @@ public interface ProductClient {
     Product getLocation(@PathVariable("id") String id);
 }`
             }
-        ]
+        ],
+        deepDiveSynopsis: `
+### 🔧 Architecture & Design
+This project implements **Distributed Systems** patterns.
+- **Service Discovery (Eureka)**: Services registers themselves so they don't need hardcoded IPs.
+- **API Gateway**: A single entry point that routes requests to appropriate microservices.
+- **Circuit Breaker**: Preventing cascading failures when one service is down.
+
+### ⚠️ Technical Challenges
+1.  **Distributed Transactions**: You can't use simple SQL transactions across different databases. You need patterns like **SAGA** or **Two-Phase Commit**.
+2.  **Latency**: Every network call adds delay. Aggregating data from 3 services is slower than 1 monolith query.
+
+### 💼 Interview Relevance
+- "CAP Theorem?" (Consistency, Availability, Partition Tolerance - pick two).
+- "How do you trace a request across microservices?" (Distributed Tracing with Zipkin/Sleuth IDs).`
     },
     {
         id: 'chat-app',
@@ -244,6 +310,19 @@ stompClient.connect({}, function (frame) {
     stompClient.subscribe('/topic/greetings', function (greeting) { ... });
 });`
             }
-        ]
+        ],
+        deepDiveSynopsis: `
+### 🔧 Architecture & Design
+This project uses **Full-Duplex Communication** via WebSockets.
+- **STOMP Protocol**: Defines a format for messages (like HTTP headers but for sockets).
+- **Pub/Sub Model**: The server doesn't send to "User A". It publishes to "/topic/chat", and anyone subscribed gets it.
+
+### ⚠️ Technical Challenges
+1.  **Connection Limits**: A server can only hold ~65k open TCP connections. For millions of users, you need specialized infrastructure (Redis/Kafka) to relay messages between server instances.
+2.  **Heartbeats**: Detecting when a user silently disconnects (e.g., WiFi drops) using Ping/Pong frames.
+
+### 💼 Interview Relevance
+- "WebSockets vs Long Polling vs Server-Sent Events (SSE)?"
+- "How do you scale a WebSocket server?" (Sticky Sessions or a Message Broker).`
     }
 ];
