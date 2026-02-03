@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Play, RotateCcw, Terminal, AlertCircle, Copy, Book, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
-
+import { executeCode } from '../lib/piston';
 
 const SNIPPETS = [
     {
@@ -31,12 +31,19 @@ const SNIPPETS = [
   public static void main(String[] args) {
     System.out.println("Counting...");
     
-    // Simulate a loop
-    System.out.println("1");
-    System.out.println("2");
-    System.out.println("3");
+    for (int i = 1; i <= 3; i++) {
+        System.out.println(i);
+    }
     
     System.out.println("Blast off!");
+  }
+}`
+    },
+    {
+        name: "Compilation Error",
+        code: `public class Main {
+  public static void main(String[] args) {
+    System.out.println("Missing semicolon!")
   }
 }`
     }
@@ -51,85 +58,31 @@ export const CodePlayground: React.FC = () => {
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const runCode = () => {
+    const runCode = async () => {
         setIsRunning(true);
         setOutput([]);
         setError(null);
 
-        // Simulate "Compilation" delay
-        setTimeout(() => {
-            try {
-                const logs: string[] = [];
+        try {
+            const result = await executeCode('java', '15.0.2', code);
 
-                // Very basic "Mock" Java Parser
-                // It mainly looks for System.out.println
-                const lines = code.split('\n');
-
-                // Check for class definition
-                if (!code.includes('public class Main')) {
-                    throw new Error("Error: Could not find or load main class Main");
-                }
-
-                if (!code.includes('public static void main')) {
-                    throw new Error("Error: Main method not found in class Main");
-                }
-
-                // Variable store for VERY basic partial evaluation
-                const variables: Record<string, string | number> = {};
-
-                lines.forEach(line => {
-                    const trimmed = line.trim();
-
-                    // Capture int variables: int x = 10;
-                    const intMatch = trimmed.match(/int\s+(\w+)\s*=\s*(\d+);/);
-                    if (intMatch) {
-                        variables[intMatch[1]] = parseInt(intMatch[2]);
-                    }
-
-                    // Capture String variables: String s = "text";
-                    const strMatch = trimmed.match(/String\s+(\w+)\s*=\s*"(.*)";/);
-                    if (strMatch) {
-                        variables[strMatch[1]] = strMatch[2];
-                    }
-
-                    // Capture System.out.println("text");
-                    const printMatch = trimmed.match(/System\.out\.println\((.*)\);/);
-                    if (printMatch) {
-                        let content = printMatch[1];
-
-                        // Handle simple concatenation: "Age: " + age
-                        // LIMITATION: This is a hacky regex parser, not a real language runtime.
-                        const parts = content.split('+').map(p => p.trim());
-                        const evaluatedParts = parts.map(p => {
-                            if (p.startsWith('"') && p.endsWith('"')) {
-                                return p.slice(1, -1);
-                            }
-                            // Check if variable exists
-                            if (variables[p] !== undefined) {
-                                return variables[p];
-                            }
-                            return p; // Return literal if unknown
-                        });
-
-                        logs.push(evaluatedParts.join(''));
-                    }
-                });
-
-                if (logs.length === 0) {
-                    logs.push("Program finished with no output.");
-                }
-
-                setOutput(logs);
-            } catch (err) {
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError("Unknown error occurred");
-                }
-            } finally {
-                setIsRunning(false);
+            if (result.run.code !== 0) {
+                // Runtime or Compilation Error
+                setError("Execution failed");
+                setOutput(result.run.stderr.split('\n'));
+            } else {
+                // Success
+                setOutput(result.run.stdout.split('\n'));
             }
-        }, 800);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Failed to execute code. Please check your internet connection.");
+            }
+        } finally {
+            setIsRunning(false);
+        }
     };
 
     // Generate line numbers
