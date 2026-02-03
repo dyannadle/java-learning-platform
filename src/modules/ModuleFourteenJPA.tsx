@@ -51,7 +51,7 @@ export const ModuleFourteenJPA: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 4; // Intro + Entities + Deep Dive + Quiz
+    const totalSteps = 5; // Intro + Entities + PersistContext + Relations + Deep Dive
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -79,7 +79,7 @@ export const ModuleFourteenJPA: React.FC = () => {
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 {step === 1 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-orange-400">SQL is Hard? Use JPA.</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-orange-400">1. SQL is Hard? Use JPA.</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             Writing raw SQL queries (<code>SELECT * FROM users...</code>) is error-prone and tedious.
                         </p>
@@ -91,7 +91,7 @@ export const ModuleFourteenJPA: React.FC = () => {
 
                 {step === 2 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-blue-400">Entities & Repositories</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-blue-400">2. Entities & Repositories</h2>
                         <div className="space-y-4">
                             <div className="p-4 bg-slate-800 rounded-lg">
                                 <h3 className="font-bold text-white mb-2">1. The Entity</h3>
@@ -124,10 +124,58 @@ export const ModuleFourteenJPA: React.FC = () => {
                 )}
 
                 {step === 3 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-purple-400">3. The Persistence Context</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            JPA doesn't just send SQL immediately. It has a "Staging Area" called the <strong>Persistence Context</strong> (First Level Cache).
+                        </p>
+                        <div className="grid grid-cols-2 gap-4 text-xs font-mono">
+                            <div className="bg-slate-800 p-3 rounded">
+                                <strong className="text-yellow-300 block mb-2">Caching</strong>
+                                <code>
+                                    User u1 = repo.findById(1);<br />
+                                    User u2 = repo.findById(1);<br />
+                                    // SQL runs ONLY once!<br />
+                                    // u2 comes from cache.
+                                </code>
+                            </div>
+                            <div className="bg-slate-800 p-3 rounded">
+                                <strong className="text-red-300 block mb-2">Dirty Checking</strong>
+                                <code>
+                                    User u = repo.findById(1);<br />
+                                    u.setName("New Name");<br />
+                                    // No repo.save() needed!<br />
+                                    // JPA detects change & saves.
+                                </code>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step === 4 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-green-400">4. Relationships</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            Tables are related (User has many Orders). JPA handles this with annotations.
+                        </p>
+                        <div className="space-y-4">
+                            <div className="p-3 bg-slate-800 rounded border-l-4 border-green-500">
+                                <h4 className="font-bold text-green-300 text-sm">@OneToMany</h4>
+                                <p className="text-xs text-slate-400 mb-2">A User "Has Many" Orders. Default is <strong>Lazy</strong> (Orders are NOT fetched until you ask).</p>
+                            </div>
+                            <div className="p-3 bg-slate-800 rounded border-l-4 border-red-500">
+                                <h4 className="font-bold text-red-300 text-sm">@ManyToOne</h4>
+                                <p className="text-xs text-slate-400 mb-2">An Order "Belongs To" a User. Default is <strong>Eager</strong> (User data is fetched immediately with the Order).</p>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step === 5 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: The N+1 Problem
+                                🔧 5. Under the Hood: The N+1 Problem
                             </h2>
                             <p className="text-sm text-slate-300 mb-4">
                                 The most common performance killer in JPA!

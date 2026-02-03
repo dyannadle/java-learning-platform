@@ -52,7 +52,7 @@ export const ModuleTwelveSpringCore: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 4; // IoC + Scopes + Deep Dive + Quiz
+    const totalSteps = 5; // IoC + Lifecycle + Scopes + DI Types + Deep Dive
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -67,7 +67,8 @@ export const ModuleTwelveSpringCore: React.FC = () => {
     const getVisualization = () => {
         switch (step) {
             case 1: return <SpringIoCVis />;
-            case 2: return <BeanScopeVis />;
+            case 2: return <SpringIoCVis />; // Reuse IoC Vis for lifecycle
+            case 3: return <BeanScopeVis />;
             default: return <SpringIoCVis />;
         }
     };
@@ -88,7 +89,7 @@ export const ModuleTwelveSpringCore: React.FC = () => {
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 {step === 1 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-green-400">Inversion of Control (IoC)</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-green-400">1. Inversion of Control (IoC)</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             In traditional programming, your code controls everything. You create objects with <code>new</code>.
                         </p>
@@ -107,7 +108,30 @@ export const ModuleTwelveSpringCore: React.FC = () => {
 
                 {step === 2 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-yellow-400">Bean Scopes</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-purple-400">2. The Container Lifecycle</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            How does Spring actually work? It happens in 3 phases at startup:
+                        </p>
+                        <ol className="list-decimal pl-5 space-y-4 text-slate-300">
+                            <li>
+                                <strong className="text-purple-300">Component Scanning:</strong>
+                                <p className="text-xs text-slate-400 mt-1">Spring walks through your packages looking for classes marked with <code>@Component</code>, <code>@Service</code>, etc.</p>
+                            </li>
+                            <li>
+                                <strong className="text-blue-300">Instantiation:</strong>
+                                <p className="text-xs text-slate-400 mt-1">It creates an instance (Object) for every class found. It uses the default constructor or the one marked with <code>@Autowired</code>.</p>
+                            </li>
+                            <li>
+                                <strong className="text-green-300">Dependency Injection:</strong>
+                                <p className="text-xs text-slate-400 mt-1">It connects the objects. If A needs B, Spring finds B and plugs it into A.</p>
+                            </li>
+                        </ol>
+                    </section>
+                )}
+
+                {step === 3 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-yellow-400">3. Bean Scopes</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             When Spring creates a bean, how long does it live?
                         </p>
@@ -127,11 +151,36 @@ export const ModuleTwelveSpringCore: React.FC = () => {
                     </section>
                 )}
 
-                {step === 3 && (
+                {step === 4 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-indigo-400">4. Injection Types</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            There are 3 ways to ask Spring for a dependency.
+                        </p>
+                        <div className="space-y-4">
+                            <div className="p-3 bg-slate-800 rounded border-l-4 border-green-500">
+                                <h4 className="font-bold text-green-300 text-sm">Constructor Injection (Recommended)</h4>
+                                <p className="text-xs text-slate-400 mb-2">Dependencies are required to create the object. The object is logically complete.</p>
+                                <code className="block bg-black/30 p-2 text-[10px] font-mono">
+                                    UserService(UserRepository repo) {'{'} this.repo = repo; {'}'}
+                                </code>
+                            </div>
+                            <div className="p-3 bg-slate-800 rounded border-l-4 border-red-500">
+                                <h4 className="font-bold text-red-300 text-sm">Field Injection (Avoid)</h4>
+                                <p className="text-xs text-slate-400 mb-2">Directly modifying private fields using reflection. Hard to test.</p>
+                                <code className="block bg-black/30 p-2 text-[10px] font-mono">
+                                    @Autowired UserRepository repo;
+                                </code>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step === 5 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: Spring Proxies
+                                🔧 5. Under the Hood: Spring Proxies
                             </h2>
                             <p className="text-sm text-slate-300 mb-4">
                                 How does Spring make <code>@Transactional</code> annotations work? It wraps your actual class in a <strong>Proxy</strong>!

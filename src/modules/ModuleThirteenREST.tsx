@@ -51,7 +51,7 @@ export const ModuleThirteenREST: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 4; // Intro + Layout + Deep Dive + Quiz
+    const totalSteps = 5; // Intro + HTTP + Layers + Stateless + Deep Dive
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -79,7 +79,7 @@ export const ModuleThirteenREST: React.FC = () => {
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 {step === 1 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-blue-400">What is a REST API?</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-blue-400">1. What is a REST API?</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             Most modern apps are split into a **Frontend** (React, Mobile) and a **Backend** (Java, Python).
                         </p>
@@ -96,7 +96,31 @@ export const ModuleThirteenREST: React.FC = () => {
 
                 {step === 2 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-purple-400">The Power of Layers</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-orange-400">2. The HTTP Protocol</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            Every request has 3 parts:
+                        </p>
+                        <div className="space-y-4 font-mono text-xs">
+                            <div className="bg-slate-900 p-3 rounded border border-white/5">
+                                <strong className="text-blue-300 block mb-1">1. The Line:</strong>
+                                <span className="text-green-400">POST</span> /api/users HTTP/1.1
+                            </div>
+                            <div className="bg-slate-900 p-3 rounded border border-white/5">
+                                <strong className="text-purple-300 block mb-1">2. Headers (Metadata):</strong>
+                                Authorization: Bearer xyz<br />
+                                Content-Type: application/json
+                            </div>
+                            <div className="bg-slate-900 p-3 rounded border border-white/5">
+                                <strong className="text-amber-300 block mb-1">3. The Body (Payload):</strong>
+                                {'{ "name": "Deepak", "role": "ADMIN" }'}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step === 3 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-purple-400">3. The Power of Layers</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             Spring applications are organized into **Layers** to keep code clean and testable.
                         </p>
@@ -122,11 +146,30 @@ export const ModuleThirteenREST: React.FC = () => {
                     </section>
                 )}
 
-                {step === 3 && (
+                {step === 4 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-cyan-400">4. Statelessness</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            REST APIs are **Stateless**. This means the server does NOT remember you between requests.
+                        </p>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="p-4 bg-red-900/10 border border-red-500/20 rounded-lg">
+                                <h4 className="text-red-300 font-bold mb-2">Stateful (Old Way)</h4>
+                                <p className="text-xs text-slate-400">Server keeps a 'Session' in memory for User A. If User A hits Server 2, they are logged out!</p>
+                            </div>
+                            <div className="p-4 bg-green-900/10 border border-green-500/20 rounded-lg">
+                                <h4 className="text-green-300 font-bold mb-2">Stateless (REST)</h4>
+                                <p className="text-xs text-slate-400">User sends a Token (JWT) with EVERY request. Any server can handle any request.</p>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {step === 5 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: Jackson & JSON
+                                🔧 5. Under the Hood: Jackson & JSON
                             </h2>
                             <p className="text-sm text-slate-300 mb-4">
                                 How does a Java Object <code>User</code> become <code>{'{ "name": "Deepak" }'}</code>?
