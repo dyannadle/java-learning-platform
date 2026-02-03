@@ -3,6 +3,8 @@ import { LessonLayout } from '../components/layout/LessonLayout';
 import { SingletonVis } from '../visualizations/patterns/SingletonVis';
 import { FactoryVis } from '../visualizations/patterns/FactoryVis';
 import { ObserverVis } from '../visualizations/patterns/ObserverVis';
+import { StrategyVis } from '../visualizations/patterns/StrategyVis';
+import { BuilderVis } from '../visualizations/patterns/BuilderVis';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
 import { useNavigate } from 'react-router-dom';
 import { useProgress } from '../hooks/useProgress';
@@ -44,6 +46,30 @@ const QUIZ_QUESTIONS: Question[] = [
         ],
         correctIndex: 1,
         explanation: "The Observer pattern is all about 'Publish-Subscribe'. One Subject (Channel) broadcasts an event to many Observers (Subscribers)."
+    },
+    {
+        id: 4,
+        text: "The Strategy Pattern allows you to:",
+        options: [
+            "Build complex objects step-by-step",
+            "Swap algorithms or behaviors at runtime",
+            "Ensure thread safety",
+            "Create a single instance"
+        ],
+        correctIndex: 1,
+        explanation: "Strategy lets you define a family of algorithms (e.g., Payment Methods: CreditCard, PayPal) and make them interchangeable."
+    },
+    {
+        id: 5,
+        text: "When would you use the Builder Pattern?",
+        options: [
+            "When you need to notify users of updates",
+            "When you have a simple object with 1 field",
+            "When constructing a complex object with many optional parameters",
+            "When you need a global variable"
+        ],
+        correctIndex: 2,
+        explanation: "Builder is perfect for complex objects (like a Pizza or House) where you want to construct it step-by-step (addCheese(), addPepperoni())."
     }
 ];
 
@@ -53,7 +79,7 @@ export const ModuleElevenPatterns: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 4; // 3 Patterns + Quiz
+    const totalSteps = 6; // 5 Patterns + Quiz
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -71,6 +97,8 @@ export const ModuleElevenPatterns: React.FC = () => {
             case 1: return <SingletonVis />;
             case 2: return <FactoryVis />;
             case 3: return <ObserverVis />;
+            case 4: return <StrategyVis />;
+            case 5: return <BuilderVis />;
             default: return <SingletonVis />;
         }
     };
@@ -149,6 +177,45 @@ export const ModuleElevenPatterns: React.FC = () => {
                             &nbsp;&nbsp;&nbsp;&nbsp; for(Observer sub : subs) sub.update(video);<br />
                             &nbsp;&nbsp; {'}'}<br />
                             {'}'}
+                        </div>
+                    </section>
+                )}
+
+                {step === 4 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-blue-300">The Strategy Pattern</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            The <strong>Strategy Pattern</strong> allows you to define a family of algorithms, put each in its own class, and make their objects interchangeable.
+                        </p>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            Think of a **Payment System**. You can pay with `CreditCard`, `PayPal`, or `Bitcoin`. All of them share the common method `pay(amount)`.
+                        </p>
+                        <div className="mt-4 text-xs font-mono bg-slate-800 p-3 rounded text-blue-200">
+                            interface PaymentStrategy {'{'} void pay(int amount); {'}'}<br /><br />
+                            class ShoppingCart {'{'}<br />
+                            &nbsp;&nbsp; void checkout(PaymentStrategy method) {'{'}<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp; method.pay(totalAmount);<br />
+                            &nbsp;&nbsp; {'}'}<br />
+                            {'}'}
+                        </div>
+                    </section>
+                )}
+
+                {step === 5 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-yellow-300">The Builder Pattern</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            Constructing complex objects step-by-step. The <strong>Builder Pattern</strong> separates the construction of a complex object from its representation.
+                        </p>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            Useful when an object has many parameters (e.g., a Pizza with 10 possible toppings). Instead of a constructor with 10 arguments, you chain methods.
+                        </p>
+                        <div className="mt-4 text-xs font-mono bg-slate-800 p-3 rounded text-yellow-200">
+                            Pizza p = new Pizza.Builder()<br />
+                            &nbsp;&nbsp; .setSize("Large")<br />
+                            &nbsp;&nbsp; .addCheese()<br />
+                            &nbsp;&nbsp; .addPepperoni()<br />
+                            &nbsp;&nbsp; .build();
                         </div>
                     </section>
                 )}

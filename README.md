@@ -8,7 +8,7 @@ A comprehensive, interactive platform for mastering Java, built with React, Type
 
 ### Phase 1: Foundation
 -   **Interactive Learning Path**: Modules 1-8 covering Java basics to Concurrency.
--   **Code Playground**: Real-time Java code editor (simulated).
+-   **Code Playground**: Real-time Java code editor with secure execution.
 -   **Visualizations**: Animated diagrams for Memory, OOP, and Data Structures.
 
 ### Phase 2: Engagement
@@ -17,10 +17,22 @@ A comprehensive, interactive platform for mastering Java, built with React, Type
 -   **Project Blueprints**: Detailed guides for building real-world apps (Console Bank, Chat App, etc.).
 -   **Glossary**: Searchable dictionary of Java terms with deep dives.
 
-### Phase 3: Cloud & Auth (New!)
+### Phase 3: Cloud & Auth
 -   **User Accounts**: Sign Up/Login powered by Supabase.
 -   **Cross-Device Sync**: Progress is saved to the cloud and synced across devices.
 -   **Hybrid Storage**: Start as a guest, merge progress when you sign up.
+
+### Phase 4: Advanced Features (Completed)
+-   **Real-Time Code Execution**: Run actual Java code securely via Piston API (supports stdout/stderr).
+-   **Gamification**: Earn XP, level up, and maintain streaks.
+-   **Design Patterns Module**: Interactive visualizations for Singleton, Factory, Observer, Strategy, and Builder patterns.
+
+## 🔮 Future Roadmap
+See [FUTURE_FEATURES.md](./FUTURE_FEATURES.md) for the long-term vision, including:
+-   Spring Boot & Enterprise Java
+-   AI Tutor Integration
+-   Mobile Optimization
+-   Advanced Concurrency
 
 ## 🛠️ Tech Stack
 -   **Frontend**: React 18, TypeScript, Vite

@@ -262,7 +262,7 @@ Portfolio-ready projects for interviews.
 
 ---
 
-### 🧑‍💻 Pair Programming with AI
+### 🧑💻 Pair Programming with AI
 
 **Modes**
 - AI Driver
@@ -477,4 +477,3 @@ teaching not just syntax, but **thinking, building, and shipping real software**
     - Add admin analytics dashboards
     - Implement plugin architecture for future expansion
     - Include Easter eggs and visual sandbox exploration
-
