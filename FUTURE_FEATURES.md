@@ -390,4 +390,91 @@ Rarely taught, highly valued knowledge.
 ## Vision Statement
 
 The platform evolves into an **AI-powered Java career accelerator** —  
-teaching not just syntax, but **thinking, building, and shipping real software**.
+teaching not just syntax, but **thinking, building, and shipping real software**.                                                                                                                                                                                                                                       # Future Features & AI-Powered Enhancements Roadmap
+
+1. **Core Technology Upgrades**
+   - Enable real execution of Java code using secure sandboxing (Docker / Judge0 / Piston)
+   - Support compilation errors, runtime exceptions, and real console output
+   - Introduce cloud-based user accounts with persistent profiles
+   - Sync progress, playground code, and achievements across devices
+   - Establish the foundation for leaderboards, certifications, and community features
+
+2. **Content Expansion: Enterprise Java (Spring Boot)**
+   - Introduce Spring Core concepts with visualized Dependency Injection
+   - Explain bean lifecycle, scopes, and wiring through animations
+   - Build interactive REST API labs (GET, POST, PUT, DELETE)
+   - Visualize HTTP request/response lifecycle
+   - Teach JPA/Hibernate with entity-to-table mapping
+   - Display generated SQL and common ORM performance issues
+
+3. **Design Patterns & Architectural Thinking**
+   - Visualize commonly asked interview design patterns
+   - Include Singleton, Factory, Observer, Strategy, and Builder patterns
+   - Demonstrate real-world use cases and misuse scenarios
+   - Simulate multithreading and lifecycle implications
+   - Emphasize architectural decision-making, not memorization
+
+4. **AI Tutor Integration (Java Bot)**
+   - Provide context-aware help based on learner activity
+   - Trigger AI assistance after repeated quiz failures
+   - Explain highlighted code snippets in simple language
+   - Suggest relevant lessons based on mistakes
+   - Use guided reasoning to avoid spoon-feeding answers
+
+5. **Gamification & Engagement Systems**
+   - Implement daily coding streaks
+   - Introduce XP-based leveling and progression
+   - Reward quizzes, lessons, and debugging challenges
+   - Add weekly and monthly leaderboards
+   - Unlock badges and achievements for milestones
+
+6. **Deep Learning Intelligence & Personalization**
+   - Build a skill graph for each learner
+   - Detect weak topics automatically
+   - Dynamically reorder lessons based on performance
+   - Recommend targeted revision content
+   - Adapt difficulty level in real time
+
+7. **AI Debugging Coach**
+   - Introduce a multi-level hint system (concept → partial → full)
+   - Guide learners through compiler and runtime errors
+   - Explain Stream, Collection, and Concurrency issues
+   - Encourage logical debugging instead of solution dumping
+   - Teach systematic problem-solving techniques
+
+8. **Real-World Developer Workflows**
+   - Introduce project-based learning paths
+   - Provide mini-projects and capstone projects
+   - Auto-create GitHub repositories for projects
+   - Guide commit messages and Git usage best practices
+   - Generate editable README files using AI
+
+9. **Advanced Java & JVM Internals**
+   - Visualize stack vs heap memory
+   - Demonstrate garbage collection strategies
+   - Simulate memory leaks and performance bottlenecks
+   - Teach JVM tuning fundamentals
+   - Explain how Java code executes at runtime
+
+10. **Advanced Concurrency & Multithreading**
+    - Teach CompletableFuture and async pipelines
+    - Visualize ForkJoinPool execution
+    - Introduce Virtual Threads (Project Loom)
+    - Detect and resolve deadlocks
+    - Show thread scheduling and lock contention visually
+
+11. **Assessment, Hiring Alignment & Certifications**
+    - Introduce interview-mode coding challenges
+    - Enforce time limits and no-hint environments
+    - Provide AI-powered post-interview feedback
+    - Issue skill-based certifications
+    - Offer LinkedIn-shareable badges and recruiter summaries
+
+12. **Community, Platform Maturity & Scalability**
+    - Launch public solution sharing and peer reviews
+    - Enable upvotes and community feedback
+    - Introduce mentor mode for advanced learners
+    - Add admin analytics dashboards
+    - Implement plugin architecture for future expansion
+    - Include Easter eggs and visual sandbox exploration
+
