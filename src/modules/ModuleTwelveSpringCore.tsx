@@ -52,7 +52,7 @@ export const ModuleTwelveSpringCore: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 3; // IoC + Scopes + Quiz
+    const totalSteps = 4; // IoC + Scopes + Deep Dive + Quiz
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -124,6 +124,57 @@ export const ModuleTwelveSpringCore: React.FC = () => {
                             impact="Saving memory (Singleton) vs Isolation (Prototype). Choosing the wrong scope can lead to massive bugs."
                             role="Senior Engineers configure scopes to optimize memory usage."
                         />
+                    </section>
+                )}
+
+                {step === 3 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: Spring Proxies
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                How does Spring make <code>@Transactional</code> annotations work? It wraps your actual class in a <strong>Proxy</strong>!
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>The Proxy Pattern in Action:</strong><br />
+                                <div className="mt-2 text-slate-400">
+                                    When you call <code>userService.save()</code>, you are actually calling <code>Proxy.save()</code>.<br />
+                                    1. Proxy starts Transaction.<br />
+                                    2. Proxy calls REAL <code>userService.save()</code>.<br />
+                                    3. Proxy commits/rollbacks Transaction.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Self-Invocation:</strong> Calling <code>this.methodB()</code> from <code>methodA()</code> BYPASSES the proxy! Annotations on methodB (like @Transactional) will be IGNORED.
+                                    </li>
+                                    <li>
+                                        <strong>Circular Dependencies:</strong> Bean A needs Bean B, Bean B needs Bean A. Spring crashes at startup. Fix: Use <code>@Lazy</code> or refactor your design.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"Difference between @Component, @Service, @Repository?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Technically they are the same (Stereotypes). But @Repository adds Exception Translation (SQL -&gt; Spring Exceptions).</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"ApplicationContext vs BeanFactory?" (BeanFactory is lazy/basic. ApplicationContext is eager/advanced with AOP, Events, i18n support).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
             </div>

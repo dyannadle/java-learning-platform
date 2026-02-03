@@ -79,7 +79,7 @@ export const ModuleElevenPatterns: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 6; // 5 Patterns + Quiz
+    const totalSteps = 7; // 5 Patterns + Deep Dive + Quiz
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -216,6 +216,57 @@ export const ModuleElevenPatterns: React.FC = () => {
                             &nbsp;&nbsp; .addCheese()<br />
                             &nbsp;&nbsp; .addPepperoni()<br />
                             &nbsp;&nbsp; .build();
+                        </div>
+                    </section>
+                )}
+
+                {step === 6 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: Thread-Safe Singleton
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                A basic Singleton crashes in multithreaded apps! If two threads enter <code>if (instance == null)</code> at the same time, you get TWO instances.
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>The Fix: Double-Checked Locking</strong><br />
+                                <span className="text-blue-300">volatile</span> static Singleton instance;<br />
+                                if (instance == null) {'{'}<br />
+                                &nbsp;&nbsp; synchronized (Singleton.class) {'{'}<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp; if (instance == null) instance = new Singleton();<br />
+                                &nbsp;&nbsp; {'}'}<br />
+                                {'}'}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>God Object:</strong> Making a Singleton that does EVERYTHING (Database + logging + user auth). It becomes impossible to test or maintain.
+                                    </li>
+                                    <li>
+                                        <strong>Hidden Dependencies:</strong> Singletons hide dependencies. You can't see that <code>UserService</code> needs <code>Database</code> just by looking at the constructor. Use <strong>Dependency Injection</strong> instead!
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"Can a Singleton be cloned?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Yes, unless you override <code>clone()</code> and throw an exception. Also, beware of Serialization breaking Singletons (use `readResolve`).</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Strategy vs State Pattern?" (Structure is similar, but Intent differs. Strategy = User chooses algorithm. State = Object changes behavior internally based on state).</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 )}

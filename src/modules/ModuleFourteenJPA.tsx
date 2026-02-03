@@ -51,7 +51,7 @@ export const ModuleFourteenJPA: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 3;
+    const totalSteps = 4; // Intro + Entities + Deep Dive + Quiz
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -120,6 +120,62 @@ export const ModuleFourteenJPA: React.FC = () => {
                             impact="Productivity. Developers focus on logic, not writing 'INSERT INTO' statements all day."
                             role="Backend Engineers design the Data Model (Entities)."
                         />
+                    </section>
+                )}
+
+                {step === 3 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: The N+1 Problem
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                The most common performance killer in JPA!
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>Scenario:</strong> You fetch 10 Users. Then you loop through them to print their Address.<br />
+                                <div className="mt-2 text-slate-400">
+                                    Query 1: SELECT * FROM Users (Returns 10 rows)<br />
+                                    Query 2: SELECT * FROM Address WHERE user_id = 1<br />
+                                    Query 3: SELECT * FROM Address WHERE user_id = 2<br />
+                                    ...<br />
+                                    Query 11: SELECT * FROM Address WHERE user_id = 10<br />
+                                    <strong>Total: 11 Queries for 10 users!</strong> (Imagine if you had 1000 users...)
+                                </div>
+                                <div className="mt-2 text-green-400">
+                                    <strong>Fix:</strong> Use <code>JOIN FETCH</code> in your query to get everything in ONE shot.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>LazyInitializationException:</strong> Trying to read a "Lazy" collection (like <code>user.getOrders()</code>) AFTER the database session has closed. Fix: Fetch it eagerly or keep the transaction open.
+                                    </li>
+                                    <li>
+                                        <strong>Flush Mode:</strong> Changes to Entities are NOT saved immediately. They are saved when the Transaction commits (or you call <code>flush()</code>).
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"JPA vs Hibernate?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">JPA is the Interface (Standard). Hibernate is the Implementation (Code that does the work). You use JPA annotations (@Entity) so you can switch implementations later.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"First Level vs Second Level Cache?" (L1 is enabled by default per Transaction. L2 is global/shared across sessions and must be configured manually e.g., with Redis).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
             </div>
