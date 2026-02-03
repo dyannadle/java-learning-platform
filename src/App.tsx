@@ -13,6 +13,7 @@ import { ModuleSevenStreams } from './modules/ModuleSevenStreams';
 import { ModuleEightConcurrency } from './modules/ModuleEightConcurrency';
 import { ModuleNineIO } from './modules/ModuleNineIO';
 import { ModuleTenGenerics } from './modules/ModuleTenGenerics';
+import { ModuleElevenPatterns } from './modules/ModuleElevenPatterns';
 import { ProjectsGallery } from './pages/ProjectsGallery';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { CodePlayground } from './pages/CodePlayground';
@@ -41,6 +42,7 @@ function App() {
             <Route path="/learn/module-8" element={<ModuleEightConcurrency />} />
             <Route path="/learn/module-9" element={<ModuleNineIO />} />
             <Route path="/learn/module-10" element={<ModuleTenGenerics />} />
+            <Route path="/learn/module-11" element={<ModuleElevenPatterns />} />
             <Route path="/projects" element={<ProjectsGallery />} />
             <Route path="/projects/:projectId" element={<ProjectDetail />} />
             <Route path="/playground" element={<CodePlayground />} />

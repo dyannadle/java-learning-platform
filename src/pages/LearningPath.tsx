@@ -85,8 +85,15 @@ const modules: ModuleCardProps[] = [
         id: 10,
         title: "Generics",
         description: "Writing type-safe code with <T> and Wildcards.",
-        icon: Filter, // Reusing filter icon or similar
+        icon: Filter,
         link: '/learn/module-10'
+    },
+    {
+        id: 11,
+        title: "Design Patterns",
+        description: "Singleton, Factory, Observer. Architectural solutions to common problems.",
+        icon: Layers,
+        link: '/learn/module-11'
     }
 ];
 
