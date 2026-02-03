@@ -51,8 +51,8 @@ export const ModuleNineIO: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    // 3 Content Steps + 1 Quiz Step
-    const totalSteps = 4;
+    // 3 Content Steps + 1 Quiz Step + 1 Deep Dive
+    const totalSteps = 5;
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -138,6 +138,53 @@ export const ModuleNineIO: React.FC = () => {
                             &nbsp;&nbsp; String name;<br />
                             &nbsp;&nbsp; transient String password; // Won't be saved<br />
                             {'}'}
+                        </div>
+                    </section>
+                )}
+
+                {step === 4 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: NIO (New I/O)
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                Old I/O streams are <strong>Blocking</strong>. If you read a large file, the thread freezes until it's done.
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>NIO Channels & Buffers:</strong><br />
+                                NIO uses <code>Channels</code> (like a railroad) and <code>Buffers</code> (train cars). You can fill a buffer, then go do something else while the OS empties it.<br />
+                                <span className="text-blue-400">Non-Blocking I/O</span> allows one thread to handle thousands of connections (Node.js style, but in Java).
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Memory Leaks:</strong> Forgetting to close a Stream keeps the file locked by the OS. eventually, you hit "Too Many Open Files" error.
+                                    </li>
+                                    <li>
+                                        <strong>Charset Confusion:</strong> Reading a UTF-8 file as ASCII produces garbage characters (<code></code>). Always specify Charset!
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"What is try-with-resources?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Introduced in Java 7. It automatically closes any resource that implements <code>AutoCloseable</code> when the block exits.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"NIO vs IO?" (IO is Stream-based & Blocking. NIO is Buffer-based & Non-Blocking. Use NIO for high-concurrency servers).</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 )}

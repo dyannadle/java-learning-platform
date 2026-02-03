@@ -15,7 +15,7 @@ export const ModuleEightConcurrency: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 3;
+    const totalSteps = 4;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -79,6 +79,55 @@ export const ModuleEightConcurrency: React.FC = () => {
                             impact="Without concurrency, a website would freeze for everyone while one person uploads a file."
                             role="Senior Engineers spend days debugging 'Heisenbugs' - bugs that disappear when you look for them (due to timing)."
                         />
+                    </section>
+                )}
+
+                {step === 4 && (
+                    <section className="space-y-4">
+                        <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
+                            <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                                🔧 Under the Hood: The Java Memory Model (JMM)
+                            </h2>
+                            <p className="text-sm text-slate-300 mb-4">
+                                Multithreading is hard because CPUs have Layers of Caching (L1, L2, L3).
+                            </p>
+                            <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4">
+                                <strong>The Visibility Problem:</strong><br />
+                                If Thread A changes a variable, Thread B might not see it immediately because it's reading a "Stale" value from its own CPU Cache.
+                            </div>
+                            <div className="text-xs text-slate-400">
+                                <strong>Keyword: volatile</strong> - Forces Java to read/write the variable directly to Main RAM, bypassing caches. Ensures visibility (but not atomicity!).
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-red-900/10 border border-red-500/20 rounded-xl p-5">
+                                <h3 className="text-red-400 font-bold mb-2 flex items-center gap-2">⚠️ Common Pitfalls</h3>
+                                <ul className="list-disc pl-4 space-y-2 text-sm text-slate-300">
+                                    <li>
+                                        <strong>Deadlock:</strong> Thread A holds Key 1 and waits for Key 2. Thread B holds Key 2 and waits for Key 1. Both wait forever.
+                                    </li>
+                                    <li>
+                                        <strong>Race Conditions:</strong> <code>count++</code> is NOT atomic. It's 3 steps: Read, Add, Write. Two threads doing this at once will lose data.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-blue-900/10 border border-blue-500/20 rounded-xl p-5">
+                                <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2">Yz Interview Prep</h3>
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Mid Level</p>
+                                        <p className="text-sm text-white">"What is a Thread Pool?"</p>
+                                        <p className="text-xs text-slate-400 mt-1">Creating threads is expensive (OS call). A pool reuses 5-10 active threads for thousands of tasks.</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase">Senior Level</p>
+                                        <p className="text-sm text-white">"Synchronized vs ConcurrentHashMap?" (Synchronized locks the whole map. ConcurrentHashMap locks only a small segment/bucket—much faster).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 )}
             </div>
