@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Box, Server } from 'lucide-react';
+import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Box, Server, Zap } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 
@@ -138,7 +138,10 @@ export const LearningPath: React.FC = () => {
                             )}
                             onClick={(e) => locked && e.preventDefault()}
                         >
-                            <div className="absolute top-6 right-6">
+                            <div className="absolute top-6 right-6 flex items-center gap-2">
+                                <span className="hidden group-hover:inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Zap size={10} fill="currentColor" /> Deep Dive
+                                </span>
                                 {status === 'completed' && <CheckCircle className="text-emerald-500" size={20} />}
                                 {status === 'current' && <Circle className="text-blue-500" size={20} />}
                                 {status === 'locked' && <Lock className="text-slate-600" size={20} />}

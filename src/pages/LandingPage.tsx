@@ -72,19 +72,83 @@ export const LandingPage: React.FC = () => {
             <section className="grid md:grid-cols-3 gap-6 relative z-10 px-4">
                 <FeatureCard
                     icon={<BookOpen className="text-blue-400" />}
-                    title="Visual Learning"
-                    description="Interactive diagrams for complex topics like Garbage Collection and Memory Stack."
+                    title="Visual & Deep Dive"
+                    description="Don't just read syntax. See memory layouts, stack frames, and garbage collection in real-time. Includes 'Under the Hood' internals."
                 />
                 <FeatureCard
                     icon={<Code className="text-violet-400" />}
-                    title="Build Real Stuff"
-                    description="Don't just print 'Hello World'. Build Banking Systems, APIs, and Games."
+                    title="Real-Time Execution"
+                    description="Write and run code instantly in the browser. Powered by a sandboxed Piston runtime. No setup required."
                 />
                 <FeatureCard
                     icon={<Zap className="text-amber-400" />}
-                    title="Industry Ready"
-                    description="Learn Spring Boot, Hibernate, and Microservices architecture patterns."
+                    title="Enterprise Ready"
+                    description="Master the Spring ecosystem. Build REST APIs, Microservices, and secure apps with JWT & OAuth2."
                 />
+            </section>
+
+            {/* Deep Dive Showcase Section */}
+            <section className="relative z-10 px-4 py-10">
+                <div className="max-w-6xl mx-auto bg-slate-900/50 border border-white/5 rounded-3xl p-8 md:p-12 overflow-hidden flex flex-col md:flex-row items-center gap-12">
+                    <div className="flex-1 space-y-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium">
+                            <Zap size={14} /> New: Technical Deep Dives
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white">
+                            Go <span className="text-purple-400">Under the Hood</span>
+                        </h2>
+                        <p className="text-slate-400 leading-relaxed text-lg">
+                            Most courses stop at syntax. We go deeper. Every module now includes:
+                        </p>
+                        <ul className="space-y-4">
+                            <li className="flex items-start gap-3">
+                                <div className="p-2 bg-slate-800 rounded-lg text-blue-400"><Code size={20} /></div>
+                                <div>
+                                    <h4 className="font-bold text-slate-200">JVM Internals</h4>
+                                    <p className="text-sm text-slate-400">Bytecode analysis, Stack vs Heap, and JIT compilation.</p>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="p-2 bg-slate-800 rounded-lg text-red-400"><Zap size={20} /></div>
+                                <div>
+                                    <h4 className="font-bold text-slate-200">Common Pitfalls</h4>
+                                    <p className="text-sm text-slate-400">Learn from real-world bugs (N+1 Select, Thread Deadlocks).</p>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="p-2 bg-slate-800 rounded-lg text-emerald-400"><BookOpen size={20} /></div>
+                                <div>
+                                    <h4 className="font-bold text-slate-200">Senior Interview Prep</h4>
+                                    <p className="text-sm text-slate-400">Curated questions to help you ace technical rounds.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Visual representation (Abstract Code) */}
+                    <div className="flex-1 w-full relative">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 blur-3xl rounded-full"></div>
+                        <div className="relative bg-[#0d1117] border border-white/10 rounded-xl p-6 shadow-2xl font-mono text-sm leading-relaxed text-slate-300">
+                            <div className="flex gap-2 mb-4">
+                                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <p><span className="text-purple-400">public class</span> <span className="text-yellow-400">MemoryDemo</span> {'{'}</p>
+                            <p className="pl-4"><span className="text-slate-500">// Where does this live? (Stack)</span></p>
+                            <p className="pl-4"><span className="text-blue-400">int</span> x = 10;</p>
+                            <br />
+                            <p className="pl-4"><span className="text-slate-500">// Where does this live? (Heap)</span></p>
+                            <p className="pl-4"><span className="text-blue-400">String</span> s = <span className="text-green-400">"Deep Dive"</span>;</p>
+                            <p>{'}'}</p>
+
+                            <div className="mt-6 pt-6 border-t border-white/10 flex justify-between text-xs text-slate-500">
+                                <span>Compiled: 0.4s</span>
+                                <span>JIT Optimized: Yes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             {/* Why Java Section */}
