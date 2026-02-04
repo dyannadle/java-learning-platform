@@ -48,7 +48,12 @@ export const useProgress = () => {
             if (prev.includes(moduleId)) return prev;
 
             // Only award XP if it's a NEW completion
-            addXP(50);
+            // Award XP based on difficulty
+            if (moduleId > 20) {
+                addXP(100); // Advanced Modules = Double XP
+            } else {
+                addXP(50);
+            }
 
             const newVal = [...prev, moduleId];
             localStorage.setItem(STORAGE_KEY, JSON.stringify(newVal));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Zap, Globe, Radio, Box, Activity } from 'lucide-react';
+import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Zap, Globe, Radio, Box, Activity, Award } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 
@@ -94,6 +94,41 @@ const modules: ModuleCardProps[] = [
         description: "Singleton, Factory, Observer. Architectural solutions to common problems.",
         icon: Layers,
         link: '/learn/module-11'
+    },
+    {
+        id: 12,
+        title: "Spring Core & IoC",
+        description: "Dependency Injection, Bean Lifecycle, and Inversion of Control.",
+        icon: Box,
+        link: '/learn/module-12'
+    },
+    {
+        id: 13,
+        title: "REST APIs",
+        description: "Building scalable web services with Spring Boot and Controllers.",
+        icon: Globe,
+        link: '/learn/module-13'
+    },
+    {
+        id: 14,
+        title: "Data Persistence (JPA)",
+        description: "Hibernate, Entities, and Object-Relational Mapping (ORM).",
+        icon: Database,
+        link: '/learn/module-14'
+    },
+    {
+        id: 15,
+        title: "Spring Security",
+        description: "Authentication, Authorization, JWT, and Filter Chains.",
+        icon: ShieldCheck,
+        link: '/learn/module-15'
+    },
+    {
+        id: 16,
+        title: "Testing & QA",
+        description: "Unit Testing with JUnit 5, Mockito, and TDD practices.",
+        icon: CheckCircle,
+        link: '/learn/module-16'
     },
     {
         id: 17,
@@ -199,6 +234,23 @@ export const LearningPath: React.FC = () => {
                 </div>
             </div>
 
+            {isCompleted(25) && (
+                <div className="mb-8 p-6 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/50 rounded-2xl flex items-center justify-between animate-in slide-in-from-top-4">
+                    <div className="flex items-center gap-4">
+                        <div className="bg-yellow-500/20 p-3 rounded-full">
+                            <Award className="text-yellow-400" size={32} />
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold text-white">Course Completed!</h2>
+                            <p className="text-slate-300 text-sm">You have mastered 25 modules of Java Engineering.</p>
+                        </div>
+                    </div>
+                    <button className="px-6 py-2 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-lg transition-colors shadow-lg shadow-yellow-500/20">
+                        Claim Certificate
+                    </button>
+                </div>
+            )}
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredModules.map((module) => {
                     const completed = isCompleted(module.id);
@@ -219,7 +271,15 @@ export const LearningPath: React.FC = () => {
                             onClick={(e) => locked && e.preventDefault()}
                         >
                             <div className="absolute top-6 right-6 flex items-center gap-2">
-                                <span className="hidden group-hover:inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                                {module.id > 20 && (
+                                    <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+                                        <Award size={10} /> Elite
+                                    </span>
+                                )}
+                                <span className={cn(
+                                    "hidden group-hover:inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded border whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity",
+                                    status === 'completed' ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" : "bg-purple-500/20 text-purple-300 border-purple-500/30"
+                                )}>
                                     <Zap size={10} fill="currentColor" /> Deep Dive
                                 </span>
                                 {status === 'completed' && <CheckCircle className="text-emerald-500" size={20} />}
