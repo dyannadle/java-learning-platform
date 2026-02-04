@@ -22,6 +22,7 @@ import { ModuleSixteenTesting } from './modules/ModuleSixteenTesting';
 import { ProjectsGallery } from './pages/ProjectsGallery';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { CodePlayground } from './pages/CodePlayground';
+import { Leaderboard } from './pages/Leaderboard';
 import { Roadmap } from './pages/Roadmap';
 import { Glossary } from './pages/Glossary';
 import { ConceptDetail } from './pages/ConceptDetail';
@@ -56,6 +57,7 @@ function App() {
             <Route path="/projects" element={<ProjectsGallery />} />
             <Route path="/projects/:projectId" element={<ProjectDetail />} />
             <Route path="/playground" element={<CodePlayground />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/glossary" element={<Glossary />} />
             <Route path="/glossary/:slug" element={<ConceptDetail />} />

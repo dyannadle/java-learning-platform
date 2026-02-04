@@ -17,9 +17,10 @@ import { Link } from 'react-router-dom';
 import { AuthModal } from '../auth/AuthModal';
 import { useAuth } from '../../context/AuthContext';
 import { XPBar } from '../gamification/XPBar';
+import { DailyQuests } from '../gamification/DailyQuests';
 import { LevelUpModal } from '../gamification/LevelUpModal';
 import { useGamification } from '../../hooks/useGamification';
-import { LogIn, LogOut } from 'lucide-react';
+import { LogIn, LogOut, Trophy } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -53,7 +54,12 @@ export const Sidebar: React.FC = () => {
                 </div>
 
                 {/* Gamification Bar */}
-                {user && <XPBar isCollapsed={isCollapsed} />}
+                {user && (
+                    <>
+                        <XPBar isCollapsed={isCollapsed} />
+                        {!isCollapsed && <DailyQuests />}
+                    </>
+                )}
 
                 {/* Navigation */}
                 <div className="flex-1 overflow-y-auto py-6 px-3 space-y-2 scrollbar-thin scrollbar-thumb-slate-800">
@@ -67,6 +73,7 @@ export const Sidebar: React.FC = () => {
                         <NavItem to="/learn" icon={BookOpen} label="Learning Path" isCollapsed={isCollapsed} />
                         <NavItem to="/projects" icon={Layout} label="Projects" isCollapsed={isCollapsed} />
                         <NavItem to="/playground" icon={Code2} label="Code Playground" isCollapsed={isCollapsed} />
+                        <NavItem to="/leaderboard" icon={Trophy} label="Leaderboard" isCollapsed={isCollapsed} />
                     </div>
 
                     <div>
