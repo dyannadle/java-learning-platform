@@ -51,7 +51,9 @@ const initialNodes: Node[] = [
     { id: '11', position: { x: 250, y: 1200 }, data: { label: '11. Design Patterns', status: 'locked', path: '/learn/module-11' }, type: 'custom' },
     { id: '12', position: { x: 50, y: 1350 }, data: { label: '12. Spring Core', status: 'locked', path: '/learn/module-12' }, type: 'custom' },
     { id: '13', position: { x: 450, y: 1350 }, data: { label: '13. REST APIs', status: 'locked', path: '/learn/module-13' }, type: 'custom' },
-    { id: '14', position: { x: 250, y: 1500 }, data: { label: '14. JPA & database', status: 'locked', path: '/learn/module-14' }, type: 'custom' },
+    { id: '14', position: { x: 250, y: 1500 }, data: { label: '14. JPA & Database', status: 'locked', path: '/learn/module-14' }, type: 'custom' },
+    { id: '15', position: { x: 250, y: 1650 }, data: { label: '15. Spring Security', status: 'locked', path: '/learn/module-15' }, type: 'custom' },
+    { id: '16', position: { x: 450, y: 1650 }, data: { label: '16. Testing & QA', status: 'locked', path: '/learn/module-16' }, type: 'custom' },
 ];
 
 const initialEdges: Edge[] = [
@@ -71,6 +73,8 @@ const initialEdges: Edge[] = [
     { id: 'e11-13', source: '11', target: '13', style: { stroke: '#334155', strokeWidth: 2 } },
     { id: 'e12-14', source: '12', target: '14', style: { stroke: '#334155', strokeWidth: 2 } },
     { id: 'e13-14', source: '13', target: '14', style: { stroke: '#334155', strokeWidth: 2 } },
+    { id: 'e14-15', source: '14', target: '15', style: { stroke: '#334155', strokeWidth: 2 } },
+    { id: 'e14-16', source: '14', target: '16', style: { stroke: '#334155', strokeWidth: 2 } },
 ];
 
 export const Roadmap: React.FC = () => {
