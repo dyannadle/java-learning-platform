@@ -19,6 +19,8 @@ import { ModuleThirteenREST } from './modules/ModuleThirteenREST';
 import { ModuleFourteenJPA } from './modules/ModuleFourteenJPA';
 import { ModuleFifteenSecurity } from './modules/ModuleFifteenSecurity';
 import { ModuleSixteenTesting } from './modules/ModuleSixteenTesting';
+import { ModuleSeventeenMicroservices } from './modules/ModuleSeventeenMicroservices';
+import { ModuleEighteenEvents } from './modules/ModuleEighteenEvents';
 import { ProjectsGallery } from './pages/ProjectsGallery';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { CodePlayground } from './pages/CodePlayground';
@@ -54,6 +56,8 @@ function App() {
             <Route path="/learn/module-14" element={<ModuleFourteenJPA />} />
             <Route path="/learn/module-15" element={<ModuleFifteenSecurity />} />
             <Route path="/learn/module-16" element={<ModuleSixteenTesting />} />
+            <Route path="/learn/module-17" element={<ModuleSeventeenMicroservices />} />
+            <Route path="/learn/module-18" element={<ModuleEighteenEvents />} />
             <Route path="/projects" element={<ProjectsGallery />} />
             <Route path="/projects/:projectId" element={<ProjectDetail />} />
             <Route path="/playground" element={<CodePlayground />} />

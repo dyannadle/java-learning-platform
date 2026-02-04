@@ -15,7 +15,7 @@ export const ModuleEightConcurrency: React.FC = () => {
     };
 
     const [step, setStep] = useState(1);
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -127,6 +127,31 @@ export const ModuleEightConcurrency: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </section>
+                )}
+                {step === 5 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-cyan-400">Java 21: Virtual Threads (Project Loom)</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            <strong>The biggest change in Java history.</strong>
+                        </p>
+                        <p className="text-slate-300 text-sm mb-4">
+                            Traditional Threads are "Platform Threads" (mapped 1:1 to OS threads). You can only run a few thousand before the OS crashes.
+                        </p>
+                        <p className="text-slate-300 text-sm mb-4">
+                            <strong>Virtual Threads</strong> are lightweight. You can create <strong>Millions</strong> of them.
+                        </p>
+
+                        <div className="bg-slate-900 border border-cyan-500/30 p-4 rounded-xl font-mono text-xs">
+                            <span className="text-slate-500">// Old Way (Limited)</span><br />
+                            new Thread(() -&gt; ...).start();<br /><br />
+                            <span className="text-cyan-400">// New Way (Unlimited Power)</span><br />
+                            Thread.startVirtualThread(() -&gt; ...);
+                        </div>
+
+                        <div className="mt-6 bg-cyan-900/10 border border-cyan-500/20 p-4 rounded text-sm text-cyan-200">
+                            <strong>Impact:</strong> We no longer need complex "Reactive Programming" (WebFlux) to handle high concurrency. We can write simple, blocking code again, and it scales infinitely.
                         </div>
                     </section>
                 )}

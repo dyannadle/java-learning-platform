@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Box, Server, Zap } from 'lucide-react';
+import { ArrowRight, Brain, CheckCircle, Circle, Cpu, Database, Layers, Lock, ShieldCheck, Filter, Play, HardDrive, Zap, Globe, Radio } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 
@@ -94,6 +94,20 @@ const modules: ModuleCardProps[] = [
         description: "Singleton, Factory, Observer. Architectural solutions to common problems.",
         icon: Layers,
         link: '/learn/module-11'
+    },
+    {
+        id: 17,
+        title: "Microservices",
+        description: "Breaking the monolith. Spring Cloud Gateway and Eureka.",
+        icon: Globe,
+        link: '/learn/module-17'
+    },
+    {
+        id: 18,
+        title: "Event-Driven Arch",
+        description: "Decoupled systems with Kafka and Asynchronous events.",
+        icon: Radio,
+        link: '/learn/module-18'
     }
 ];
 
