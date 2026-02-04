@@ -58,6 +58,8 @@ const initialNodes: Node[] = [
     { id: '18', position: { x: 250, y: 1950 }, data: { label: '18. Event-Driven Arch', status: 'locked', path: '/learn/module-18' }, type: 'custom' },
     { id: '19', position: { x: 250, y: 2100 }, data: { label: '19. Docker', status: 'locked', path: '/learn/module-19' }, type: 'custom' },
     { id: '20', position: { x: 250, y: 2250 }, data: { label: '20. Kubernetes', status: 'locked', path: '/learn/module-20' }, type: 'custom' },
+    { id: '21', position: { x: 450, y: 2250 }, data: { label: '21. Reactive', status: 'locked', path: '/learn/module-21' }, type: 'custom' },
+    { id: '22', position: { x: 650, y: 2250 }, data: { label: '22. GraphQL', status: 'locked', path: '/learn/module-22' }, type: 'custom' },
 ];
 
 const initialEdges: Edge[] = [
@@ -84,6 +86,8 @@ const initialEdges: Edge[] = [
     { id: 'e17-18', source: '17', target: '18', style: { stroke: '#334155', strokeWidth: 2 } },
     { id: 'e18-19', source: '18', target: '19', style: { stroke: '#334155', strokeWidth: 2 } },
     { id: 'e19-20', source: '19', target: '20', style: { stroke: '#334155', strokeWidth: 2 } },
+    { id: 'e20-21', source: '20', target: '21', style: { stroke: '#334155', strokeWidth: 2 } },
+    { id: 'e21-22', source: '21', target: '22', style: { stroke: '#334155', strokeWidth: 2 } },
 ];
 
 export const Roadmap: React.FC = () => {

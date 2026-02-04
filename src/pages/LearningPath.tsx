@@ -122,6 +122,20 @@ const modules: ModuleCardProps[] = [
         description: "Orchestration, Pods, Services, and Self-Healing.",
         icon: Activity,
         link: '/learn/module-20'
+    },
+    {
+        id: 21,
+        title: "Reactive (WebFlux)",
+        description: "Non-blocking I/O using Mono, Flux, and Backpressure.",
+        icon: Zap,
+        link: '/learn/module-21'
+    },
+    {
+        id: 22,
+        title: "GraphQL",
+        description: "Flexible APIs with Schemas, Queries, and Mutations.",
+        icon: Database,
+        link: '/learn/module-22'
     }
 ];
 
