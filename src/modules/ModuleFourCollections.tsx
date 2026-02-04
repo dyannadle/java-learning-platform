@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { CollectionsVisualization } from '../visualizations/CollectionsVisualization';
+import { HashMapVis } from '../visualizations/collections/HashMapVis';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
 import { useNavigate } from 'react-router-dom';
 import { useProgress } from '../hooks/useProgress';
@@ -137,18 +138,21 @@ export const ModuleFourCollections: React.FC = () => {
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-emerald-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
-                                🔧 Under the Hood: How `HashMap` Works
+                                🔧 Under the Hood: HashMap Internals
                             </h2>
-                            <p className="text-sm text-slate-300 mb-4">
-                                A HashMap is an array of "Buckets". Java uses the `hashCode()` of your Key to find the index.
+                            <p className="text-sm text-slate-300 mb-6">
+                                A HashMap is actually an <strong>Array of Buckets</strong>. When you <code>put(key, val)</code>, Java calculates <code>hash(key) % size</code> to find the index.
                             </p>
-                            <div className="grid grid-cols-2 gap-4">
+
+                            {/* NEW VISUALIZATION */}
+                            <HashMapVis />
+
+                            <div className="mt-6 grid grid-cols-2 gap-4">
                                 <div className="bg-black/50 p-3 rounded-lg font-mono text-xs text-slate-300">
-                                    <strong>Collision:</strong> If two keys land in the same bucket, Java chains them in a LinkedList.<br />
-                                    If the chain gets too long (&gt;8), Java 8+ converts it to a <strong>Red-Black Tree</strong> for O(log n) speed!
+                                    <strong>Collision:</strong> If two keys land in the same bucket, Java links them together (LinkedList).
                                 </div>
                                 <div className="bg-black/50 p-3 rounded-lg font-mono text-xs text-slate-300">
-                                    <strong>Resizing:</strong> When the map is 75% full (Load Factor 0.75), Java doubles the array size and re-hashes EVERY key. This is expensive!
+                                    <strong>Resizing:</strong> When the Table is 75% full, Java doubles the size and re-calculates indexes for EVERYTHING. Performance hit!
                                 </div>
                             </div>
                         </div>

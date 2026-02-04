@@ -36,6 +36,7 @@ const ModuleNineteenDocker = React.lazy(() => import('./modules/ModuleNineteenDo
 const ModuleTwentyKubernetes = React.lazy(() => import('./modules/ModuleTwentyKubernetes').then(module => ({ default: module.ModuleTwentyKubernetes })));
 const ModuleTwentyOneReactive = React.lazy(() => import('./modules/ModuleTwentyOneReactive').then(module => ({ default: module.ModuleTwentyOneReactive })));
 const ModuleTwentyTwoGraphQL = React.lazy(() => import('./modules/ModuleTwentyTwoGraphQL').then(module => ({ default: module.ModuleTwentyTwoGraphQL })));
+const ModuleTwentyThreeJVM = React.lazy(() => import('./modules/ModuleTwentyThreeJVM').then(module => ({ default: module.ModuleTwentyThreeJVM })));
 
 // Loading Spinner for Suspense
 const LoadingFallback = () => (
@@ -76,6 +77,7 @@ function App() {
               <Route path="/learn/module-20" element={<ModuleTwentyKubernetes />} />
               <Route path="/learn/module-21" element={<ModuleTwentyOneReactive />} />
               <Route path="/learn/module-22" element={<ModuleTwentyTwoGraphQL />} />
+              <Route path="/learn/module-23" element={<ModuleTwentyThreeJVM />} />
 
               <Route path="/projects" element={<ProjectsGallery />} />
               <Route path="/projects/:projectId" element={<ProjectDetail />} />

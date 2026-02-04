@@ -136,6 +136,13 @@ const modules: ModuleCardProps[] = [
         description: "Flexible APIs with Schemas, Queries, and Mutations.",
         icon: Database,
         link: '/learn/module-22'
+    },
+    {
+        id: 23,
+        title: "JVM Internals",
+        description: "Deep dive into Heap Memory, GC, and JIT Compilation.",
+        icon: Cpu,
+        link: '/learn/module-23'
     }
 ];
 

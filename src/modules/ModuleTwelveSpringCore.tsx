@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LessonLayout } from '../components/layout/LessonLayout';
 import { SpringIoCVis } from '../visualizations/spring/SpringIoCVis';
 import { BeanScopeVis } from '../visualizations/spring/BeanScopeVis';
+import { BeanLifecycleVis } from '../visualizations/spring/BeanLifecycleVis';
 import { RealWorldContext } from '../components/ui/RealWorldContext';
 import { useNavigate } from 'react-router-dom';
 import { useProgress } from '../hooks/useProgress';
@@ -52,7 +53,7 @@ export const ModuleTwelveSpringCore: React.FC = () => {
     const [step, setStep] = useState(1);
     const [quizPassed, setQuizPassed] = useState(false);
 
-    const totalSteps = 5; // IoC + Lifecycle + Scopes + DI Types + Deep Dive
+    const totalSteps = 6; // IoC + Lifecycle + Scopes + Deep Dive (Vis) + DI Types + Proxies
 
     const handleComplete = () => {
         if (quizPassed) {
@@ -67,8 +68,9 @@ export const ModuleTwelveSpringCore: React.FC = () => {
     const getVisualization = () => {
         switch (step) {
             case 1: return <SpringIoCVis />;
-            case 2: return <SpringIoCVis />; // Reuse IoC Vis for lifecycle
+            case 2: return <SpringIoCVis />;
             case 3: return <BeanScopeVis />;
+            case 4: return <BeanLifecycleVis />; // New Vis
             default: return <SpringIoCVis />;
         }
     };
@@ -153,7 +155,28 @@ export const ModuleTwelveSpringCore: React.FC = () => {
 
                 {step === 4 && (
                     <section>
-                        <h2 className="text-xl font-semibold mb-4 text-indigo-400">4. Injection Types</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-pink-400">4. Deep Dive: Bean Lifecycle</h2>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            One of the most common interview questions: <strong>"Can I use @Autowired fields in the Constructor?"</strong>
+                        </p>
+                        <p className="text-slate-300 mb-4">
+                            Look at the visualization above.
+                            <br />1. <strong>Instantiation</strong> (Constructor runs).
+                            <br />2. <strong>Populate Properties</strong> (Dependencies injected).
+                        </p>
+                        <div className="bg-red-900/20 border-l-4 border-red-500 p-4 rounded">
+                            <h4 className="font-bold text-red-400 text-sm">The Answer is NO.</h4>
+                            <p className="text-xs text-slate-300 mt-1">
+                                At Step 1 (Constructor), Step 2 (Injection) hasn't happened yet! Your dependencies are NULL.
+                                <br /> Use <code>@PostConstruct</code> (Step 5) if you need to run logic after injection.
+                            </p>
+                        </div>
+                    </section>
+                )}
+
+                {step === 5 && (
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4 text-indigo-400">5. Injection Types</h2>
                         <p className="text-slate-300 leading-relaxed mb-4">
                             There are 3 ways to ask Spring for a dependency.
                         </p>
@@ -176,7 +199,7 @@ export const ModuleTwelveSpringCore: React.FC = () => {
                     </section>
                 )}
 
-                {step === 5 && (
+                {step === 6 && (
                     <section className="space-y-4">
                         <div className="bg-slate-900 border border-purple-500/30 rounded-xl p-6">
                             <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
