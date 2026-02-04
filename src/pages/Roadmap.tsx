@@ -61,6 +61,8 @@ const initialNodes: Node[] = [
     { id: '21', position: { x: 450, y: 2250 }, data: { label: '21. Reactive', status: 'locked', path: '/learn/module-21' }, type: 'custom' },
     { id: '22', position: { x: 650, y: 2250 }, data: { label: '22. GraphQL', status: 'locked', path: '/learn/module-22' }, type: 'custom' },
     { id: '23', position: { x: 250, y: 2400 }, data: { label: '23. JVM Internals', status: 'locked', path: '/learn/module-23' }, type: 'custom' },
+    { id: '24', position: { x: 450, y: 2400 }, data: { label: '24. DB Locking', status: 'locked', path: '/learn/module-24' }, type: 'custom' },
+    { id: '25', position: { x: 650, y: 2400 }, data: { label: '25. Performance', status: 'locked', path: '/learn/module-25' }, type: 'custom' },
 ];
 
 const initialEdges: Edge[] = [
@@ -90,6 +92,8 @@ const initialEdges: Edge[] = [
     { id: 'e20-21', source: '20', target: '21', style: { stroke: '#334155', strokeWidth: 2 } },
     { id: 'e21-22', source: '21', target: '22', style: { stroke: '#334155', strokeWidth: 2 } },
     { id: 'e20-23', source: '20', target: '23', style: { stroke: '#334155', strokeWidth: 2 } },
+    { id: 'e23-24', source: '23', target: '24', style: { stroke: '#334155', strokeWidth: 2 } },
+    { id: 'e24-25', source: '24', target: '25', style: { stroke: '#334155', strokeWidth: 2 } },
 ];
 
 export const Roadmap: React.FC = () => {

@@ -143,6 +143,20 @@ const modules: ModuleCardProps[] = [
         description: "Deep dive into Heap Memory, GC, and JIT Compilation.",
         icon: Cpu,
         link: '/learn/module-23'
+    },
+    {
+        id: 24,
+        title: "Database Locking",
+        description: "Optimistic vs Pessimistic Locking, Deadlocks, ACID.",
+        icon: Database,
+        link: '/learn/module-24'
+    },
+    {
+        id: 25,
+        title: "Performance Tuning",
+        description: "Profiling, Memory Leaks, CPU Spikes, and VisualVM.",
+        icon: Activity,
+        link: '/learn/module-25'
     }
 ];
 
