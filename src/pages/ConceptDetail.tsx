@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { concepts } from '../data/concepts';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Code, Terminal, Brain } from 'lucide-react';
@@ -33,9 +33,12 @@ export const ConceptDetail: React.FC = () => {
                 <div className="flex items-start justify-between gap-4">
                     <div>
                         <div className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4 border ${concept.category === 'Basic' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
-                                concept.category === 'OOP' ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' :
-                                    concept.category === 'Collections' ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' :
-                                        'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                            concept.category === 'OOP' ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' :
+                                concept.category === 'Collections' ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' :
+                                    concept.category === 'Design Pattern' ? 'bg-pink-500/10 border-pink-500/20 text-pink-400' :
+                                        concept.category === 'Web' ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400' :
+                                            concept.category === 'Architecture' ? 'bg-orange-500/10 border-orange-500/20 text-orange-400' :
+                                                'bg-amber-500/10 border-amber-500/20 text-amber-400'
                             }`}>
                             {concept.category}
                         </div>

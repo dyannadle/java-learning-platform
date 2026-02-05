@@ -8,7 +8,7 @@ export const Glossary: React.FC = () => {
     const [search, setSearch] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-    const categories = ['All', 'Basic', 'OOP', 'Collections', 'Advanced'];
+    const categories = ['All', 'Basic', 'OOP', 'Collections', 'Advanced', 'Design Pattern', 'Web', 'Architecture'];
 
     const filteredTerms = concepts.filter(t => {
         const matchesSearch = t.term.toLowerCase().includes(search.toLowerCase()) ||
@@ -79,7 +79,10 @@ export const Glossary: React.FC = () => {
                                     <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded-full border ${item.category === 'Basic' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
                                         item.category === 'OOP' ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' :
                                             item.category === 'Collections' ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' :
-                                                'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                                                item.category === 'Design Pattern' ? 'bg-pink-500/10 border-pink-500/20 text-pink-400' :
+                                                    item.category === 'Web' ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400' :
+                                                        item.category === 'Architecture' ? 'bg-orange-500/10 border-orange-500/20 text-orange-400' :
+                                                            'bg-amber-500/10 border-amber-500/20 text-amber-400'
                                         }`}>
                                         {item.category}
                                     </span>

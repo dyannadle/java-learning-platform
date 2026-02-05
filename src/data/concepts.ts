@@ -1,4 +1,4 @@
-export type Category = 'Basic' | 'OOP' | 'Advanced' | 'Collections';
+export type Category = 'Basic' | 'OOP' | 'Advanced' | 'Collections' | 'Design Pattern' | 'Web' | 'Architecture';
 
 export interface ConceptData {
     id: string;
@@ -371,7 +371,7 @@ class Box<T> {
         slug: 'serialization',
         term: 'Serialization',
         definition: 'The process of converting an object into a stream of bytes to store the object or transmit it to memory.',
-        category: 'Advanced',
+        category: 'Architecture',
         deepDive: [
             "Used to save the state of an object to a file (persistence) or send it over a network (RMI).",
             "To be serialized, a class must implement the `java.io.Serializable` interface.",
@@ -480,5 +480,233 @@ User u = new User("Alice");`,
 // PI = 3.15; // Compiler Error`,
         realWorldUse: "Security and stability. Making a class immutable (like String) so it's thread-safe.",
         relatedModuleUrl: '/learn/module-2'
+    },
+    /* === Design Patterns === */
+    {
+        id: '24',
+        slug: 'singleton',
+        term: 'Singleton Pattern',
+        definition: 'A design pattern that restricts a class to only one instance.',
+        category: 'Design Pattern',
+        deepDive: [
+            "Ensures a class has only one instance and provides a global point of access to it.",
+            "Often implemented with a private constructor and a static `getInstance()` method.",
+            "Critics argue it introduces global state (which is hard to test), but it is very useful for Database Connections or Configuration Managers."
+        ],
+        codeSnippet: `public class Database {
+    private static Database instance;
+    
+    private Database() {} // Locked
+    
+    public static Database getInstance() {
+        if (instance == null) instance = new Database();
+        return instance;
+    }
+}`,
+        realWorldUse: "Loggers, Database Connection Pools, Config Loaders."
+    },
+    {
+        id: '25',
+        slug: 'factory',
+        term: 'Factory Pattern',
+        definition: 'A pattern to create objects without specifying the exact class to create.',
+        category: 'Design Pattern',
+        deepDive: [
+            "Defines an interface for creating objects, but lets subclasses decide which class to instantiate.",
+            "Promotes loose coupling. The client code doesn't need to know if it's getting a `CSVReport` or `PDFReport` object, just that it implements `Report`.",
+            "Commonly seen as 'Factory Method' or 'Abstract Factory'."
+        ],
+        codeSnippet: `interface Shape { void draw(); }
+        
+class ShapeFactory {
+   public Shape getShape(String type){
+      if(type.equals("CIRCLE")) return new Circle();
+      return new Square();
+   }
+}`,
+        realWorldUse: "Java's `Calendar.getInstance()`, `NumberFormat.getInstance()`."
+    },
+    {
+        id: '26',
+        slug: 'observer',
+        term: 'Observer Pattern',
+        definition: 'A subscription mechanism to notify multiple objects about events.',
+        category: 'Design Pattern',
+        deepDive: [
+            "Defines a one-to-many dependency so that when one object changes state, all its dependents are notified automatically.",
+            "The 'Subject' maintains a list of 'Observers'. When the Subject changes, it calls the `update()` method on all Observers.",
+            "Foundational for Event Driven Architectures."
+        ],
+        codeSnippet: `button.addActionListener(e -> {
+    System.out.println("Button Clicked!");
+});`,
+        realWorldUse: "Swing/React Event Listeners, Newsletter subscriptions, Push Notifications."
+    },
+
+    /* === Advanced Concurrency === */
+    {
+        id: '27',
+        slug: 'deadlock',
+        term: 'Deadlock',
+        definition: 'A situation where two threads are waiting for each other forever.',
+        category: 'Advanced',
+        deepDive: [
+            "Occurs when Thread A holds Resource 1 and waits for Resource 2, while Thread B holds Resource 2 and waits for Resource 1.",
+            "Neither can proceed. The program freezes.",
+            "Avoided by acquiring locks in a consistent order or using `tryLock()` with timeouts."
+        ],
+        codeSnippet: `// Thread 1: Lock(A) -> Wait(B)
+// Thread 2: Lock(B) -> Wait(A)
+// Result: Freeze`,
+        realWorldUse: "Database transaction deadlocks where two users try to update each other's locked rows."
+    },
+    {
+        id: '28',
+        slug: 'volatile',
+        term: 'Volatile Keyword',
+        definition: 'Indicates that a variable\'s value will be modified by different threads.',
+        category: 'Advanced',
+        deepDive: [
+            "Guarantees 'Visibility'. Changes made by one thread are immediately visible to others.",
+            "Prevents the CPU from caching the variable effectively (forces read/write from main memory).",
+            "It does NOT guarantee 'Atomicity' (e.g., `count++` is still not safe with just volatile)."
+        ],
+        codeSnippet: `private volatile boolean running = true;
+
+public void stop() {
+    running = false; // Other threads see this immediately
+}`,
+        realWorldUse: "Flags to stop background threads safely."
+    },
+    {
+        id: '29',
+        slug: 'completable-future',
+        term: 'CompletableFuture',
+        definition: 'A utility for asynchronous programming (Promises) introduced in Java 8.',
+        category: 'Advanced',
+        deepDive: [
+            "Allows you to run tasks asynchronously and 'chain' actions when they complete (functional style).",
+            "Non-blocking. You can fire off a database query and continue doing other work.",
+            "Supports combining multiple futures (e.g., `allOf`, `anyOf`)."
+        ],
+        codeSnippet: `CompletableFuture.supplyAsync(() -> fetchUserData())
+    .thenApply(user -> user.getEmail())
+    .thenAccept(email -> sendEmail(email));`,
+        realWorldUse: "Fetching data from 3 different microservices in parallel and aggregating the result."
+    },
+
+    /* === Architecture === */
+    {
+        id: '30',
+        slug: 'dependency-injection',
+        term: 'Dependency Injection (DI)',
+        definition: 'A design pattern where an object receives other objects that it depends on.',
+        category: 'Architecture',
+        deepDive: [
+            "Inversion of Control (IoC). Instead of creating dependencies yourself (`new Service()`), the framework (Spring) gives them to you.",
+            "Makes code easier to test because you can inject 'Mock' dependencies.",
+            "Usually done via Constructor Injection or Field Injection (`@Autowired`)."
+        ],
+        codeSnippet: `// Without DI
+class Car { 
+    Engine e = new Engine(); 
+}
+
+// With DI
+class Car {
+    Engine e;
+    Car(Engine e) { this.e = e; }
+}`,
+        realWorldUse: "The entire Spring Framework relies on this."
+    },
+    {
+        id: '31',
+        slug: 'recursion',
+        term: 'Recursion',
+        definition: 'A method calling itself to solve a smaller instance of the problem.',
+        category: 'Advanced',
+        deepDive: [
+            "Useful for dividing complex problems into simple similar sub-problems.",
+            "Must have a 'Base Case' (exit condition) to stop infinite looping (StackOverflowError).",
+            "Uses the Call Stack to store state."
+        ],
+        codeSnippet: `int factorial(int n) {
+    if (n == 1) return 1; // Base case
+    return n * factorial(n - 1);
+}`,
+        realWorldUse: "Traversing tree structures (DOM, File systems), Sorting algorithms (QuickSort, MergeSort)."
+    },
+    {
+        id: '32',
+        slug: 'big-o',
+        term: 'Big O Notation',
+        definition: 'A mathematical notation to describe the limiting behavior of an algorithm.',
+        category: 'Architecture',
+        deepDive: [
+            "Measures how the Runtime or Space requirement grows as the Input Size (n) grows.",
+            "O(1) = Constant (Best). O(n) = Linear. O(n^2) = Quadratic (Bad for large data).",
+            "Helping engineers choose the right data structure."
+        ],
+        codeSnippet: `// O(1)
+int first = list.get(0);
+
+// O(n)
+for(int i : list) { ... }`,
+        realWorldUse: "Deciding whether to use an ArrayList (O(n) search) or HashMap (O(1) search) for a dataset of 1 million items."
+    },
+    {
+        id: '33',
+        slug: 'acid',
+        term: 'ACID Properties',
+        definition: 'A set of properties of database transactions.',
+        category: 'Architecture',
+        deepDive: [
+            "**Atomicity**: All or nothing. If one part fails, everything rolls back.",
+            "**Consistency**: Database remains in a valid state.",
+            "**Isolation**: Transactions don't interfere with each other.",
+            "**Durability**: Once saved, it stays saved even if power is lost."
+        ],
+        codeSnippet: `BEGIN TRANSACTION;
+  UPDATE Account SET bal = bal - 100 WHERE id = 1;
+  UPDATE Account SET bal = bal + 100 WHERE id = 2;
+COMMIT;`,
+        realWorldUse: "Bank transfers. You don't want money leaving one account but not arriving in the other."
+    },
+
+    /* === Web === */
+    {
+        id: '34',
+        slug: 'rest-api',
+        term: 'REST API',
+        definition: 'Representational State Transfer. An architectural style for networked applications.',
+        category: 'Web',
+        deepDive: [
+            "Uses standard HTTP methods: GET (Read), POST (Create), PUT (Update), DELETE (Delete).",
+            "Stateless: The server doesn't remember the user status between requests (uses Tokens).",
+            "Resources are identified by URLs (e.g., `/api/users/123`)."
+        ],
+        codeSnippet: `@GetMapping("/users/{id}")
+public User getUser(@PathVariable String id) {
+    return repo.findById(id);
+}`,
+        realWorldUse: "Almost all modern web services (Twitter API, Stripe API) are RESTful."
+    },
+    {
+        id: '35',
+        slug: 'websocket',
+        term: 'WebSocket',
+        definition: 'A communication protocol providing full-duplex communication channels over a single TCP connection.',
+        category: 'Web',
+        deepDive: [
+            "Unlike HTTP (Client asks, Server answers), WebSockets allow the Server to push data to the Client anytime.",
+            "Persistent connection that stays open.",
+            "Perfect for real-time applications."
+        ],
+        codeSnippet: `// JS Client
+const ws = new WebSocket('ws://server.com');
+ws.onmessage = (event) => {
+    console.log("New Message: " + event.data);
+};`,
+        realWorldUse: "Chat apps, Live Stock Tickers, Multiplayer Games."
     }
 ];
