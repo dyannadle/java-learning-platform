@@ -106,9 +106,9 @@ int sum = add(5, 10); // 15`,
         definition: 'Mechanism where a new class derives properties from an existing class.',
         category: 'OOP',
         deepDive: [
-            "Inheritance allows you to define a parent class (Superclass) and child classes (Subclasses) that inherit fields and methods.",
-            "It promotes code reuse using the `extends` keyword. Ideally, it models an 'IS-A' relationship (e.g., A Dog IS-A Animal).",
-            "In Java, every class implicitly extends the `Object` class."
+            "Inheritance allows child classes to inherit fields and methods from a parent. Use the `super` keyword to access parent methods/constructors.",
+            "**The Object Class**: In Java, EVERY class implicitly extends `Object`. This means every object has methods like `toString()`, `equals()`, and `hashCode()`.",
+            "Java supports Single Inheritance (one class parent) but Multiple Interface implementation."
         ],
         codeSnippet: `class Animal {
     void eat() { System.out.println("Eating..."); }
@@ -390,9 +390,9 @@ class Box<T> {
         definition: 'The engine that drives the Java code. It converts Java bytecode into machine language.',
         category: 'Basic',
         deepDive: [
-            "The JVM is the reason Java is 'Write Once, Run Anywhere'.",
-            "It handles memory management, garbage collection, and security.",
-            "It sits on top of your operating system (Windows, Mac, Linux)."
+            "The JVM is the reason Java is 'Write Once, Run Anywhere'. It converts Bytecode into machine-specific Assembly.",
+            "**Class Loader**: Rest of the system loads .class files. **Execution Engine**: Executes instructions via Interpreter (slow) or JIT Compiler (fast).",
+            "**JIT (Just-In-Time)**: Detects 'hot spots' (frequently called methods) and compiles them to native code for C++ level performance."
         ],
         codeSnippet: `// You don't write code for the JVM directly.
 // You compile .java -> .class (Bytecode)
@@ -407,9 +407,9 @@ class Box<T> {
         definition: 'Automatic memory management that removes unused objects from memory.',
         category: 'Advanced',
         deepDive: [
-            "In C++, you must manually delete objects to free memory. In Java, the GC does it for you.",
-            "It runs in the background, checking for objects that are no longer reachable by any active thread.",
-            "While helpful, it can cause 'Stop-the-World' pauses if not optimized in high-frequency trading apps."
+            "In C++, you must manually delete objects. In Java, the GC does it for you. It uses a 'Mark and Sweep' algorithm.",
+            "**Generational GC**: Heap is divided into 'Young Gen' (Eden Space) and 'Old Gen'.",
+            "Most objects die young (in Eden). Survivors move to Old Gen. Full GC (cleaning Old Gen) is slow and causes 'Stop-the-World' pauses."
         ],
         codeSnippet: `public void createGarbage() {
     String s = new String("I am temporary");
@@ -708,5 +708,155 @@ ws.onmessage = (event) => {
     console.log("New Message: " + event.data);
 };`,
         realWorldUse: "Chat apps, Live Stock Tickers, Multiplayer Games."
+    },
+    /* === Core Java Deep Dive === */
+    {
+        id: '36',
+        slug: 'string-pool',
+        term: 'String Pool',
+        definition: 'A special storage area in the Java Heap memory where String literals are stored.',
+        category: 'Basic',
+        deepDive: [
+            "Strings in Java are immutable. To save memory, Java reuses String literals. If you create `String s1 = \"Hello\"` and `String s2 = \"Hello\"`, they point to the SAME object in the pool.",
+            "Using `new String(\"Hello\")` forces the creation of a new object on the Heap, bypassing the pool (generally avoided).",
+            "The `intern()` method can be used to manually move a String into the pool."
+        ],
+        codeSnippet: `String s1 = "Java";
+String s2 = "Java";
+String s3 = new String("Java");
+
+System.out.println(s1 == s2); // true (Same usage)
+System.out.println(s1 == s3); // false (Different objects)`,
+        realWorldUse: "Massive memory optimization. Without it, reading a 1GB text file where the word 'the' appears 1 million times would waste huge amounts of RAM."
+    },
+    {
+        id: '37',
+        slug: 'pass-by-value',
+        term: 'Pass By Value',
+        definition: 'Java strictly follows Pass-By-Value semantics for method arguments.',
+        category: 'Basic',
+        deepDive: [
+            "Common Misconception: Java passes objects by reference. False. Java passes the *value* of the reference (the memory address).",
+            "If you change the properties OF the object inside a method, the original object changes (because you followed the address).",
+            "BUT, if you reassign the variable to a *new* object inside the method, the original variable remains unchanged. The link is broken."
+        ],
+        codeSnippet: `void change(Dog d) {
+    d.name = "Fido"; // Changes original
+    d = new Dog(); // New object
+    d.name = "Max"; // Only changes local copy
+}`,
+        realWorldUse: "Understanding this prevents bugs where you expect a variable to be updated by a helper method but it isn't."
+    },
+    {
+        id: '38',
+        slug: 'wrapper-classes',
+        term: 'Wrapper Classes',
+        definition: 'Classes that wrap primitive types to make them objects (e.g., Integer wrapping int).',
+        category: 'Basic',
+        deepDive: [
+            "Collections (like ArrayList) cannot store primitives. They only store Objects. So `int` becomes `Integer`.",
+            "**Autoboxing**: Automatic conversion (e.g., `list.add(5)`). **Unboxing**: Converting back (e.g., `int x = list.get(0)`).",
+            "Integer Cache: Java caches Integer objects from -128 to 127. `Integer a=100; Integer b=100; (a==b)` is true. `Integer x=200; Integer y=200; (x==y)` is false!"
+        ],
+        codeSnippet: `ArrayList<Integer> numbers = new ArrayList<>();
+numbers.add(10); // Autoboxing: new Integer(10)
+
+int val = numbers.get(0); // Unboxing: obj.intValue()`,
+        realWorldUse: "Using `null` to represent 'no value' (primitives cannot be null, but Wrappers can). Essential for DB mapping."
+    },
+    {
+        id: '39',
+        slug: 'abstract-class',
+        term: 'Abstract Class',
+        definition: 'A class that cannot be instantiated and is used to define common characteristics for subclasses.',
+        category: 'OOP',
+        deepDive: [
+            "Used when you want to share code among several closely related classes.",
+            "Can have both abstract methods (no body) and concrete methods (with body).",
+            "Difference vs Interface: Abstract classes can have state (fields) and constructors. A class can only extend ONE abstract class but implement MANY interfaces."
+        ],
+        codeSnippet: `abstract class GameCharacter {
+    int health = 100; // State
+    
+    void move() { x++; } // Shared behavior
+    abstract void attack(); // Must implement
+}`,
+        realWorldUse: "A `BaseController` in a web app that handles authentication checks for all other controllers."
+    },
+    {
+        id: '40',
+        slug: 'access-modifiers',
+        term: 'Access Modifiers',
+        definition: 'Keywords that set the accessibility (visibility) of classes, variables, methods, and constructors.',
+        category: 'Basic',
+        deepDive: [
+            "**public**: Accessible from anywhere.",
+            "**protected**: Accessible within the same package AND subclasses (even if outside package).",
+            "**default** (no keyword): Accessible only within the same package. 'Package-Private'.",
+            "**private**: Accessible ONLY within the class."
+        ],
+        codeSnippet: `public class User {
+    private String password; // Safe
+    protected void logActivity() {} // For subclasses
+    public void login() {} // For everyone
+}`,
+        realWorldUse: "Encapsulation. Preventing 'God Classes' from touching internal data of other components."
+    },
+    {
+        id: '41',
+        slug: 'equals-hashcode',
+        term: 'Equals & HashCode',
+        definition: 'Two methods that define object equality and hashing strategy.',
+        category: 'Advanced',
+        deepDive: [
+            "**equals()**: Checks if two objects are logically equivalent (content comparison vs reference comparison).",
+            "**hashCode()**: Returns an integer summary implementation. Used by HashMaps/HashSets.",
+            "**Contract**: If `a.equals(b)` is true, then `a.hashCode()` MUST match `b.hashCode()`. If you override one, you MUST override the other."
+        ],
+        codeSnippet: `// If id represents unique user
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    User user = (User) o;
+    return id == user.id;
+}`,
+        realWorldUse: "Finding objects in a HashSet. If you break the contract, your Map.get() will return null even if the key is there."
+    },
+    {
+        id: '42',
+        slug: 'composition',
+        term: 'Composition over Inheritance',
+        definition: 'A design principle where classes contain instances of other classes to implement functionality.',
+        category: 'OOP',
+        deepDive: [
+            "Inheritance ('Is-A') is rigid and fragile. If Parent changes, Children might break.",
+            "Composition ('Has-A') is flexible. You build complex objects by combining smaller, independent objects.",
+            "Allows changing behavior at runtime (Strategy Pattern) which inheritance cannot do."
+        ],
+        codeSnippet: `// Inheritance (Rigid)
+class PC extends Monitor {} 
+
+// Composition (Flexible)
+class PC {
+    Monitor monitor;
+    Keyboard keyboard;
+    PC(Monitor m, Keyboard k) { ... }
+}`,
+        realWorldUse: "Game Development: An 'Entity' has a 'RenderComponent', 'PhysicsComponent', 'AudioComponent'. Not 'class Enemy extends PhysicsObj'."
+    },
+    {
+        id: '43',
+        slug: 'jdk-jre-jvm',
+        term: 'JDK vs JRE vs JVM',
+        definition: 'The three components of the Java platform architecture.',
+        category: 'Basic',
+        deepDive: [
+            "**JVM (Java Virtual Machine)**: Runs the program. No libraries/compiler.",
+            "**JRE (Runtime Environment)**: JVM + Libraries (rt.jar). Enough to RUN Java apps.",
+            "**JDK (Development Kit)**: JRE + Compiler (javac) + Tools (debugger). Needed to WRITE Java apps."
+        ],
+        codeSnippet: `JDK = JRE + Development Tools
+JRE = JVM + Library Classes`,
+        realWorldUse: "You download the JDK to develop. The end-user only needs the JRE (or just a bundled JVM in modern apps)."
     }
 ];
