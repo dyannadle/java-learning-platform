@@ -14,11 +14,13 @@ const SNIPPETS = [
 }`
     },
     {
-        name: "Variables",
+        name: "Variables & Types",
         code: `public class Main {
   public static void main(String[] args) {
     int age = 25;
     String name = "Alice";
+    double score = 95.5;
+    boolean isStudent = true;
     
     System.out.println("User: " + name);
     System.out.println("Age: " + age);
@@ -26,24 +28,71 @@ const SNIPPETS = [
 }`
     },
     {
-        name: "Loop Example",
+        name: "Loops (For/While)",
         code: `public class Main {
   public static void main(String[] args) {
-    System.out.println("Counting...");
-    
+    System.out.println("--- For Loop ---");
     for (int i = 1; i <= 3; i++) {
-        System.out.println(i);
+        System.out.println("Count: " + i);
     }
     
-    System.out.println("Blast off!");
+    System.out.println("\\n--- While Loop ---");
+    int j = 0;
+    while (j < 3) {
+        System.out.println("While: " + j);
+        j++;
+    }
   }
 }`
     },
     {
-        name: "Compilation Error",
+        name: "HashMap Demo",
+        code: `import java.util.HashMap;
+
+public class Main {
+  public static void main(String[] args) {
+    HashMap<String, Integer> scores = new HashMap<>();
+    
+    scores.put("Alice", 90);
+    scores.put("Bob", 85);
+    
+    System.out.println("Bob's Score: " + scores.get("Bob"));
+    
+    // Iterate
+    scores.forEach((key, value) -> {
+        System.out.println(key + ": " + value);
+    });
+  }
+}`
+    },
+    {
+        name: "Streams API",
+        code: `import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+  public static void main(String[] args) {
+    List<String> names = List.of("Alice", "Bob", "Charlie", "David");
+    
+    List<String> filtered = names.stream()
+        .filter(n -> n.length() > 3) // Only long names
+        .map(String::toUpperCase)    // Make UPPERCASE
+        .collect(Collectors.toList());
+        
+    System.out.println(filtered);
+  }
+}`
+    },
+    {
+        name: "Threads",
         code: `public class Main {
   public static void main(String[] args) {
-    System.out.println("Missing semicolon!")
+    Thread t = new Thread(() -> {
+        System.out.println("Running in a thread!");
+    });
+    
+    t.start();
+    System.out.println("Main thread finished.");
   }
 }`
     }
@@ -58,6 +107,8 @@ export const CodePlayground: React.FC = () => {
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+    const resetCode = () => setCode(SNIPPETS[0].code);
+
     const runCode = async () => {
         setIsRunning(true);
         setOutput([]);
@@ -69,10 +120,10 @@ export const CodePlayground: React.FC = () => {
             if (result.run.code !== 0) {
                 // Runtime or Compilation Error
                 setError("Execution failed");
-                setOutput(result.run.stderr.split('\n'));
+                setOutput(result.run.stderr.split('\\n'));
             } else {
                 // Success
-                setOutput(result.run.stdout.split('\n'));
+                setOutput(result.run.stdout.split('\\n'));
             }
         } catch (err) {
             if (err instanceof Error) {
@@ -86,7 +137,7 @@ export const CodePlayground: React.FC = () => {
     };
 
     // Generate line numbers
-    const lineNumbers = code.split('\n').map((_, i) => i + 1);
+    const lineNumbers = code.split('\\n').map((_, i) => i + 1);
 
     return (
         <div className="h-[calc(100vh-6rem)] flex gap-4 animate-in fade-in zoom-in-95 duration-500 overflow-hidden">
@@ -96,8 +147,8 @@ export const CodePlayground: React.FC = () => {
                 "w-64 flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 shadow-xl transition-all duration-300",
                 !isSidebarOpen && "w-0 opacity-0 overflow-hidden border-0"
             )}>
-                <div className="p-4 border-b border-white/5 font-bold text-slate-300 flex items-center gap-2">
-                    <Book size={16} /> Snippets
+                <div className="p-4 border-b border-white/5 font-bold text-slate-300 flex items-center justify-between">
+                    <div className="flex items-center gap-2"><Book size={16} /> Snippets</div>
                 </div>
                 <div className="flex-1 overflow-y-auto p-2 space-y-1">
                     {SNIPPETS.map((snippet, i) => (
@@ -144,6 +195,12 @@ export const CodePlayground: React.FC = () => {
                             <div className="flex items-center gap-2">
                                 <span className="ml-2 text-xs text-slate-400 font-mono">Main.java</span>
                             </div>
+                            <button
+                                onClick={resetCode}
+                                className="text-xs text-slate-500 hover:text-red-400 flex items-center gap-1 transition-colors mr-3"
+                            >
+                                <RotateCcw size={12} /> Reset
+                            </button>
                             <button
                                 onClick={() => navigator.clipboard.writeText(code)}
                                 className="text-xs text-slate-500 hover:text-white flex items-center gap-1 transition-colors"

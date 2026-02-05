@@ -90,42 +90,55 @@ export const ProjectDetail: React.FC = () => {
                     </div>
 
                     {project.steps && project.steps.length > 0 ? (
-                        <div className="space-y-8">
-                            {project.steps.map((step, idx) => (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    key={idx}
-                                    className="bg-slate-900/50 border border-white/5 rounded-2xl overflow-hidden"
-                                >
-                                    <div className="p-6 border-b border-white/5 bg-slate-800/20">
-                                        <h3 className="text-lg font-bold text-slate-200 flex items-center gap-3">
-                                            <span className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold shadow-lg shadow-blue-600/20">
-                                                {idx + 1}
+                        {
+                            project.steps && project.steps.length > 0 ? (
+                                <div className="relative space-y-0 pl-8 border-l-2 border-white/5">
+                                    {project.steps.map((step, idx) => (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: idx * 0.1 }}
+                                            key={idx}
+                                            className="mb-12 relative"
+                                        >
+                                            {/* Timeline Dot */}
+                                            <span className="absolute -left-[41px] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 border-2 border-blue-600 text-blue-500 ring-4 ring-slate-950">
+                                                <div className="h-2 w-2 rounded-full bg-current" />
                                             </span>
-                                            {step.title}
-                                        </h3>
-                                    </div>
-                                    <div className="p-6 space-y-4">
-                                        <p className="text-slate-400 leading-relaxed">
-                                            {step.description}
-                                        </p>
-                                        {step.code && (
-                                            <div className="bg-[#1e1e1e] p-4 rounded-lg font-mono text-sm overflow-x-auto border border-white/5 shadow-inner">
-                                                <pre className="text-blue-100">{step.code}</pre>
-                                            </div>
-                                        )}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="p-8 bg-slate-900/50 border border-white/5 rounded-2xl text-center text-slate-500">
-                            <FileCode size={40} className="mx-auto mb-4 opacity-50" />
-                            <p>Detailed guide coming soon.</p>
-                        </div>
-                    )}
+
+                                            <h3 className="text-lg font-bold text-slate-200 mb-2 flex items-center gap-2">
+                                                <span className="text-blue-400">Step {idx + 1}:</span> {step.title}
+                                            </h3>
+
+                                            <p className="text-slate-400 mb-4 leading-relaxed max-w-2xl">
+                                                {step.description}
+                                            </p>
+
+                                            {step.code && (
+                                                <div className="group/code relative bg-slate-900 border border-white/10 rounded-lg overflow-hidden shadow-lg">
+                                                    <div className="absolute top-2 right-2 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                                                        <button
+                                                            onClick={() => navigator.clipboard.writeText(step.code!)}
+                                                            className="px-2 py-1 text-xs font-bold bg-blue-600 text-white rounded hover:bg-blue-500 transition-colors shadow-lg"
+                                                        >
+                                                            Copy
+                                                        </button>
+                                                    </div>
+                                                    <div className="p-4 overflow-x-auto">
+                                                        <pre className="text-sm font-mono text-blue-100">{step.code}</pre>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="p-8 bg-slate-900/50 border border-white/5 rounded-2xl text-center text-slate-500">
+                                    <FileCode size={40} className="mx-auto mb-4 opacity-50" />
+                                    <p>Detailed guide coming soon.</p>
+                                </div>
+                            )
+                        }
                 </div>
 
                 {/* Right: Sidebar */}
