@@ -39,6 +39,8 @@ const ModuleTwentyTwoGraphQL = React.lazy(() => import('./modules/ModuleTwentyTw
 const ModuleTwentyThreeJVM = React.lazy(() => import('./modules/ModuleTwentyThreeJVM').then(module => ({ default: module.ModuleTwentyThreeJVM })));
 const ModuleTwentyFourLocking = React.lazy(() => import('./modules/ModuleTwentyFourLocking').then(module => ({ default: module.ModuleTwentyFourLocking })));
 const ModuleTwentyFivePerformance = React.lazy(() => import('./modules/ModuleTwentyFivePerformance').then(module => ({ default: module.ModuleTwentyFivePerformance })));
+const ModuleTwentySixModern = React.lazy(() => import('./modules/ModuleTwentySixModern').then(module => ({ default: module.ModuleTwentySixModern })));
+const ModuleTwentySevenSystemDesign = React.lazy(() => import('./modules/ModuleTwentySevenSystemDesign').then(module => ({ default: module.ModuleTwentySevenSystemDesign })));
 
 // Loading Spinner for Suspense
 const LoadingFallback = () => (
@@ -82,6 +84,8 @@ function App() {
               <Route path="/learn/module-23" element={<ModuleTwentyThreeJVM />} />
               <Route path="/learn/module-24" element={<ModuleTwentyFourLocking />} />
               <Route path="/learn/module-25" element={<ModuleTwentyFivePerformance />} />
+              <Route path="/learn/module-26" element={<ModuleTwentySixModern />} />
+              <Route path="/learn/module-27" element={<ModuleTwentySevenSystemDesign />} />
 
               <Route path="/projects" element={<ProjectsGallery />} />
               <Route path="/projects/:projectId" element={<ProjectDetail />} />

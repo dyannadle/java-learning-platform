@@ -192,6 +192,20 @@ const modules: ModuleCardProps[] = [
         description: "Profiling, Memory Leaks, CPU Spikes, and VisualVM.",
         icon: Activity,
         link: '/learn/module-25'
+    },
+    {
+        id: 26,
+        title: "Modern Java (17-21)",
+        description: "Records, Sealed Classes, Pattern Matching, and Virtual Threads.",
+        icon: Zap,
+        link: '/learn/module-26'
+    },
+    {
+        id: 27,
+        title: "System Design",
+        description: "Scaling, Load Balancing, Caching, and CAP Theorem.",
+        icon: Layers,
+        link: '/learn/module-27'
     }
 ];
 
