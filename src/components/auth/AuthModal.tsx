@@ -54,7 +54,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             }
         } catch (err: any) {
             console.error("AuthModal: Caught Error:", err);
-            setError(err.message);
+            let message = err.message;
+            if (message.includes("rate limit exceeded")) {
+                message = "Too many attempts. Please check your spam folder or wait 1 hour.";
+                // Automatically show the "Check Inbox" screen if likely they just need to verify
+                if (isSignUp) setCheckInbox(true);
+            } else if (message.includes("Email not confirmed")) {
+                message = "Email not verified. Please check your inbox.";
+            }
+            setError(message);
         } finally {
             setLoading(false);
         }
@@ -78,9 +86,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     </p>
                     <button
                         onClick={onClose}
-                        className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl transition-colors"
+                        className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl transition-colors mb-2"
                     >
                         Close
+                    </button>
+                    <button
+                        onClick={() => {
+                            setCheckInbox(false);
+                            setIsSignUp(false);
+                        }}
+                        className="text-sm text-blue-400 hover:text-blue-300 hover:underline"
+                    >
+                        I've verified my email
                     </button>
                 </motion.div>
             </div>
@@ -176,6 +193,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                             {isSignUp ? 'Sign In' : 'Sign Up'}
                         </button>
                     </p>
+
+                    <div className="pt-2 border-t border-white/5 text-center">
+                        <button
+                            onClick={onClose}
+                            className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                        >
+                            Skip for now (Progress will save to this device only)
+                        </button>
+                    </div>
                 </div>
             </motion.div>
         </div>
