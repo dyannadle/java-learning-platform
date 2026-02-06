@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { X, Mail, Lock, Github, Loader2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -14,6 +14,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [checkInbox, setCheckInbox] = useState(false);
 
     if (!isOpen) return null;
 
@@ -37,7 +38,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     throw error;
                 }
                 console.log("AuthModal: Sign Up Successful", data);
-                alert('Check your email for the confirmation link!');
+                console.log("AuthModal: Sign Up Successful", data);
+                setCheckInbox(true);
             } else {
                 const { error, data } = await supabase.auth.signInWithPassword({
                     email,
@@ -57,6 +59,33 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             setLoading(false);
         }
     };
+
+    if (checkInbox) {
+        return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="bg-slate-900 border border-white/10 rounded-2xl w-full max-w-md overflow-hidden shadow-xl p-8 text-center"
+                >
+                    <div className="w-16 h-16 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Mail size={32} />
+                    </div>
+                    <h2 className="text-2xl font-bold text-white mb-2">Check your Inbox</h2>
+                    <p className="text-slate-400 mb-6">
+                        We've sent a confirmation link to <span className="text-white font-medium">{email}</span>.
+                        <br />Please click the link to activate your account.
+                    </p>
+                    <button
+                        onClick={onClose}
+                        className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl transition-colors"
+                    >
+                        Close
+                    </button>
+                </motion.div>
+            </div>
+        );
+    }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">

@@ -12,6 +12,7 @@ import { Glossary } from './pages/Glossary';
 import { ConceptDetail } from './pages/ConceptDetail';
 
 import { AuthProvider } from './context/AuthContext';
+import { ModuleGuard } from './components/layout/ModuleGuard';
 
 // Lazy Load Modules to improve Site Performance
 const ModuleOneIntro = React.lazy(() => import('./modules/ModuleOneIntro').then(module => ({ default: module.ModuleOneIntro })));
@@ -59,33 +60,33 @@ function App() {
               <Route path="/" element={<LandingPage />} />
 
               <Route path="/learn" element={<LearningPath />} />
-              <Route path="/learn/module-1" element={<ModuleOneIntro />} />
-              <Route path="/learn/module-2" element={<ModuleTwoVariables />} />
-              <Route path="/learn/module-3" element={<ModuleThreeOOP />} />
-              <Route path="/learn/module-4" element={<ModuleFourCollections />} />
-              <Route path="/learn/module-5" element={<ModuleFiveControlFlow />} />
-              <Route path="/learn/module-6" element={<ModuleSixExceptions />} />
-              <Route path="/learn/module-7" element={<ModuleSevenStreams />} />
-              <Route path="/learn/module-8" element={<ModuleEightConcurrency />} />
-              <Route path="/learn/module-9" element={<ModuleNineIO />} />
-              <Route path="/learn/module-10" element={<ModuleTenGenerics />} />
-              <Route path="/learn/module-11" element={<ModuleElevenPatterns />} />
-              <Route path="/learn/module-12" element={<ModuleTwelveSpringCore />} />
-              <Route path="/learn/module-13" element={<ModuleThirteenREST />} />
-              <Route path="/learn/module-14" element={<ModuleFourteenJPA />} />
-              <Route path="/learn/module-15" element={<ModuleFifteenSecurity />} />
-              <Route path="/learn/module-16" element={<ModuleSixteenTesting />} />
-              <Route path="/learn/module-17" element={<ModuleSeventeenMicroservices />} />
-              <Route path="/learn/module-18" element={<ModuleEighteenEvents />} />
-              <Route path="/learn/module-19" element={<ModuleNineteenDocker />} />
-              <Route path="/learn/module-20" element={<ModuleTwentyKubernetes />} />
-              <Route path="/learn/module-21" element={<ModuleTwentyOneReactive />} />
-              <Route path="/learn/module-22" element={<ModuleTwentyTwoGraphQL />} />
-              <Route path="/learn/module-23" element={<ModuleTwentyThreeJVM />} />
-              <Route path="/learn/module-24" element={<ModuleTwentyFourLocking />} />
-              <Route path="/learn/module-25" element={<ModuleTwentyFivePerformance />} />
-              <Route path="/learn/module-26" element={<ModuleTwentySixModern />} />
-              <Route path="/learn/module-27" element={<ModuleTwentySevenSystemDesign />} />
+              <Route path="/learn/module-1" element={<ModuleGuard moduleId={1}><ModuleOneIntro /></ModuleGuard>} />
+              <Route path="/learn/module-2" element={<ModuleGuard moduleId={2}><ModuleTwoVariables /></ModuleGuard>} />
+              <Route path="/learn/module-3" element={<ModuleGuard moduleId={3}><ModuleThreeOOP /></ModuleGuard>} />
+              <Route path="/learn/module-4" element={<ModuleGuard moduleId={4}><ModuleFourCollections /></ModuleGuard>} />
+              <Route path="/learn/module-5" element={<ModuleGuard moduleId={5}><ModuleFiveControlFlow /></ModuleGuard>} />
+              <Route path="/learn/module-6" element={<ModuleGuard moduleId={6}><ModuleSixExceptions /></ModuleGuard>} />
+              <Route path="/learn/module-7" element={<ModuleGuard moduleId={7}><ModuleSevenStreams /></ModuleGuard>} />
+              <Route path="/learn/module-8" element={<ModuleGuard moduleId={8}><ModuleEightConcurrency /></ModuleGuard>} />
+              <Route path="/learn/module-9" element={<ModuleGuard moduleId={9}><ModuleNineIO /></ModuleGuard>} />
+              <Route path="/learn/module-10" element={<ModuleGuard moduleId={10}><ModuleTenGenerics /></ModuleGuard>} />
+              <Route path="/learn/module-11" element={<ModuleGuard moduleId={11}><ModuleElevenPatterns /></ModuleGuard>} />
+              <Route path="/learn/module-12" element={<ModuleGuard moduleId={12}><ModuleTwelveSpringCore /></ModuleGuard>} />
+              <Route path="/learn/module-13" element={<ModuleGuard moduleId={13}><ModuleThirteenREST /></ModuleGuard>} />
+              <Route path="/learn/module-14" element={<ModuleGuard moduleId={14}><ModuleFourteenJPA /></ModuleGuard>} />
+              <Route path="/learn/module-15" element={<ModuleGuard moduleId={15}><ModuleFifteenSecurity /></ModuleGuard>} />
+              <Route path="/learn/module-16" element={<ModuleGuard moduleId={16}><ModuleSixteenTesting /></ModuleGuard>} />
+              <Route path="/learn/module-17" element={<ModuleGuard moduleId={17}><ModuleSeventeenMicroservices /></ModuleGuard>} />
+              <Route path="/learn/module-18" element={<ModuleGuard moduleId={18}><ModuleEighteenEvents /></ModuleGuard>} />
+              <Route path="/learn/module-19" element={<ModuleGuard moduleId={19}><ModuleNineteenDocker /></ModuleGuard>} />
+              <Route path="/learn/module-20" element={<ModuleGuard moduleId={20}><ModuleTwentyKubernetes /></ModuleGuard>} />
+              <Route path="/learn/module-21" element={<ModuleGuard moduleId={21}><ModuleTwentyOneReactive /></ModuleGuard>} />
+              <Route path="/learn/module-22" element={<ModuleGuard moduleId={22}><ModuleTwentyTwoGraphQL /></ModuleGuard>} />
+              <Route path="/learn/module-23" element={<ModuleGuard moduleId={23}><ModuleTwentyThreeJVM /></ModuleGuard>} />
+              <Route path="/learn/module-24" element={<ModuleGuard moduleId={24}><ModuleTwentyFourLocking /></ModuleGuard>} />
+              <Route path="/learn/module-25" element={<ModuleGuard moduleId={25}><ModuleTwentyFivePerformance /></ModuleGuard>} />
+              <Route path="/learn/module-26" element={<ModuleGuard moduleId={26}><ModuleTwentySixModern /></ModuleGuard>} />
+              <Route path="/learn/module-27" element={<ModuleGuard moduleId={27}><ModuleTwentySevenSystemDesign /></ModuleGuard>} />
 
               <Route path="/projects" element={<ProjectsGallery />} />
               <Route path="/projects/:projectId" element={<ProjectDetail />} />
