@@ -39,8 +39,8 @@ export const XPBar: React.FC<XPBarProps> = ({ isCollapsed }) => {
             {/* Background Glow */}
             <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
 
-            <div className="flex justify-between items-end mb-2 relative z-10">
-                <div className="flex items-center gap-2">
+            <div className="flex justify-between items-start mb-2 relative z-10">
+                <div className="flex items-center gap-2 pt-2">
                     <div className="bg-yellow-500/20 p-1.5 rounded-lg text-yellow-500">
                         <Trophy size={14} fill="currentColor" />
                     </div>
@@ -49,9 +49,15 @@ export const XPBar: React.FC<XPBarProps> = ({ isCollapsed }) => {
                         <div className="text-xl font-bold text-white leading-none">{stats.level}</div>
                     </div>
                 </div>
-                <div className="text-right">
-                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total XP</div>
-                    <div className="text-sm font-mono text-yellow-400 font-bold">{stats.xp.toLocaleString()}</div>
+                <div className="flex flex-col items-end gap-1.5">
+                    <div className="flex items-center gap-1 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-bold text-orange-400 border border-orange-500/20">
+                        <Zap size={10} fill="currentColor" />
+                        {stats.current_streak} Day Streak
+                    </div>
+                    <div className="text-right">
+                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total XP</div>
+                        <div className="text-sm font-mono text-yellow-400 font-bold">{stats.xp.toLocaleString()}</div>
+                    </div>
                 </div>
             </div>
 
@@ -68,12 +74,6 @@ export const XPBar: React.FC<XPBarProps> = ({ isCollapsed }) => {
             <div className="flex justify-between mt-1 text-[9px] text-slate-500 font-medium">
                 <span>{Math.floor(xpInThisLevel)} XP</span>
                 <span>{Math.floor(xpNeededForNextLevel)} XP</span>
-            </div>
-
-            {/* Streak Badge */}
-            <div className="absolute top-2 right-2 flex items-center gap-1 bg-black/40 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-bold text-orange-400 border border-orange-500/20">
-                <Zap size={10} fill="currentColor" />
-                {stats.current_streak} Day Streak
             </div>
         </div>
     );

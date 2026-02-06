@@ -37,9 +37,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     console.error("AuthModal: Sign Up Error:", error);
                     throw error;
                 }
-                console.log("AuthModal: Sign Up Successful", data);
-                console.log("AuthModal: Sign Up Successful", data);
-                setCheckInbox(true);
+                if (data.session) {
+                    // Email verification is disabled on server, or existing verified user
+                    console.log("AuthModal: Sign Up Successful (Auto Login)", data);
+                    onClose();
+                } else {
+                    console.log("AuthModal: Sign Up Successful (Needs Verification)", data);
+                    setCheckInbox(true);
+                }
             } else {
                 const { error, data } = await supabase.auth.signInWithPassword({
                     email,
